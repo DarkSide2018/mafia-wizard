@@ -7,7 +7,7 @@ plugins {
 }
 val springBootVersion: String by project
 val springDependencyManagementVersion: String by project
-group = "com.messages"
+group = "mafia.wizard"
 version = "1.0.0"
 
 repositories {
@@ -15,7 +15,9 @@ repositories {
 }
 
 dependencies {
-
+    implementation("io.jsonwebtoken:jjwt:0.9.1")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation(kotlin("stdlib"))
     implementation("com.h2database:h2:1.4.200")
     implementation ("org.springframework.boot:spring-boot-starter-actuator")

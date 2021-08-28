@@ -2,6 +2,7 @@
 *.class
 .idea
 .gradle
+frontend/UI/node_modules/*
 # Log file
 *.log
 

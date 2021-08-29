@@ -39,7 +39,7 @@ class AuthenticationController {
         )
         SecurityContextHolder.getContext().authentication = authentication
         val user: User = authentication.principal as User
-        val jwtToken = jWTTokenHelper.generateToken(user.getUsername())
+        val jwtToken = jWTTokenHelper.generateToken(user.username)
         val response = LoginResponse()
         response.token = jwtToken
         return ResponseEntity.ok(response)

@@ -21,11 +21,11 @@ open class AppConfig {
         val authorityList: MutableList<Authority> = ArrayList<Authority>()
         authorityList.add(createAuthority("USER", "User role"))
         val user = User()
-        user.setUserName("pardeep161")
-        user.setFirstName("Pardeep")
-        user.setLastName("K")
-        user.setPassword(passwordEncoder!!.encode("pardeep@123"))
-        user.setEnabled(true)
+        user.userName = ("pardeep161")
+        user.firstName = ("Pardeep")
+        user.lastName = ("K")
+        user.password = passwordEncoder.encode("pardeep@123")
+        user.enabled = (true)
         user.setAuthorities(authorityList)
         userDetailsRepository.save(user)
     }
@@ -33,8 +33,8 @@ open class AppConfig {
 
     open fun createAuthority(roleCode: String, roleDescription: String): Authority {
         val authority = Authority()
-        authority.setRoleCode(roleCode)
-        authority.setRoleDescription(roleDescription)
+        authority.roleCode = (roleCode)
+        authority.roleDescription = (roleDescription)
         return authority
     }
 }

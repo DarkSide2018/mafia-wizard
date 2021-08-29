@@ -1,0 +1,22 @@
+server:
+ port: ${PORT:8080}
+spring:
+  h2:
+    console:
+      enabled: true
+
+  datasource:
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+    url: jdbc:h2:mem:test
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+
+
+jwt:
+  auth:
+    app: Spring-Security-App
+    secret_key: testkey#secret@12334
+    expires_in: 3600

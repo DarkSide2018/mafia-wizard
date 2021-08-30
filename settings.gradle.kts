@@ -4,7 +4,6 @@ pluginManagement {
         val kotlinVersion: String by settings
         val openApiVersion: String by settings
         kotlin("jvm") version kotlinVersion
-        kotlin("multiplatform") version kotlinVersion
         kotlin("plugin.serialization") version kotlinVersion
         id("org.openapi.generator") version openApiVersion
         id( "org.jetbrains.kotlin.plugin.serialization") version kotlinVersion
@@ -14,10 +13,8 @@ pluginManagement {
 buildscript {
     val kotlinVersion: String by settings
     repositories {
-        jcenter()
         mavenCentral()
         mavenLocal()
-        maven("https://kotlin.bintray.com/ktor")
     }
 
     dependencies {

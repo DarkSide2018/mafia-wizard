@@ -8,7 +8,7 @@ val springBootVersion: String by project
 val springDependencyManagementVersion: String by project
 group = "mafia.wizard"
 version = "1.0.0"
-java.sourceCompatibility = JavaVersion.VERSION_1_8
+java.sourceCompatibility = JavaVersion.VERSION_11
 repositories {
     mavenCentral()
 }
@@ -29,16 +29,7 @@ dependencies {
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 }
-tasks.withType<Jar> {
-    manifest {
-        attributes["Main-Class"] = "mafia.wizard.AppGeneralKt"
-    }
-    dependsOn(configurations.runtimeClasspath)
-    from({
-        duplicatesStrategy = DuplicatesStrategy.INCLUDE
-        configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
-    })
-}
+

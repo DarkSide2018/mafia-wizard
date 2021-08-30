@@ -3,6 +3,7 @@ plugins {
     id("org.springframework.boot") version "2.5.2"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     id("java")
+    kotlin("plugin.spring") version "1.5.21"
 }
 val springBootVersion: String by project
 val springDependencyManagementVersion: String by project
@@ -15,6 +16,7 @@ repositories {
 
 dependencies {
     implementation("io.jsonwebtoken:jjwt:0.9.1")
+    implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation(kotlin("stdlib"))

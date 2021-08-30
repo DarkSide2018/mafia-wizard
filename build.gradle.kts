@@ -8,7 +8,7 @@ val springBootVersion: String by project
 val springDependencyManagementVersion: String by project
 group = "mafia.wizard"
 version = "1.0.0"
-java.sourceCompatibility = JavaVersion.VERSION_11
+java.sourceCompatibility = JavaVersion.VERSION_1_8
 repositories {
     mavenCentral()
 }
@@ -29,7 +29,7 @@ dependencies {
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "11"
+        jvmTarget = "1.8"
     }
 }
 tasks.withType<Jar> {

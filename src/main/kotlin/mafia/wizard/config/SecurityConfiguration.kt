@@ -54,7 +54,7 @@ open class SecurityConfiguration : WebSecurityConfigurerAdapter() {
             .authenticationEntryPoint(authenticationEntryPoint)
             .and()
             .authorizeRequests()
-            .antMatchers("/h2-console/**", "/api/v1/auth/login").permitAll()
+            .antMatchers("/h2-console/**", "/api/v1/auth/login","/test").permitAll()
             .antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated()
             .and()
             .addFilterBefore(

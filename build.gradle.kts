@@ -1,4 +1,3 @@
-
 plugins {
     kotlin("jvm")
     id("org.springframework.boot") version "2.5.2"
@@ -19,15 +18,21 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation(kotlin("stdlib"))
-    implementation ("org.jetbrains.kotlin:kotlin-reflect:1.1.51")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.1.51")
     implementation("com.h2database:h2:1.4.200")
-    implementation ("org.springframework.boot:spring-boot-starter-actuator")
-    implementation ("org.springframework.boot:spring-boot-starter-web")
-    testImplementation ("org.springframework.boot:spring-boot-starter-test")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation(kotlin("test-junit"))
 }
 tasks.withType<Jar> {
     manifest {
         attributes["Main-Class"] = "mafia.wizard.AppGeneralKt"
     }
+    from(sourceSets.main.get().output)
+
+    dependsOn(configurations.runtimeClasspath)
+    from({
+        configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
+    })
 }

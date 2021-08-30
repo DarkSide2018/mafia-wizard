@@ -28,6 +28,6 @@ dependencies {
 }
 tasks.withType<Jar> {
     manifest {
-        attributes["Main-Class"] = "mafia.wizard.AppGeneral"
+        attributes["Main-Class"] = "mafia.wizard.AppGeneralKt"
     }
 }

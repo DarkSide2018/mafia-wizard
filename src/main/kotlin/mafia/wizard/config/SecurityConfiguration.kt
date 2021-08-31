@@ -32,8 +32,6 @@ open class SecurityConfiguration : WebSecurityConfigurerAdapter() {
 
     @Throws(Exception::class)
      override fun configure(auth: AuthenticationManagerBuilder) {
-        auth.inMemoryAuthentication().withUser("Pardeep").password(passwordEncoder().encode("test@123"))
-            .authorities("USER", "ADMIN")
         auth.userDetailsService(userService).passwordEncoder(passwordEncoder())
     }
 
@@ -54,7 +52,9 @@ open class SecurityConfiguration : WebSecurityConfigurerAdapter() {
             .authenticationEntryPoint(authenticationEntryPoint)
             .and()
             .authorizeRequests()
-            .antMatchers("/h2-console/**", "/api/v1/auth/login","/test").permitAll()
+            .antMatchers("/h2-console/**",
+                "/api/v1/auth/login",
+                "/players").permitAll()
             .antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated()
             .and()
             .addFilterBefore(

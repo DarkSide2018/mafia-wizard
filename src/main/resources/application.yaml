@@ -2,18 +2,17 @@ server:
  port: ${PORT:8080}
 spring:
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
     hibernate:
-      ddl-auto: update
-  h2:
-    console:
-      enabled: true
-
+     ddl-auto: none
+    properties:
+      hibernate:
+        default_schema: wizard
   datasource:
-    driverClassName: org.h2.Driver
-    username: sa
-    password: password
-    url: jdbc:h2:mem:test
+    url: jdbc:postgresql://localhost:5440/wizard
+    username: migration
+    password: 123456
+    driver-class-name: org.postgresql.Driver
 
 
 logging:

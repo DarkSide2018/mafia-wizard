@@ -9,7 +9,9 @@ import javax.persistence.*
 @Entity
 data class User(
     @Id
-    var id: UUID = UUID.randomUUID(),
+    @Column(name = "user_id", columnDefinition = "BINARY(16)")
+    @GeneratedValue
+    var userUuid: UUID = UUID.randomUUID(),
 
     @Column(name = "USER_NAME", unique = true)
     var userName: String? = null,
@@ -42,8 +44,8 @@ data class User(
     @ManyToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
     @JoinTable(
         name = "AUTH_USER_AUTHORITY",
-        joinColumns = [JoinColumn(referencedColumnName = "id")],
-        inverseJoinColumns = [JoinColumn(referencedColumnName = "id")]
+        joinColumns = [JoinColumn(referencedColumnName = "user_id")],
+        inverseJoinColumns = [JoinColumn(referencedColumnName = "auth_id")]
     )
     private var authorities: List<Authority> = mutableListOf()
 ) : UserDetails {

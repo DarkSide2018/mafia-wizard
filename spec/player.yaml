@@ -1,0 +1,442 @@
+openapi: 3.0.1
+info:
+  title: player-crud
+  description: 'проект - это проект для работы с сущностью player'
+  license:
+    name: MIT open source license
+  version: 0.0.1
+servers:
+  - url: https://localhost/
+tags:
+  - name: player-crud
+    description: CRUDS для player
+  - name: supports
+    description: создание, обновление, чтение, удаление и поиск игроков мафии
+paths:
+  /player/create:
+    post:
+      tags:
+        - support
+      summary: создать юнита тех поддержки
+      operationId: createSupport
+      requestBody:
+        description: Объект запроса для создания юнита
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSupportRequest'
+        required: true
+      responses:
+        200:
+          description: all responses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateSupportResponse'
+
+  /player/read:
+    post:
+      tags:
+        - support
+      summary: Получить информацию о юните
+      operationId: readSupport
+      requestBody:
+        description: Объект запроса для получения информации о юните
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReadSupportRequest'
+        required: true
+      responses:
+        200:
+          description: all responses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadSupportResponse'
+  /player/update:
+    post:
+      tags:
+        - support
+      summary: Обновить юнита
+      operationId: updateSupport
+      requestBody:
+        description: Объект запроса для обновления объявления
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSupportRequest'
+        required: true
+      responses:
+        200:
+          description: all responses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateSupportResponse'
+  /player/delete:
+    post:
+      tags:
+        - support
+      summary: Удалить юнита
+      operationId: deleteSupport
+      requestBody:
+        description: Объект запроса для удаления юнита
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteSupportRequest'
+        required: true
+      responses:
+        200:
+          description: all responses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteSupportResponse'
+  /player/search:
+    post:
+      tags:
+        - support
+      summary: Поиск юнитов
+      operationId: searchAd
+      requestBody:
+        description: Объект запроса для поиска юнитов
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchSupportRequest'
+        required: true
+      responses:
+        200:
+          description: all responses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchSupportResponse'
+
+components:
+  schemas:
+
+    BaseMessage:
+      type: object
+      description: Базовый класс для запросов и  ответов
+      properties:
+        messageUUID:
+          type: string
+          format: uuid
+        messageType:
+          type: string
+          title: Дискриминатор
+          description: Дискриминатор, содержащий тип класса сообщения и использующийся для десериализации
+      discriminator:
+        propertyName: messageType
+
+    BaseRequest:
+      description: Базовый класс для всех запросов
+      properties:
+        requestUUID:
+          type: string
+          format: uuid
+
+
+    BaseResponse:
+      description: Базовый класс для всех ответов
+      allOf:
+        - type: object
+          required:
+            - result
+          properties:
+            requestUUID:
+              type: string
+              format: uuid
+            result:
+              type: string
+              enum:
+                - success
+                - error
+            errors:
+              type: array
+              items:
+                $ref: '#/components/schemas/RequestError'
+
+    RequestError:
+      type: object
+      description: Описание ошибки обработки запроса
+      properties:
+        message:
+          type: string
+        field:
+          type: string
+
+    ResponseMessage:
+      description: Структура, описывающая сообщения
+      properties:
+        payload:
+          type: string
+
+    BaseDebugRequest:
+      type: object
+      description: Структура с описанием отладочных параметров запроса
+      properties:
+        mode:
+          type: string
+          default: prod
+          enum:
+            - prod
+            - test
+            - stub
+
+    BasePaginatedRequest:
+      type: object
+      description: Структура с описанием запрашиваемой страницы в запросах списков
+      properties:
+        size:
+          type: integer
+          description: Размер запрашиваемой страницы
+          format: int32
+        lastId:
+          type: string
+          description: Идентификатор последнего объекта предыдущей страницы
+
+    BasePaginatedResponse:
+      type: object
+      description: Структура с описанием страницы в ответе
+      properties:
+        size:
+          type: integer
+          description: Размер запрашиваемой страницы
+          format: int32
+        lastId:
+          type: string
+          description: Идентификатор последнего объекта предыдущей страницы
+        position:
+          type: string
+          enum:
+            - first
+            - middle
+            - last
+
+
+    CreatePlayerRequest:
+      description: Структура для создания юнита в репоизтории
+      allOf:
+        - $ref: '#/components/schemas/BaseMessage'
+        - $ref: '#/components/schemas/BaseRequest'
+        - $ref: '#/components/schemas/PlayerMetaInfo'
+
+
+
+    CreatePlayerResponse:
+      description: Структура для ответа после создания юнита
+      allOf:
+        - $ref: '#/components/schemas/BaseMessage'
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+
+
+    ReadPlayerRequest:
+      description: Структура для получения юнита
+      allOf:
+        - $ref: '#/components/schemas/BaseMessage'
+        - $ref: '#/components/schemas/BaseRequest'
+        - type: object
+          required:
+            - messageUUID
+          properties:
+            debug:
+              allOf:
+                - $ref: '#/components/schemas/BaseDebugRequest'
+                - type: object
+                  properties:
+                    stub:
+                      type: string
+                      enum:
+                        - success
+                        - emptyId
+                        - databaseError
+    ReadPlayerResponse:
+      description: Структура для ответа на запрос с информацией о юните
+      allOf:
+        - $ref: '#/components/schemas/BaseMessage'
+        - $ref: '#/components/schemas/BaseResponse'
+        - $ref: '#/components/schemas/PlayerMetaInfo'
+        - type: object
+          properties:
+            payload:
+              type: string
+
+    UpdatePlayeerRequest:
+      description: Структура для запроса обновления существующего юнита
+      allOf:
+        - $ref: '#/components/schemas/BaseMessage'
+        - $ref: '#/components/schemas/BaseRequest'
+        - $ref: '#/components/schemas/PlayerMetaInfo'
+        - type: object
+          required:
+            - uuid
+            - payload
+            - messageUUID
+          properties:
+            payload:
+              type: string
+            debug:
+              allOf:
+                - $ref: '#/components/schemas/BaseDebugRequest'
+                - type: object
+                  properties:
+                    stub:
+                      type: string
+                      enum:
+                        - success
+                        - emptyTitle
+                        - databaseError
+
+    UpdatePlayerResponse:
+      description: Структура для ответа на запрос с информацией о юните
+      allOf:
+        - $ref: '#/components/schemas/BaseMessage'
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+
+    DeletePLayerRequest:
+      description: Структура для запроса удаления юнита
+      allOf:
+        - $ref: '#/components/schemas/BaseMessage'
+        - $ref: '#/components/schemas/BaseRequest'
+        - type: object
+          required:
+            - messageUUID
+            - supportUUID
+          properties:
+            supportUUID:
+              type: string
+              format: uuid
+            debug:
+              allOf:
+                - $ref: '#/components/schemas/BaseDebugRequest'
+                - type: object
+                  properties:
+                    stub:
+                      type: string
+                      enum:
+                        - success
+                        - emptyId
+                        - databaseError
+
+
+
+    DeletePLayerResponse:
+      description: Структура для ответа на запрос об удалении юнита
+      allOf:
+        - $ref: '#/components/schemas/BaseMessage'
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            payload:
+              type: string
+
+    SearchPlayerRequest:
+      description: Структура для запроса поиска юнитов
+      allOf:
+        - $ref: '#/components/schemas/BaseMessage'
+        - $ref: '#/components/schemas/BaseRequest'
+        - type: object
+          properties:
+            page:
+              $ref: '#/components/schemas/BasePaginatedRequest'
+
+    PlayerMetaInfo:
+      description: мета-инфомация для юнита
+      type: object
+      properties:
+        uuid:
+          description: идентификатор юнита
+          type: string
+          format: uuid
+        nickName:
+          description: имя юнита
+          type: string
+        ratingId:
+          description: Порядковый номер в рейтинге
+          type: integer
+        points:
+          description: Сумма баллов
+          type: integer
+        additionalPoints:
+          description: additionalPoints
+          type: integer
+        penalties:
+          description: Штрафные баллы (сумма)
+          type: integer
+        bestMove:
+          description: Лучший ход я(сумма)
+          type: integer
+        victoriesPercent:
+          description: процент побед
+          type: integer
+        victories:
+          description: количесвто побед
+          type: integer
+        victoriesRed:
+          description: количество побед за красных
+          type: integer
+        victoriesRedPercent:
+          description: процент побед за красных
+          type: integer
+        defeatRed:
+          description: поражения за красных
+          type: integer
+        victoriesBlack:
+          description: победы за черных
+          type: integer
+        victoriesBlackPercent:
+          description: процент побед за черных
+          type: integer
+        defeatBlack:
+          description: поражения за черных
+          type: integer
+        foulAmount:
+          description: количество фолов
+          type: integer
+        don:
+          description: количесвто побед за дона
+          type: integer
+        sheriff:
+          description: количество побед за шерифа
+          type: integer
+        wasKilled:
+          description: количесвто отстрелов в первую ночь
+          type: integer
+        games:
+          description: игр всего сыграно
+          type: integer
+        rating:
+          description: Итоговый рейтинг (процент побед умножить на сумму баллов)
+          type: number
+          format: double
+        created:
+          description: Порядковый номер в рейтинге
+          type: string
+          format: date-time
+        updated:
+          description: Порядковый номер в рейтинге
+          type: string
+          format: date-time
+      required:
+        - nickName
+
+    SearchPlayerResponse:
+      description: Структура для ответа на запрос поиска юнитов
+      allOf:
+        - $ref: '#/components/schemas/BaseMessage'
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            page:
+              $ref: '#/components/schemas/BasePaginatedResponse'
+            foundMessages:
+              type: array
+              items:
+                $ref: '#/components/schemas/ResponseMessage'
+

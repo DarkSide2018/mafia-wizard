@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
 @SpringBootApplication
 @EnableJpaRepositories
-open class AppGeneral
+ class AppGeneral
 fun main(args: Array<String>) {
     runApplication<AppGeneral>(*args)
 }

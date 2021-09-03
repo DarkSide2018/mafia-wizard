@@ -8,9 +8,9 @@ import javax.persistence.*
 @Entity
 data class Player(
     @Id
-    @Column(name = "id", columnDefinition = "BINARY(16)")
+    @Column(name = "player_uuid", columnDefinition = "BINARY(16)")
     @GeneratedValue
-    var uuid: UUID = UUID.randomUUID(),
+    var playerUuid: UUID = UUID.randomUUID(),
     //1. Порядковый номер в рейтинге +
     var ratingId:Long = 0,
     //2. Количество фолов +
@@ -51,9 +51,9 @@ data class Player(
     var games: Long = 0,
     //20. Итоговый рейтинг (процент побед умножить на сумму баллов)
     var rating: Double = 0.0,
-    @Column(name = "CREATED_ON")
+    @Column(name = "CREATED_AT")
     var createdAt: OffsetDateTime? = null,
-    @Column(name = "UPDATED_ON")
+    @Column(name = "UPDATED_AT")
     var updatedAt: OffsetDateTime? = null,
 ) {
 }

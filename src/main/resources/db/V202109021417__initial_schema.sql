@@ -1,39 +1,61 @@
 CREATE SCHEMA IF NOT EXISTS wizard;
-
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE wizard.AUTH_USER_DETAILS (
                           user_id                    UUID          NOT NULL,
                           USER_NAME             VARCHAR       not NULL,
                           USER_KEY              VARCHAR       not NULL,
                           first_name            VARCHAR       not NULL,
                           last_name             VARCHAR       not NULL,
-                          email                 VARCHAR       not NULL,
-                          phone_number          VARCHAR       not NULL,
-                          updated_on            TIMESTAMPTZ NOT NULL default now(),
-                          created_on            TIMESTAMPTZ NOT NULL default now(),
-                          enabled               boolean     NOT NULL default 'true',
+                          email                 VARCHAR       NULL,
+                          phone_number          VARCHAR       NULL,
+                          updated_on            TIMESTAMPTZ   NULL default now(),
+                          created_on            TIMESTAMPTZ   NULL default now(),
+                          enabled               boolean       NULL default 'true',
                           CONSTRAINT user_pk PRIMARY KEY (user_id)
 );
 
 CREATE TABLE wizard.AUTH_AUTHORITY (
                                          auth_id UUID not null,
-                                         roleCode VARCHAR(20) not null,
-                                         roleDescription VARCHAR,
+                                         role_code VARCHAR(20) not null,
+                                         role_description VARCHAR,
                                          CONSTRAINT wizard_authority_pk PRIMARY KEY (auth_id)
 );
 
 CREATE TABLE wizard.AUTH_USER_AUTHORITY (
-                                       user_id UUID not null,
-                                       auth_id UUID not null,
-                                       CONSTRAINT user_id_unique UNIQUE (user_id),
-                                       CONSTRAINT auth_id_unique UNIQUE (auth_id)
+                                       relation_uuid UUID not null DEFAULT uuid_generate_v4(),
+                                       users_user_id UUID not null,
+                                       authorities_auth_id UUID not null,
+                                       PRIMARY KEY (relation_uuid),
+                                       CONSTRAINT user_id_unique UNIQUE (users_user_id),
+                                       CONSTRAINT auth_id_unique UNIQUE (authorities_auth_id)
 );
 
-ALTER TABLE ONLY wizard.AUTH_USER_DETAILS
-    ADD CONSTRAINT fk_wizard_AUTH_USER_DETAILS_to_AUTH_USER_AUTHORITY
-    FOREIGN KEY (user_id)
-    REFERENCES wizard.AUTH_USER_AUTHORITY (user_id);
 
-ALTER TABLE ONLY wizard.AUTH_AUTHORITY
-    ADD CONSTRAINT fk_wizard_AUTH_AUTHORITY_to_AUTH_USER_AUTHORITY
-    FOREIGN KEY (auth_id)
-    REFERENCES wizard.AUTH_USER_AUTHORITY (auth_id);
+
+CREATE TABLE wizard.players (
+                                          player_uuid               UUID       NOT NULL DEFAULT uuid_generate_v4(),
+                                          rating_id                 int8       not NULL default 0,
+                                          foul_amount               int8       not NULL default 0,
+                                          nick_name                 VARCHAR    NULL,
+                                          points                    int8       not NULL default 0,
+                                          additional_points         int8       not NULL default 0,
+                                          penalties                 int8       not NULL default 0,
+                                          best_move                 int8       not NULL default 0,
+                                          victories                 int8       not NULL default 0,
+                                          victories_percent         int8       not NULL default 0,
+                                          victories_red             int8       not NULL default 0,
+                                          victories_red_percent     int8       not NULL default 0,
+                                          defeat_red                int8       not NULL default 0,
+                                          victories_black           int8       not NULL default 0,
+                                          defeat_black              int8       not NULL default 0,
+                                          victories_black_percent   int8       not NULL default 0,
+                                          don                       int8       not NULL default 0,
+                                          sheriff                   int8       not NULL default 0,
+                                          was_killed                int8       not NULL default 0,
+                                          games                     int8       not NULL default 0,
+                                          rating                    float8     not NULL default 0.0,
+
+                                          updated_at                TIMESTAMPTZ  NULL default now(),
+                                          created_at                TIMESTAMPTZ  NULL default now(),
+                                          CONSTRAINT player_pk PRIMARY KEY (player_uuid)
+);

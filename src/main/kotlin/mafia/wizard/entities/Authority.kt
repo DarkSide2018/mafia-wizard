@@ -10,12 +10,16 @@ data class Authority(
     @Id
     @Column(name = "auth_id", columnDefinition = "BINARY(16)")
     @GeneratedValue
-    var auth_id: UUID = UUID.randomUUID(),
+    var authUuid: UUID = UUID.randomUUID(),
     @javax.persistence.Column(name = "ROLE_CODE")
     var roleCode: String? = null,
 
     @Column(name = "ROLE_DESCRIPTION")
-    var roleDescription: String? = null
+    var roleDescription: String? = null,
+
+    @ManyToMany(mappedBy = "authorities")
+    private var users: List<User> = mutableListOf()
+
 ) : GrantedAuthority {
     override fun getAuthority(): String? {
 

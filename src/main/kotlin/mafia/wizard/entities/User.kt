@@ -11,7 +11,7 @@ data class User(
     @Id
     @Column(name = "user_id", columnDefinition = "BINARY(16)")
     @GeneratedValue
-    var userUuid: UUID = UUID.randomUUID(),
+    var user_id: UUID = UUID.randomUUID(),
 
     @Column(name = "USER_NAME", unique = true)
     var userName: String? = null,

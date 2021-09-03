@@ -3,6 +3,7 @@ package mafia.wizard.config
 import mafia.wizard.entities.Authority
 import mafia.wizard.entities.Player
 import mafia.wizard.entities.User
+import mafia.wizard.repository.AuthorityRepository
 import mafia.wizard.repository.PlayerRepo
 import mafia.wizard.repository.UserDetailsRepo
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,7 +15,8 @@ import javax.annotation.PostConstruct
 open class AppConfig {
     @Autowired
     lateinit var passwordEncoder: PasswordEncoder
-
+    @Autowired
+    lateinit var authorityRepository: AuthorityRepository
     @Autowired
     lateinit var userDetailsRepository: UserDetailsRepo
     @Autowired
@@ -23,7 +25,8 @@ open class AppConfig {
     @PostConstruct
     protected fun init() {
         val authorityList: MutableList<Authority> = ArrayList<Authority>()
-        authorityList.add(createAuthority("USER", "User role"))
+        val authority = createAuthority("USER", "User role")
+        authorityList.add(authority)
         val user = User()
         user.userName = ("admin")
         user.firstName = ("game")

@@ -16,15 +16,15 @@ paths:
   /player/create:
     post:
       tags:
-        - support
-      summary: создать юнита тех поддержки
-      operationId: createSupport
+        - player
+      summary: создать юнита
+      operationId: createPLayer
       requestBody:
         description: Объект запроса для создания юнита
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateSupportRequest'
+              $ref: '#/components/schemas/CreatePlayerRequest'
         required: true
       responses:
         200:
@@ -32,20 +32,20 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateSupportResponse'
+                $ref: '#/components/schemas/CreatePlayerResponse'
 
   /player/read:
     post:
       tags:
-        - support
+        - player
       summary: Получить информацию о юните
-      operationId: readSupport
+      operationId: readPlayer
       requestBody:
         description: Объект запроса для получения информации о юните
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ReadSupportRequest'
+              $ref: '#/components/schemas/ReadPlayerRequest'
         required: true
       responses:
         200:
@@ -53,19 +53,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReadSupportResponse'
+                $ref: '#/components/schemas/ReadPlayerResponse'
   /player/update:
     post:
       tags:
-        - support
+        - player
       summary: Обновить юнита
-      operationId: updateSupport
+      operationId: updatePlayer
       requestBody:
         description: Объект запроса для обновления объявления
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateSupportRequest'
+              $ref: '#/components/schemas/UpdatePlayerRequest'
         required: true
       responses:
         200:
@@ -73,11 +73,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UpdateSupportResponse'
+                $ref: '#/components/schemas/UpdatePlayerResponse'
   /player/delete:
     post:
       tags:
-        - support
+        - player
       summary: Удалить юнита
       operationId: deleteSupport
       requestBody:
@@ -85,7 +85,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DeleteSupportRequest'
+              $ref: '#/components/schemas/DeletePlayerRequest'
         required: true
       responses:
         200:
@@ -93,11 +93,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeleteSupportResponse'
+                $ref: '#/components/schemas/DeletePlayerResponse'
   /player/search:
     post:
       tags:
-        - support
+        - player
       summary: Поиск юнитов
       operationId: searchAd
       requestBody:
@@ -105,7 +105,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SearchSupportRequest'
+              $ref: '#/components/schemas/SearchPlayerRequest'
         required: true
       responses:
         200:
@@ -113,7 +113,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SearchSupportResponse'
+                $ref: '#/components/schemas/SearchPlayerResponse'
 
 components:
   schemas:
@@ -244,6 +244,9 @@ components:
           required:
             - messageUUID
           properties:
+            playerUuid:
+              type: string
+              format: uuid
             debug:
               allOf:
                 - $ref: '#/components/schemas/BaseDebugRequest'
@@ -266,7 +269,7 @@ components:
             payload:
               type: string
 
-    UpdatePlayeerRequest:
+    UpdatePlayerRequest:
       description: Структура для запроса обновления существующего юнита
       allOf:
         - $ref: '#/components/schemas/BaseMessage'
@@ -299,17 +302,14 @@ components:
         - $ref: '#/components/schemas/BaseResponse'
         - type: object
 
-    DeletePLayerRequest:
+    DeletePlayerRequest:
       description: Структура для запроса удаления юнита
       allOf:
         - $ref: '#/components/schemas/BaseMessage'
         - $ref: '#/components/schemas/BaseRequest'
         - type: object
-          required:
-            - messageUUID
-            - supportUUID
           properties:
-            supportUUID:
+            playerUuid:
               type: string
               format: uuid
             debug:
@@ -326,7 +326,7 @@ components:
 
 
 
-    DeletePLayerResponse:
+    DeletePlayerResponse:
       description: Структура для ответа на запрос об удалении юнита
       allOf:
         - $ref: '#/components/schemas/BaseMessage'
@@ -350,7 +350,7 @@ components:
       description: мета-инфомация для юнита
       type: object
       properties:
-        uuid:
+        playerUuid:
           description: идентификатор юнита
           type: string
           format: uuid
@@ -423,8 +423,6 @@ components:
           description: Порядковый номер в рейтинге
           type: string
           format: date-time
-      required:
-        - nickName
 
     SearchPlayerResponse:
       description: Структура для ответа на запрос поиска юнитов

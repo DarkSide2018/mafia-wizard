@@ -54,7 +54,6 @@ CREATE TABLE wizard.players (
                                           was_killed                int8       not NULL default 0,
                                           games                     int8       not NULL default 0,
                                           rating                    float8     not NULL default 0.0,
-
                                           updated_at                TIMESTAMPTZ  NULL default now(),
                                           created_at                TIMESTAMPTZ  NULL default now(),
                                           CONSTRAINT player_pk PRIMARY KEY (player_uuid)

@@ -3,7 +3,6 @@ package mafia.wizard.config
 import mafia.wizard.entities.Authority
 import mafia.wizard.entities.Player
 import mafia.wizard.entities.User
-import mafia.wizard.repository.AuthorityRepository
 import mafia.wizard.repository.PlayerRepo
 import mafia.wizard.repository.UserDetailsRepo
 import org.springframework.beans.factory.annotation.Autowired
@@ -12,11 +11,9 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import javax.annotation.PostConstruct
 
 @Configuration
-open class AppConfig {
+ class AppConfig {
     @Autowired
     lateinit var passwordEncoder: PasswordEncoder
-    @Autowired
-    lateinit var authorityRepository: AuthorityRepository
     @Autowired
     lateinit var userDetailsRepository: UserDetailsRepo
     @Autowired
@@ -31,7 +28,7 @@ open class AppConfig {
         user.userName = ("admin")
         user.firstName = ("game")
         user.lastName = ("manager")
-        user.password = passwordEncoder.encode("admin")
+        user.password = passwordEncoder.encode("admin@123")
         user.enabled = (true)
         user.setAuthorities(authorityList)
         userDetailsRepository.save(user)
@@ -45,7 +42,7 @@ open class AppConfig {
     }
 
 
-    open fun createAuthority(roleCode: String, roleDescription: String): Authority {
+     fun createAuthority(roleCode: String, roleDescription: String): Authority {
         val authority = Authority()
         authority.roleCode = (roleCode)
         authority.roleDescription = (roleDescription)

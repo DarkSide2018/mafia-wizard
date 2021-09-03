@@ -1,10 +1,9 @@
 plugins {
+    kotlin("jvm")
     id("org.openapi.generator")
 }
 
-/**
- * Настраиваем генерацию здесь
- */
+
 openApiGenerate {
     val openapiGroup = "${rootProject.group}.openapi"
     generatorName.set("kotlin") // Это и есть активный генератор
@@ -12,20 +11,14 @@ openApiGenerate {
     apiPackage.set("$openapiGroup.api")
     modelPackage.set("$openapiGroup.models")
     invokerPackage.set("$openapiGroup.invoker")
-    inputSpec.set("$rootDir/spec/player.yaml")
+    inputSpec.set("$rootDir/mafia-wizard-transport/spec/player.yaml")
 
-    /**
-     * Здесь указываем, что нам нужны только модели, все остальное не нужно
-     */
+
     globalProperties.apply {
         put("models", "")
         put("modelDocs", "false")
     }
 
-    /**
-     * Настройка дополнительных параметров из документации по генератору
-     * https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/kotlin.md
-     */
     configOptions.set(mapOf(
         "dateLibrary" to "string",
         "enumPropertyNaming" to "UPPERCASE",

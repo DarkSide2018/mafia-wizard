@@ -5,11 +5,11 @@ import models.PlayerModel
 import models.ReadPlayerContext
 
 fun ReadPlayerContext.setPlayer(player: Player) = apply {
+    playerUUID = player.playerUuid
     playerModel = player.toModel()
 }
 
 private fun Player.toModel() = PlayerModel(
-    playerUUID = this.playerUuid,
     ratingId = this.ratingId,
     foulAmount = this.foulAmount,
     nickName = this.nickName,

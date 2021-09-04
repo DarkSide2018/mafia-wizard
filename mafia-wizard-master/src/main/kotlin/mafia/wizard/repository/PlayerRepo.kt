@@ -7,6 +7,6 @@ import java.util.*
 
 @Repository
 interface PlayerRepo: JpaRepository<Player, UUID> {
-    fun findByNickName(userName: String): Player
+    fun findByNickName(userName: String): Player?
 
 }

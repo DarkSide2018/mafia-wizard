@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
-import javax.websocket.server.PathParam
 
 @RestController
 @CrossOrigin
@@ -15,25 +14,35 @@ class PlayerController(
 
 ) {
     @Autowired
-    lateinit var playerService: PlayerService
+    private lateinit var playerService: PlayerService
+
     @GetMapping
-    fun getByNickname(@PathParam("nickname") nickName: String):ResponseEntity<ReadPlayerResponse>{
+    fun getByNickname(@RequestParam("nickname") nickName: String): ResponseEntity<ReadPlayerResponse> {
 
-        return ResponseEntity.ok().build()
+        return ResponseEntity.ok(playerService.getByNickName(nickName))
     }
+
+    @GetMapping("/{uuid}")
+    fun getByUuid(@PathVariable uuid: UUID): ResponseEntity<ReadPlayerResponse> {
+
+        return ResponseEntity.ok(playerService.getByUuid(uuid))
+    }
+
     @PostMapping
-    fun createPlayer(@RequestBody createPlayerRequest: CreatePlayerRequest):ResponseEntity<CreatePlayerResponse>{
-        
-        return ResponseEntity.ok().build()
+    fun createPlayer(@RequestBody createPlayerRequest: CreatePlayerRequest): ResponseEntity<CreatePlayerResponse> {
+
+        return ResponseEntity.ok(playerService.save(createPlayerRequest))
     }
+
     @PutMapping
-    fun updatePlayer(@RequestBody updatePlayerRequest: UpdatePlayerRequest):ResponseEntity<UpdatePlayerResponse>{
+    fun updatePlayer(@RequestBody updatePlayerRequest: UpdatePlayerRequest): ResponseEntity<UpdatePlayerResponse> {
 
-        return ResponseEntity.ok().build()
+        return ResponseEntity.ok(playerService.update(updatePlayerRequest))
     }
-    @DeleteMapping
-    fun deletePlayer(@PathParam("uuid") uuid: UUID):ResponseEntity<DeletePlayerResponse>{
 
+    @DeleteMapping("/{uuid}")
+    fun deletePlayer(@PathVariable uuid: UUID): ResponseEntity<DeletePlayerResponse> {
+        playerService.deleteByUuid(uuid)
         return ResponseEntity.ok().build()
     }
 }

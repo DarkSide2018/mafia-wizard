@@ -53,6 +53,7 @@ open class SecurityConfiguration : WebSecurityConfigurerAdapter() {
             .authorizeRequests()
             .antMatchers("/h2-console/**",
                 "/api/v1/auth/login",
+                "/player/**",
                 "/players").permitAll()
             .antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated()
             .and()

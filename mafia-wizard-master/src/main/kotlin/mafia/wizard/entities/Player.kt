@@ -6,7 +6,6 @@ import javax.persistence.*
 
 @Table(name = "players")
 @Entity
-
 data class Player(
     @Id
     @Column(name = "player_uuid", columnDefinition = "BINARY(16)")

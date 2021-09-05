@@ -12,5 +12,6 @@ data class GameMaster(
     var masterUuid: UUID = UUID.randomUUID(),
     @Column(name = "nick_name", unique = true)
     var nickName: String? = null,
-
+    @OneToMany(mappedBy="gameMaster")
+    var gameMaster:List<Game> = mutableListOf(),
 )

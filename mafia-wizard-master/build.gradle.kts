@@ -17,6 +17,7 @@ val postgresDriverVersion: String by project
 
 dependencies {
     implementation(project(":wizard-player-transport"))
+    implementation("com.vladmihalcea:hibernate-types-55:2.12.1")
     implementation("org.postgresql:postgresql:$postgresDriverVersion")
     implementation("io.jsonwebtoken:jjwt:0.9.1")
     implementation("org.hibernate:hibernate-core:5.5.7.Final")
@@ -24,6 +25,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security:$springBootVersion")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion")
     implementation(kotlin("stdlib"))
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.12.5")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.1.51")
     implementation("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
     implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")

@@ -7,6 +7,7 @@ CREATE TABLE wizard.game_masters (
 
 CREATE TABLE wizard.games (
                                      game_uuid      UUID          NOT NULL,
+                                     game_master_uuid      UUID          NOT NULL,
                                      game_number    int4          not NULL default 0,
                                      players        JSON          not null,
                                      CONSTRAINT game_pk PRIMARY KEY (game_uuid)

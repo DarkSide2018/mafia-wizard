@@ -16,7 +16,7 @@ repositories {
 val postgresDriverVersion: String by project
 
 dependencies {
-    implementation(project(":mafia-wizard-transport"))
+    implementation(project(":wizard-player-transport"))
     implementation("org.postgresql:postgresql:$postgresDriverVersion")
     implementation("io.jsonwebtoken:jjwt:0.9.1")
     implementation("org.hibernate:hibernate-core:5.5.7.Final")

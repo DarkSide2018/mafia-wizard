@@ -1,0 +1,394 @@
+openapi: 3.0.1
+info:
+  title: game-crud
+  description: 'проект - это проект для работы с сущностью game'
+  license:
+    name: MIT open source license
+  version: 0.0.1
+servers:
+  - url: https://localhost/
+tags:
+  - name: game-crud
+    description: CRUDS для game
+  - name: game
+    description: создание, обновление, чтение,  и поиск игр мафии
+paths:
+  /game:
+    post:
+      tags:
+        - game
+      summary: создать юнит
+      operationId: createGame
+      requestBody:
+        description: Объект запроса для создания юнита
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGameRequest'
+        required: true
+      responses:
+        200:
+          description: all responses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateGameResponse'
+    get:
+      tags:
+        - game
+      summary: прочиатать информацию об игре
+      operationId: readGame
+      parameters:
+        - in: path
+          name: gameUuid
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: Numeric ID of the user to get
+      responses:
+        200:
+          description: all responses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadGameResponse'
+    put:
+      tags:
+        - game
+      summary: обновить информацию об игре
+      operationId: update
+      requestBody:
+        description: Объект запроса для обновления игры
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateGameRequest'
+        required: true
+      responses:
+        200:
+          description: all responses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateGameResponse'
+    delete:
+      tags:
+        - game
+      summary: Удалить юнита
+      operationId: deleteGame
+      parameters:
+        - in: path
+          name: gameUuid
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: Numeric ID of the user to get
+      responses:
+        200:
+          description: all responses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteGameResponse'
+
+components:
+  schemas:
+    BaseMessage:
+      type: object
+      description: Базовый класс для запросов и  ответов
+      properties:
+        messageUUID:
+          type: string
+          format: uuid
+        messageType:
+          type: string
+          title: Дискриминатор
+          description: Дискриминатор, содержащий тип класса сообщения и использующийся для десериализации
+      discriminator:
+        propertyName: messageType
+
+    BaseRequest:
+      description: Базовый класс для всех запросов
+      properties:
+        requestUUID:
+          type: string
+          format: uuid
+
+
+    BaseResponse:
+      description: Базовый класс для всех ответов
+      allOf:
+        - type: object
+          required:
+            - result
+          properties:
+            requestUUID:
+              type: string
+              format: uuid
+            result:
+              type: string
+              enum:
+                - success
+                - error
+            errors:
+              type: array
+              items:
+                $ref: '#/components/schemas/RequestError'
+
+    RequestError:
+      type: object
+      description: Описание ошибки обработки запроса
+      properties:
+        message:
+          type: string
+        field:
+          type: string
+
+    ResponseMessage:
+      description: Структура, описывающая сообщения
+      properties:
+        payload:
+          type: string
+
+    BaseDebugRequest:
+      type: object
+      description: Структура с описанием отладочных параметров запроса
+      properties:
+        mode:
+          type: string
+          default: prod
+          enum:
+            - prod
+            - test
+            - stub
+
+    BasePaginatedRequest:
+      type: object
+      description: Структура с описанием запрашиваемой страницы в запросах списков
+      properties:
+        size:
+          type: integer
+          description: Размер запрашиваемой страницы
+          format: int32
+        lastId:
+          type: string
+          description: Идентификатор последнего объекта предыдущей страницы
+
+    BasePaginatedResponse:
+      type: object
+      description: Структура с описанием страницы в ответе
+      properties:
+        size:
+          type: integer
+          description: Размер запрашиваемой страницы
+          format: int32
+        lastId:
+          type: string
+          description: Идентификатор последнего объекта предыдущей страницы
+        position:
+          type: string
+          enum:
+            - first
+            - middle
+            - last
+
+
+    CreateGameRequest:
+      description: Структура для создания юнита в репоизтории
+      allOf:
+        - $ref: '#/components/schemas/BaseMessage'
+        - $ref: '#/components/schemas/BaseRequest'
+        - $ref: '#/components/schemas/GameMetaInfo'
+
+
+
+    CreateGameResponse:
+      description: Структура для ответа после создания юнита
+      allOf:
+        - $ref: '#/components/schemas/BaseMessage'
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+
+
+    ReadGameRequest:
+      description: Структура для получения юнита
+      allOf:
+        - $ref: '#/components/schemas/BaseMessage'
+        - $ref: '#/components/schemas/BaseRequest'
+        - type: object
+          required:
+            - messageUUID
+          properties:
+            playerUuid:
+              type: string
+              format: uuid
+            debug:
+              allOf:
+                - $ref: '#/components/schemas/BaseDebugRequest'
+                - type: object
+                  properties:
+                    stub:
+                      type: string
+                      enum:
+                        - success
+                        - emptyId
+                        - databaseError
+    ReadGameResponse:
+      description: Структура для ответа на запрос с информацией о юните
+      allOf:
+        - $ref: '#/components/schemas/BaseMessage'
+        - $ref: '#/components/schemas/BaseResponse'
+        - $ref: '#/components/schemas/GameMetaInfo'
+        - type: object
+          properties:
+            payload:
+              type: string
+
+    UpdateGameRequest:
+      description: Структура для запроса обновления существующего юнита
+      allOf:
+        - $ref: '#/components/schemas/BaseMessage'
+        - $ref: '#/components/schemas/BaseRequest'
+        - $ref: '#/components/schemas/GameMetaInfo'
+        - type: object
+          required:
+            - uuid
+            - payload
+            - messageUUID
+          properties:
+            payload:
+              type: string
+            debug:
+              allOf:
+                - $ref: '#/components/schemas/BaseDebugRequest'
+                - type: object
+                  properties:
+                    stub:
+                      type: string
+                      enum:
+                        - success
+                        - emptyTitle
+                        - databaseError
+
+    UpdateGameResponse:
+      description: Структура для ответа на запрос с информацией о юните
+      allOf:
+        - $ref: '#/components/schemas/BaseMessage'
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+
+    DeleteGameRequest:
+      description: Структура для запроса удаления юнита
+      allOf:
+        - $ref: '#/components/schemas/BaseMessage'
+        - $ref: '#/components/schemas/BaseRequest'
+        - type: object
+          properties:
+            playerUuid:
+              type: string
+              format: uuid
+            debug:
+              allOf:
+                - $ref: '#/components/schemas/BaseDebugRequest'
+                - type: object
+                  properties:
+                    stub:
+                      type: string
+                      enum:
+                        - success
+                        - emptyId
+                        - databaseError
+
+
+
+    DeleteGameResponse:
+      description: Структура для ответа на запрос об удалении юнита
+      allOf:
+        - $ref: '#/components/schemas/BaseMessage'
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            payload:
+              type: string
+
+    GameMetaInfo:
+      description: мета-инфомация для юнита
+      type: object
+      properties:
+        playerUuid:
+          description: идентификатор юнита
+          type: string
+          format: uuid
+        nickName:
+          description: имя юнита
+          type: string
+        ratingId:
+          description: Порядковый номер в рейтинге
+          type: integer
+        points:
+          description: Сумма баллов
+          type: integer
+        additionalPoints:
+          description: additionalPoints
+          type: integer
+        penalties:
+          description: Штрафные баллы (сумма)
+          type: integer
+        bestMove:
+          description: Лучший ход я(сумма)
+          type: integer
+        victoriesPercent:
+          description: процент побед
+          type: integer
+        victories:
+          description: количесвто побед
+          type: integer
+        victoriesRed:
+          description: количество побед за красных
+          type: integer
+        victoriesRedPercent:
+          description: процент побед за красных
+          type: integer
+        defeatRed:
+          description: поражения за красных
+          type: integer
+        victoriesBlack:
+          description: победы за черных
+          type: integer
+        victoriesBlackPercent:
+          description: процент побед за черных
+          type: integer
+        defeatBlack:
+          description: поражения за черных
+          type: integer
+        foulAmount:
+          description: количество фолов
+          type: integer
+        don:
+          description: количесвто побед за дона
+          type: integer
+        sheriff:
+          description: количество побед за шерифа
+          type: integer
+        wasKilled:
+          description: количесвто отстрелов в первую ночь
+          type: integer
+        games:
+          description: игр всего сыграно
+          type: integer
+        rating:
+          description: Итоговый рейтинг (процент побед умножить на сумму баллов)
+          type: number
+          format: double
+        created:
+          description: Порядковый номер в рейтинге
+          type: string
+          format: date-time
+        updated:
+          description: Порядковый номер в рейтинге
+          type: string
+          format: date-time
+
+

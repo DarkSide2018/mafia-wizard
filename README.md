@@ -10,4 +10,4 @@ sh scripts/init-postgres.sh
 
 command for migrate postgres
 
-gradle flywayMigrate  -PdbUrl=jdbc:postgresql://localhost:5432/md -PdbPassword=123456 -PdbUser=migration
+gradle flywayMigrate  -PdbUrl=jdbc:postgresql://localhost:5432/wizard -PdbPassword=123456 -PdbUser=migration

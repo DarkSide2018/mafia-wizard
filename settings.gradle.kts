@@ -8,5 +8,6 @@ pluginManagement {
 }
 
 include("mafia-wizard-master")
-include("mafia-wizard-transport")
+include("wizard-player-transport")
+include("wizard-game-transport")
 

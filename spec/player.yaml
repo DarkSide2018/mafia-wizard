@@ -10,7 +10,7 @@ servers:
 tags:
   - name: player-crud
     description: CRUDS для player
-  - name: supports
+  - name: player
     description: создание, обновление, чтение, удаление и поиск игроков мафии
 paths:
   /player/create:
@@ -61,7 +61,7 @@ paths:
       summary: Обновить юнита
       operationId: updatePlayer
       requestBody:
-        description: Объект запроса для обновления объявления
+        description: Объект запроса для обновления игрока
         content:
           application/json:
             schema:
@@ -79,7 +79,7 @@ paths:
       tags:
         - player
       summary: Удалить юнита
-      operationId: deleteSupport
+      operationId: deletePlayer
       requestBody:
         description: Объект запроса для удаления юнита
         content:
@@ -348,6 +348,43 @@ components:
 
     PlayerMetaInfo:
       description: мета-инфомация для юнита
+      allOf:
+        - $ref: '#/components/schemas/GamePlayerInfo'
+        - type: object
+          properties:
+            ratingId:
+              description: Порядковый номер в рейтинге
+              type: integer
+            victoriesPercent:
+              description: процент побед
+              type: integer
+            victories:
+              description: количесвто побед
+              type: integer
+            victoriesRedPercent:
+              description: процент побед за красных
+              type: integer
+            victoriesBlackPercent:
+              description: процент побед за черных
+              type: integer
+            games:
+              description: игр всего сыграно
+              type: integer
+            rating:
+              description: Итоговый рейтинг (процент побед умножить на сумму баллов)
+              type: number
+              format: double
+            created:
+              description: Порядковый номер в рейтинге
+              type: string
+              format: date-time
+            updated:
+              description: Порядковый номер в рейтинге
+              type: string
+              format: date-time
+
+    GamePlayerInfo:
+      description: мета-инфомация для юнита, которая не используется в статистике
       type: object
       properties:
         playerUuid:
@@ -357,8 +394,8 @@ components:
         nickName:
           description: имя юнита
           type: string
-        ratingId:
-          description: Порядковый номер в рейтинге
+        foulAmount:
+          description: количество фолов
           type: integer
         points:
           description: Сумма баллов
@@ -372,32 +409,17 @@ components:
         bestMove:
           description: Лучший ход я(сумма)
           type: integer
-        victoriesPercent:
-          description: процент побед
-          type: integer
-        victories:
-          description: количесвто побед
-          type: integer
         victoriesRed:
           description: количество побед за красных
-          type: integer
-        victoriesRedPercent:
-          description: процент побед за красных
-          type: integer
-        defeatRed:
-          description: поражения за красных
           type: integer
         victoriesBlack:
           description: победы за черных
           type: integer
-        victoriesBlackPercent:
-          description: процент побед за черных
-          type: integer
         defeatBlack:
           description: поражения за черных
           type: integer
-        foulAmount:
-          description: количество фолов
+        defeatRed:
+          description: поражения за красных
           type: integer
         don:
           description: количесвто побед за дона
@@ -408,21 +430,6 @@ components:
         wasKilled:
           description: количесвто отстрелов в первую ночь
           type: integer
-        games:
-          description: игр всего сыграно
-          type: integer
-        rating:
-          description: Итоговый рейтинг (процент побед умножить на сумму баллов)
-          type: number
-          format: double
-        created:
-          description: Порядковый номер в рейтинге
-          type: string
-          format: date-time
-        updated:
-          description: Порядковый номер в рейтинге
-          type: string
-          format: date-time
 
     SearchPlayerResponse:
       description: Структура для ответа на запрос поиска юнитов

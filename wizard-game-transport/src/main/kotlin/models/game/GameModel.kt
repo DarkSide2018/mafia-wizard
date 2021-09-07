@@ -1,10 +1,11 @@
-package models
+package models.game
 
+import models.gameMaster.GameMaster
 import java.util.*
 
 data class GameModel(
     var gameUUID:UUID,
-    var gameMaster:GameMaster,
+    var gameMaster: GameMaster,
     var playerList:List<GamePlayer>
 )
 data class GamePlayer(
@@ -22,8 +23,4 @@ data class GamePlayer(
     val don: Int?,
     val sheriff: Int?,
     val wasKilled: Int?
-)
-data class GameMaster(
-    val gameMasterUuid:UUID,
-    val name:String,
 )

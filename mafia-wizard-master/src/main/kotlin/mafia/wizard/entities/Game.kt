@@ -28,5 +28,9 @@ data class Game(
     @Column(columnDefinition = "jsonb")
     var players: String? = null
 
-)
+){
+    fun assignGameMaster(gameMaster: GameMaster){
+        this.gameMaster = gameMaster
+    }
+}
 

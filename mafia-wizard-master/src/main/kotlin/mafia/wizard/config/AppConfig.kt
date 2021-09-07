@@ -1,21 +1,27 @@
 package mafia.wizard.config
 
+import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.databind.ObjectMapper
 import mafia.wizard.entities.Authority
 import mafia.wizard.entities.Player
 import mafia.wizard.entities.User
 import mafia.wizard.repository.PlayerRepo
 import mafia.wizard.repository.UserDetailsRepo
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.crypto.password.PasswordEncoder
 import javax.annotation.PostConstruct
 
+
 @Configuration
- class AppConfig {
+class AppConfig {
     @Autowired
     lateinit var passwordEncoder: PasswordEncoder
+
     @Autowired
     lateinit var userDetailsRepository: UserDetailsRepo
+
     @Autowired
     lateinit var playerRepo: PlayerRepo
 
@@ -42,10 +48,17 @@ import javax.annotation.PostConstruct
     }
 
 
-     fun createAuthority(roleCode: String, roleDescription: String): Authority {
+    fun createAuthority(roleCode: String, roleDescription: String): Authority {
         val authority = Authority()
         authority.roleCode = (roleCode)
         authority.roleDescription = (roleDescription)
         return authority
     }
+
+    @Bean
+    fun objectMapper(): ObjectMapper {
+        return ObjectMapper()
+            .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+    }
+
 }

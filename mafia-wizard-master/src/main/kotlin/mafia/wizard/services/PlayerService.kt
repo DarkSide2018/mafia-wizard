@@ -2,7 +2,7 @@ package mafia.wizard.services
 
 import mafia.wizard.entities.Player
 import mafia.wizard.mappers.setPlayer
-import mafia.wizard.mappers.toPlayerEntity
+import mafia.wizard.mappers.player.toPlayerEntity
 import mafia.wizard.openapi.models.*
 import mafia.wizard.repository.PlayerRepo
 import mappers.setQuery

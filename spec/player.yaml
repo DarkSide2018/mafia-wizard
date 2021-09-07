@@ -118,111 +118,12 @@ paths:
 components:
   schemas:
 
-    BaseMessage:
-      type: object
-      description: Базовый класс для запросов и  ответов
-      properties:
-        messageUUID:
-          type: string
-          format: uuid
-        messageType:
-          type: string
-          title: Дискриминатор
-          description: Дискриминатор, содержащий тип класса сообщения и использующийся для десериализации
-      discriminator:
-        propertyName: messageType
-
-    BaseRequest:
-      description: Базовый класс для всех запросов
-      properties:
-        requestUUID:
-          type: string
-          format: uuid
-
-
-    BaseResponse:
-      description: Базовый класс для всех ответов
-      allOf:
-        - type: object
-          required:
-            - result
-          properties:
-            requestUUID:
-              type: string
-              format: uuid
-            result:
-              type: string
-              enum:
-                - success
-                - error
-            errors:
-              type: array
-              items:
-                $ref: '#/components/schemas/RequestError'
-
-    RequestError:
-      type: object
-      description: Описание ошибки обработки запроса
-      properties:
-        message:
-          type: string
-        field:
-          type: string
-
-    ResponseMessage:
-      description: Структура, описывающая сообщения
-      properties:
-        payload:
-          type: string
-
-    BaseDebugRequest:
-      type: object
-      description: Структура с описанием отладочных параметров запроса
-      properties:
-        mode:
-          type: string
-          default: prod
-          enum:
-            - prod
-            - test
-            - stub
-
-    BasePaginatedRequest:
-      type: object
-      description: Структура с описанием запрашиваемой страницы в запросах списков
-      properties:
-        size:
-          type: integer
-          description: Размер запрашиваемой страницы
-          format: int32
-        lastId:
-          type: string
-          description: Идентификатор последнего объекта предыдущей страницы
-
-    BasePaginatedResponse:
-      type: object
-      description: Структура с описанием страницы в ответе
-      properties:
-        size:
-          type: integer
-          description: Размер запрашиваемой страницы
-          format: int32
-        lastId:
-          type: string
-          description: Идентификатор последнего объекта предыдущей страницы
-        position:
-          type: string
-          enum:
-            - first
-            - middle
-            - last
-
 
     CreatePlayerRequest:
       description: Структура для создания юнита в репоизтории
       allOf:
-        - $ref: '#/components/schemas/BaseMessage'
-        - $ref: '#/components/schemas/BaseRequest'
+        - $ref: 'common.yaml#/components/schemas/BaseMessage'
+        - $ref: 'common.yaml#/components/schemas/BaseRequest'
         - $ref: '#/components/schemas/PlayerMetaInfo'
 
 
@@ -230,16 +131,16 @@ components:
     CreatePlayerResponse:
       description: Структура для ответа после создания юнита
       allOf:
-        - $ref: '#/components/schemas/BaseMessage'
-        - $ref: '#/components/schemas/BaseResponse'
+        - $ref: 'common.yaml#/components/schemas/BaseMessage'
+        - $ref: 'common.yaml#/components/schemas/BaseResponse'
         - type: object
 
 
     ReadPlayerRequest:
       description: Структура для получения юнита
       allOf:
-        - $ref: '#/components/schemas/BaseMessage'
-        - $ref: '#/components/schemas/BaseRequest'
+        - $ref: 'common.yaml#/components/schemas/BaseMessage'
+        - $ref: 'common.yaml#/components/schemas/BaseRequest'
         - type: object
           required:
             - messageUUID
@@ -249,7 +150,7 @@ components:
               format: uuid
             debug:
               allOf:
-                - $ref: '#/components/schemas/BaseDebugRequest'
+                - $ref: 'common.yaml#/components/schemas/BaseDebugRequest'
                 - type: object
                   properties:
                     stub:
@@ -261,8 +162,8 @@ components:
     ReadPlayerResponse:
       description: Структура для ответа на запрос с информацией о юните
       allOf:
-        - $ref: '#/components/schemas/BaseMessage'
-        - $ref: '#/components/schemas/BaseResponse'
+        - $ref: 'common.yaml#/components/schemas/BaseMessage'
+        - $ref: 'common.yaml#/components/schemas/BaseResponse'
         - $ref: '#/components/schemas/PlayerMetaInfo'
         - type: object
           properties:
@@ -272,8 +173,8 @@ components:
     UpdatePlayerRequest:
       description: Структура для запроса обновления существующего юнита
       allOf:
-        - $ref: '#/components/schemas/BaseMessage'
-        - $ref: '#/components/schemas/BaseRequest'
+        - $ref: 'common.yaml#/components/schemas/BaseMessage'
+        - $ref: 'common.yaml#/components/schemas/BaseRequest'
         - $ref: '#/components/schemas/PlayerMetaInfo'
         - type: object
           required:
@@ -285,7 +186,7 @@ components:
               type: string
             debug:
               allOf:
-                - $ref: '#/components/schemas/BaseDebugRequest'
+                - $ref: 'common.yaml#/components/schemas/BaseDebugRequest'
                 - type: object
                   properties:
                     stub:
@@ -298,15 +199,15 @@ components:
     UpdatePlayerResponse:
       description: Структура для ответа на запрос с информацией о юните
       allOf:
-        - $ref: '#/components/schemas/BaseMessage'
-        - $ref: '#/components/schemas/BaseResponse'
+        - $ref: 'common.yaml#/components/schemas/BaseMessage'
+        - $ref: 'common.yaml#/components/schemas/BaseResponse'
         - type: object
 
     DeletePlayerRequest:
       description: Структура для запроса удаления юнита
       allOf:
-        - $ref: '#/components/schemas/BaseMessage'
-        - $ref: '#/components/schemas/BaseRequest'
+        - $ref: 'common.yaml#/components/schemas/BaseMessage'
+        - $ref: 'common.yaml#/components/schemas/BaseRequest'
         - type: object
           properties:
             playerUuid:
@@ -314,7 +215,7 @@ components:
               format: uuid
             debug:
               allOf:
-                - $ref: '#/components/schemas/BaseDebugRequest'
+                - $ref: 'common.yaml#/components/schemas/BaseDebugRequest'
                 - type: object
                   properties:
                     stub:
@@ -329,8 +230,8 @@ components:
     DeletePlayerResponse:
       description: Структура для ответа на запрос об удалении юнита
       allOf:
-        - $ref: '#/components/schemas/BaseMessage'
-        - $ref: '#/components/schemas/BaseResponse'
+        - $ref: 'common.yaml#/components/schemas/BaseMessage'
+        - $ref: 'common.yaml#/components/schemas/BaseResponse'
         - type: object
           properties:
             payload:
@@ -339,12 +240,12 @@ components:
     SearchPlayerRequest:
       description: Структура для запроса поиска юнитов
       allOf:
-        - $ref: '#/components/schemas/BaseMessage'
-        - $ref: '#/components/schemas/BaseRequest'
+        - $ref: 'common.yaml#/components/schemas/BaseMessage'
+        - $ref: 'common.yaml#/components/schemas/BaseRequest'
         - type: object
           properties:
             page:
-              $ref: '#/components/schemas/BasePaginatedRequest'
+              $ref: 'common.yaml#/components/schemas/BasePaginatedRequest'
 
     PlayerMetaInfo:
       description: мета-инфомация для юнита
@@ -434,14 +335,14 @@ components:
     SearchPlayerResponse:
       description: Структура для ответа на запрос поиска юнитов
       allOf:
-        - $ref: '#/components/schemas/BaseMessage'
-        - $ref: '#/components/schemas/BaseResponse'
+        - $ref: 'common.yaml#/components/schemas/BaseMessage'
+        - $ref: 'common.yaml#/components/schemas/BaseResponse'
         - type: object
           properties:
             page:
-              $ref: '#/components/schemas/BasePaginatedResponse'
+              $ref: 'common.yaml#/components/schemas/BasePaginatedResponse'
             foundMessages:
               type: array
               items:
-                $ref: '#/components/schemas/ResponseMessage'
+                $ref: 'common.yaml#/components/schemas/ResponseMessage'
 

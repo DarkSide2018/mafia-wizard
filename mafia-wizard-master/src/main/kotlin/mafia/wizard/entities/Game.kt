@@ -3,6 +3,7 @@ package mafia.wizard.entities
 import com.vladmihalcea.hibernate.type.json.JsonType
 import org.hibernate.annotations.Type
 import org.hibernate.annotations.TypeDef
+import java.time.OffsetDateTime
 import java.util.*
 import javax.persistence.*
 
@@ -21,15 +22,17 @@ data class Game(
     @ManyToOne
     @JoinColumn(name = "game_master_uuid", nullable = false)
     var gameMaster: GameMaster = GameMaster(),
-
     @Column(name = "game_number")
     var gameNumber: Int = 0,
     @Type(type = "json")
     @Column(columnDefinition = "jsonb")
-    var players: String? = null
-
-){
-    fun assignGameMaster(gameMaster: GameMaster){
+    var players: String? = null,
+    @Column(name = "created_at")
+    var createdAt: OffsetDateTime? = null,
+    @Column(name = "updated_at")
+    var updatedAt: OffsetDateTime? = null,
+) {
+    fun assignGameMaster(gameMaster: GameMaster) {
         this.gameMaster = gameMaster
     }
 }

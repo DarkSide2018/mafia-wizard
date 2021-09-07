@@ -10,4 +10,5 @@ pluginManagement {
 include("mafia-wizard-master")
 include("wizard-player-transport")
 include("wizard-game-transport")
+include("transport-objects")
 

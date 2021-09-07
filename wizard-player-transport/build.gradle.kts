@@ -12,7 +12,7 @@ sourceSets {
 dependencies {
     val jacksonVersion: String by project
 
-
+    implementation(project(":transport-objects"))
     implementation(kotlin("stdlib"))
     testImplementation(kotlin("test-junit"))
 

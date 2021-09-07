@@ -2,7 +2,7 @@ plugins {
     id("org.springframework.boot") version "2.5.4"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     kotlin("jvm")
-    id ("org.flywaydb.flyway") version "7.14.1"
+    id("org.flywaydb.flyway") version "7.14.1"
     kotlin("plugin.spring") version "1.5.21"
 }
 val springBootVersion: String by project
@@ -18,6 +18,7 @@ val postgresDriverVersion: String by project
 dependencies {
     implementation(project(":wizard-player-transport"))
     implementation(project(":wizard-game-transport"))
+    implementation(project(":transport-objects"))
     implementation("com.vladmihalcea:hibernate-types-55:2.12.1")
     implementation("org.postgresql:postgresql:$postgresDriverVersion")
     implementation("io.jsonwebtoken:jjwt:0.9.1")

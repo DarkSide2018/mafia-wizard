@@ -1,4 +1,4 @@
-package mafia.wizard.mappers
+package mafia.wizard.mappers.player
 
 import mafia.wizard.entities.Player
 import models.PlayerModel

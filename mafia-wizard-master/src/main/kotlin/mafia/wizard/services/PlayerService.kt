@@ -1,7 +1,7 @@
 package mafia.wizard.services
 
 import mafia.wizard.entities.Player
-import mafia.wizard.mappers.setPlayer
+import mafia.wizard.mappers.player.setPlayer
 import mafia.wizard.mappers.player.toPlayerEntity
 import mafia.wizard.openapi.models.*
 import mafia.wizard.repository.PlayerRepo
@@ -15,7 +15,6 @@ import models.UpdatePlayerContext
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.*
-import kotlin.RuntimeException
 
 @Service
 class PlayerService {

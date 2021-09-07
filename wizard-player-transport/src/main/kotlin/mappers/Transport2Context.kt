@@ -18,16 +18,6 @@ fun UpdatePlayerContext.setQuery(query: UpdatePlayerRequest) = apply {
     playerModel = query.toModel()
 }
 
-fun ReadPlayerContext.setQuery(query: ReadPlayerRequest) = apply {
-    playerUUID = query.playerUuid ?: throw Exception("ReadPlayerRequest empty playerUuid")
-    requestUUID = UUID.randomUUID()
-}
-
-fun DeletePlayerContext.setQuery(query: DeletePlayerRequest) = apply {
-    playerUuid = query.playerUuid ?: throw Exception("DeletePlayerRequest empty playerUuid")
-    requestUUID = UUID.randomUUID()
-}
-
 private fun CreatePlayerRequest.toModel() = PlayerModel(
     ratingId = this.ratingId ?: 0,
     foulAmount = this.foulAmount ?: 0,

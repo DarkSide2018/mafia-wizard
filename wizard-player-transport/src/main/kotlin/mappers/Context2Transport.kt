@@ -1,11 +1,9 @@
 package mappers
 
 import mafia.wizard.openapi.models.CreatePlayerResponse
-import mafia.wizard.openapi.models.DeletePlayerResponse
 import mafia.wizard.openapi.models.ReadPlayerResponse
 import mafia.wizard.openapi.models.UpdatePlayerResponse
 import models.CreatePlayerContext
-import models.DeletePlayerContext
 import models.ReadPlayerContext
 import models.UpdatePlayerContext
 
@@ -47,9 +45,4 @@ fun UpdatePlayerContext.toUpdatePlayerResponse()= UpdatePlayerResponse(
     requestUUID = this.requestUUID,
     errors = errors.takeIf { it.isNotEmpty() },
     result = if (this.errors.isEmpty()) UpdatePlayerResponse.Result.SUCCESS else UpdatePlayerResponse.Result.ERROR
-)
-fun DeletePlayerContext.toDeletePlayerResponse()= DeletePlayerResponse(
-    requestUUID = this.requestUUID,
-    errors = errors.takeIf { it.isNotEmpty() },
-    result = if (this.errors.isEmpty()) DeletePlayerResponse.Result.SUCCESS else DeletePlayerResponse.Result.ERROR
 )

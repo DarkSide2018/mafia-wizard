@@ -12,7 +12,7 @@ sourceSets {
 dependencies {
     val jacksonVersion: String by project
 
-    implementation(project(":transport-objects"))
+
     implementation(kotlin("stdlib"))
     testImplementation(kotlin("test-junit"))
 
@@ -28,7 +28,7 @@ openApiGenerate {
     apiPackage.set("$openapiGroup.api")
     modelPackage.set("$openapiGroup.models")
     invokerPackage.set("$openapiGroup.invoker")
-    inputSpec.set("$rootDir/spec/game.yaml")
+    inputSpec.set("$rootDir/spec/common.yaml")
 
 
     globalProperties.apply {

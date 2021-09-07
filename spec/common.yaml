@@ -1,0 +1,127 @@
+openapi: 3.0.1
+info:
+  title: common-entities
+  description: 'файл для сущностей, который задействованы во всех проектах'
+  license:
+    name: MIT open source license
+  version: 0.0.1
+servers:
+  - url: https://localhost/
+tags:
+  - name: common-entities
+    description: файл для общих сущностей
+  - name: common
+    description: общие
+paths: {}
+
+components:
+  schemas:
+    BaseMessage:
+      type: object
+      description: Базовый класс для запросов и  ответов
+      properties:
+        messageUUID:
+          type: string
+          format: uuid
+        messageType:
+          type: string
+          title: Дискриминатор
+          description: Дискриминатор, содержащий тип класса сообщения и использующийся для десериализации
+      discriminator:
+        propertyName: messageType
+
+    BaseRequest:
+      description: Базовый класс для всех запросов
+      properties:
+        requestUUID:
+          type: string
+          format: uuid
+
+
+    BaseResponse:
+      description: Базовый класс для всех ответов
+      allOf:
+        - type: object
+          required:
+            - result
+          properties:
+            requestUUID:
+              type: string
+              format: uuid
+            result:
+              type: string
+              enum:
+                - success
+                - error
+            errors:
+              type: array
+              items:
+                $ref: '#/components/schemas/RequestError'
+
+    RequestError:
+      type: object
+      description: Описание ошибки обработки запроса
+      properties:
+        message:
+          type: string
+        field:
+          type: string
+
+    ResponseMessage:
+      description: Структура, описывающая сообщения
+      properties:
+        payload:
+          type: string
+
+    BaseDebugRequest:
+      type: object
+      description: Структура с описанием отладочных параметров запроса
+      properties:
+        mode:
+          type: string
+          default: prod
+          enum:
+            - prod
+            - test
+            - stub
+
+    BasePaginatedRequest:
+      type: object
+      description: Структура с описанием запрашиваемой страницы в запросах списков
+      properties:
+        size:
+          type: integer
+          description: Размер запрашиваемой страницы
+          format: int32
+        lastId:
+          type: string
+          description: Идентификатор последнего объекта предыдущей страницы
+
+    BasePaginatedResponse:
+      type: object
+      description: Структура с описанием страницы в ответе
+      properties:
+        size:
+          type: integer
+          description: Размер запрашиваемой страницы
+          format: int32
+        lastId:
+          type: string
+          description: Идентификатор последнего объекта предыдущей страницы
+        position:
+          type: string
+          enum:
+            - first
+            - middle
+            - last
+
+
+
+
+
+
+
+
+
+
+

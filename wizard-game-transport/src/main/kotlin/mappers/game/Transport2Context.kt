@@ -22,11 +22,11 @@ fun GameContext.setQuery(query: UpdateGameRequest) = apply {
 private fun CreateGameRequest.toModel() = GameModel(
     gameUUID = UUID.randomUUID(),
     gameNumber = this.gameNumber,
-    players = this.players.map { GamePlayer(playerUUID = it)}
+    players = this.players.map { GamePlayer(playerUUID = it.playerUuid)}
 )
 
 private fun UpdateGameRequest.toModel() = GameModel(
     gameUUID = this.gameUuid?:throw FieldWasNullException("UpdateGameRequest gameUuid"),
     gameNumber = this.gameNumber,
-    players = this.players.map { GamePlayer(playerUUID = it)}
+    players = this.players.map { GamePlayer(playerUUID = it.playerUuid)}
 )

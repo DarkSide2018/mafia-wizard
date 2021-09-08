@@ -260,7 +260,7 @@ components:
               description: процент побед
               type: integer
             victories:
-              description: количесвто побед
+              description: количестdо побед
               type: integer
             victoriesRedPercent:
               description: процент побед за красных
@@ -331,6 +331,8 @@ components:
         wasKilled:
           description: количесвто отстрелов в первую ночь
           type: integer
+      required:
+        - playerUuid
 
     SearchPlayerResponse:
       description: Структура для ответа на запрос поиска юнитов

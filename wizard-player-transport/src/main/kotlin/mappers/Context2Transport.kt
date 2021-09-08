@@ -1,5 +1,6 @@
 package mappers
 
+import exceptions.FieldWasNullException
 import mafia.wizard.openapi.models.CreatePlayerResponse
 import mafia.wizard.openapi.models.ReadPlayerResponse
 import mafia.wizard.openapi.models.UpdatePlayerResponse
@@ -12,7 +13,7 @@ fun ReadPlayerContext.toReadPlayerResponse(): ReadPlayerResponse {
    return ReadPlayerResponse(
         requestUUID = this.requestUUID,
         errors = errors.takeIf { it.isNotEmpty() },
-        playerUuid = this.playerUUID,
+        playerUuid = this.playerUUID?:throw FieldWasNullException("toReadPlayerResponse playerUUID"),
         ratingId = playerModelNotNull.ratingId,
         foulAmount = playerModelNotNull.foulAmount,
         nickName = playerModelNotNull.nickName,

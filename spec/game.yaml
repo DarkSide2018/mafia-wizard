@@ -181,7 +181,7 @@ components:
       allOf:
         - $ref: 'common.yaml#/components/schemas/BaseMessage'
         - $ref: 'common.yaml#/components/schemas/BaseResponse'
-        - $ref: '#/components/schemas/GameMetaInfo'
+        - $ref: '#/components/schemas/GameMasterInfo'
         - type: object
           properties:
             payload:
@@ -271,9 +271,7 @@ components:
         players:
           type: array
           items:
-            type: string
-            format: uuid
-            description: 'UUID игрока'
+            $ref: 'player.yaml#/components/schemas/GamePlayerInfo'
         created:
           description: Когда игра создана?
           type: string

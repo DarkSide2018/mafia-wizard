@@ -13,9 +13,9 @@ fun GameContext.toReadGameResponse(): ReadGameResponse {
     return ReadGameResponse(
         requestUUID = this.requestContext.requestUUID,
         errors = this.requestContext.errors.takeIf { it.isNotEmpty() },
-        gameNumber = gameModel.gameNumber,
-        gameUuid = gameModel.gameUUID,
-        players = gameModel.players?.map { it.toGamePlayerInfo() }
+        gameNumber = gameModel?.gameNumber,
+        gameUuid = gameModel?.gameUUID,
+        players = gameModel?.players?.map { it.toGamePlayerInfo() }
             ?: throw FieldWasNullException("players toReadGameResponse"),
         result = if (this.requestContext.errors.isEmpty()) ReadGameResponse.Result.SUCCESS else ReadGameResponse.Result.ERROR
     )

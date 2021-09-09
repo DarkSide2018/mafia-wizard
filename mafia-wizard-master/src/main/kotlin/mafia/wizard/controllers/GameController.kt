@@ -1,15 +1,37 @@
 package mafia.wizard.controllers
 
+import mafia.wizard.openapi.models.CreateGameRequest
+import mafia.wizard.openapi.models.ReadGameResponse
+import mafia.wizard.openapi.models.UpdateGameRequest
 import mafia.wizard.services.GameService
-import org.springframework.web.bind.annotation.CrossOrigin
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
+import java.util.*
 
 @RestController
 @CrossOrigin
-@RequestMapping("/game")
+@RequestMapping("/game/")
 class GameController(
     private val gameService: GameService
 ) {
+    @GetMapping("{uuid}")
+    fun getByUuid(@PathVariable uuid: UUID): ResponseEntity<ReadGameResponse> {
+        return ResponseEntity.ok(gameService.getByUuid(uuid))
+    }
 
+    @PostMapping
+    fun createGame(@RequestBody game: CreateGameRequest) {
+        gameService.createGame(game)
+    }
+
+    @PutMapping
+    fun updateGame(@RequestBody game: UpdateGameRequest) {
+        gameService.updateGame(game)
+    }
+
+    @DeleteMapping("{uuid}")
+    fun deleteGame(@PathVariable uuid: UUID): ResponseEntity<String> {
+        gameService.deleteGame(uuid)
+        return ResponseEntity.ok().build<String>()
+    }
 }

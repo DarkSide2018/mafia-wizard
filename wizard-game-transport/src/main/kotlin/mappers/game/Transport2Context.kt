@@ -10,12 +10,10 @@ import models.game.GamePlayer
 import java.util.*
 
 fun GameContext.setQuery(query: CreateGameRequest) = apply {
-    requestContext = RequestContext()
     gameModel = query.toModel()
 }
 
 fun GameContext.setQuery(query: UpdateGameRequest) = apply {
-    requestContext = RequestContext()
     gameModel = query.toModel()
 }
 

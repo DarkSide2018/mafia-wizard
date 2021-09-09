@@ -8,12 +8,10 @@ import models.gameMaster.GameMasterModel
 import java.util.*
 
 fun GameMasterContext.setQuery(query: CreateGameMasterRequest) = apply {
-    requestContext = RequestContext()
     gameMasterModel = query.toModel()
 }
 
 fun GameMasterContext.setQuery(query: UpdateGameMasterRequest) = apply {
-    requestContext = RequestContext()
     gameMasterModel = query.toModel()
 }
 

@@ -1,8 +1,16 @@
 package mafia.wizard.services
 
-import mafia.wizard.openapi.models.CreateGameMasterRequest
-import mafia.wizard.openapi.models.UpdateGameRequest
+import exceptions.FieldWasNullException
+import mafia.wizard.mappers.gameMaster.createGameMasterEntity
+import mafia.wizard.mappers.gameMaster.setGameMaster
+import mafia.wizard.mappers.gameMaster.updateGameMasterEntity
+import mafia.wizard.openapi.models.*
 import mafia.wizard.repository.GameMasterRepository
+import mappers.gameMaster.setQuery
+import mappers.gameMaster.toCreateGameMasterResponse
+import mappers.gameMaster.toReadGameMasterResponse
+import mappers.gameMaster.toUpdateGameMasterResponse
+import models.gameMaster.GameMasterContext
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -10,22 +18,30 @@ import java.util.*
 class GameMasterService(
     private val gameMasterRepository: GameMasterRepository
 ) {
-    fun getByUuid(uuid: UUID){
-        gameMasterRepository.findById(uuid)
-    }
-    fun getAll(){
-        gameMasterRepository.findAll()
-    }
-
-    fun createGameMaster(gameMaster: CreateGameMasterRequest) {
-       // ResponseEntity.ok(gameMasterRepository.save(gameMaster))
+    fun getByUuid(uuid: UUID): ReadGameMasterResponse {
+        return GameMasterContext()
+            .setGameMaster(gameMasterRepository.findById(uuid).orElseThrow())
+            .toReadGameMasterResponse()
     }
 
-    fun updateGameMaster(game: UpdateGameRequest) {
-
+    fun createGameMaster(gameMaster: CreateGameMasterRequest): CommandResponse {
+        val gameMasterContext = GameMasterContext()
+            .setQuery(gameMaster)
+        gameMasterRepository.save(gameMasterContext.createGameMasterEntity())
+        return gameMasterContext.toCreateGameMasterResponse()
     }
 
-    fun deleteGameMaster(uuid: UUID){
+    fun updateGameMaster(gameMaster: UpdateGameMasterRequest): CommandResponse {
+        val gameMasterForUpdate = gameMasterRepository.getById(
+            gameMaster.gameMasterUuid ?: throw FieldWasNullException("updateGameMaster gameMasterUuid")
+        )
+        val gameMasterContext = GameMasterContext()
+            .setQuery(gameMaster)
+        gameMasterRepository.save(gameMasterContext.updateGameMasterEntity(gameMasterForUpdate))
+        return gameMasterContext.toUpdateGameMasterResponse()
+    }
 
+    fun deleteGameMaster(uuid: UUID) {
+        gameMasterRepository.deleteById(uuid)
     }
 }

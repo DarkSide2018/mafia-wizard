@@ -7,8 +7,8 @@ import models.gameMaster.GameMasterContext
 
 fun GameMasterContext.toReadGameMasterResponse(): ReadGameMasterResponse {
     return ReadGameMasterResponse(
-        gameMasterUuid = this.gameMasterModel.gameMasterUuid,
-        nickName = this.gameMasterModel.nickName,
+        gameMasterUuid = this.gameMasterModel?.gameMasterUuid,
+        nickName = this.gameMasterModel?.nickName,
         requestUUID = this.requestContext.requestUUID,
         errors = this.requestContext.errors.takeIf { it.isNotEmpty() },
         result = if (this.requestContext.errors.isEmpty()) ReadGameMasterResponse.Result.SUCCESS else ReadGameMasterResponse.Result.ERROR

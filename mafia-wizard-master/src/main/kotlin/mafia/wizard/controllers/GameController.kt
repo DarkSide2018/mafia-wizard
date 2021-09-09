@@ -1,5 +1,6 @@
 package mafia.wizard.controllers
 
+import mafia.wizard.openapi.models.CommandResponse
 import mafia.wizard.openapi.models.CreateGameRequest
 import mafia.wizard.openapi.models.ReadGameResponse
 import mafia.wizard.openapi.models.UpdateGameRequest
@@ -20,13 +21,13 @@ class GameController(
     }
 
     @PostMapping
-    fun createGame(@RequestBody game: CreateGameRequest) {
-        gameService.createGame(game)
+    fun createGame(@RequestBody game: CreateGameRequest): ResponseEntity<CommandResponse> {
+        return ResponseEntity.ok(gameService.createGame(game))
     }
 
     @PutMapping
-    fun updateGame(@RequestBody game: UpdateGameRequest) {
-        gameService.updateGame(game)
+    fun updateGame(@RequestBody game: UpdateGameRequest): ResponseEntity<CommandResponse> {
+        return ResponseEntity.ok(gameService.updateGame(game))
     }
 
     @DeleteMapping("{uuid}")

@@ -62,6 +62,8 @@ open class SecurityConfiguration : WebSecurityConfigurerAdapter() {
                 UsernamePasswordAuthenticationFilter::class.java
             )
         http.csrf().disable()
+        // решает вопрос с CORS на всем проекте
+        http.cors()
     }
 
 }

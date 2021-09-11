@@ -2,29 +2,28 @@ package mafia.wizard.config
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper
-import mafia.wizard.entities.Authority
-import mafia.wizard.entities.Player
-import mafia.wizard.entities.User
+import mafia.wizard.entities.*
+import mafia.wizard.repository.GameMasterRepository
+import mafia.wizard.repository.GameRepository
 import mafia.wizard.repository.PlayerRepo
 import mafia.wizard.repository.UserDetailsRepo
+import org.hibernate.SessionFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.crypto.password.PasswordEncoder
 import javax.annotation.PostConstruct
+import javax.persistence.PersistenceContext
 
 
 @Configuration
-class AppConfig {
-    @Autowired
-    lateinit var passwordEncoder: PasswordEncoder
-
-    @Autowired
-    lateinit var userDetailsRepository: UserDetailsRepo
-
-    @Autowired
-    lateinit var playerRepo: PlayerRepo
-
+class AppConfig(
+    private var passwordEncoder: PasswordEncoder,
+    private var userDetailsRepository: UserDetailsRepo,
+    private var playerRepo: PlayerRepo,
+    private val gameMasterRepository: GameMasterRepository,
+    private val gameRepository: GameRepository
+) {
     @PostConstruct
     protected fun init() {
         val authorityList: MutableList<Authority> = ArrayList<Authority>()
@@ -36,7 +35,7 @@ class AppConfig {
         user.lastName = ("manager")
         user.password = passwordEncoder.encode("admin@123")
         user.enabled = (true)
-        user.setAuthorities(authorityList)
+        user.authorities = authorityList
         userDetailsRepository.save(user)
 
         val player = Player()
@@ -45,6 +44,17 @@ class AppConfig {
         player2.nickName = "player2"
         playerRepo.save(player)
         playerRepo.save(player2)
+
+        val gameMaster = GameMaster()
+        gameMaster.nickName = "nick"
+        val game = Game()
+        game.gameNumber = 2
+        gameMaster.games = mutableListOf(game)
+
+        gameMasterRepository.save(gameMaster)
+
+
+
     }
 
 

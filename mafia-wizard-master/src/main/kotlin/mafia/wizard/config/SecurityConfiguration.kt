@@ -18,7 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-open class SecurityConfiguration : WebSecurityConfigurerAdapter() {
+ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
 
     @Autowired
     lateinit var userService: CustomUserService
@@ -35,7 +35,7 @@ open class SecurityConfiguration : WebSecurityConfigurerAdapter() {
     }
 
     @Bean
-    open fun passwordEncoder(): PasswordEncoder {
+     fun passwordEncoder(): PasswordEncoder {
         return BCryptPasswordEncoder()
     }
 
@@ -53,17 +53,18 @@ open class SecurityConfiguration : WebSecurityConfigurerAdapter() {
             .authorizeRequests()
             .antMatchers("/h2-console/**",
                 "/api/v1/auth/login",
+                "/game/master/**",
                 "/player/**",
                 "/players").permitAll()
-            .antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated()
+            .antMatchers(HttpMethod.OPTIONS, "/**")
+            .permitAll().anyRequest().authenticated()
             .and()
             .addFilterBefore(
                 JWTAuthenticationFilter(userService, jWTTokenHelper),
                 UsernamePasswordAuthenticationFilter::class.java
             )
         http.csrf().disable()
-        // решает вопрос с CORS на всем проекте
-        http.cors()
+            .cors() // решает вопрос с CORS на всем проекте
     }
 
 }

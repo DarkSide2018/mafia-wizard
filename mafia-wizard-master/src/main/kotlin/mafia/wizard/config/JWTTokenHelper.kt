@@ -25,8 +25,7 @@ class JWTTokenHelper {
     private val SIGNATURE_ALGORITHM = SignatureAlgorithm.HS256
 
     private fun getAllClaimsFromToken(token: String): Claims? {
-        val claims: Claims?
-        claims = try {
+        return try {
             Jwts.parser()
                 .setSigningKey(secretKey)
                 .parseClaimsJws(token)
@@ -34,19 +33,16 @@ class JWTTokenHelper {
         } catch (e: Exception) {
             null
         }
-        return claims
     }
 
 
     fun getUsernameFromToken(token: String): String? {
-        val username: String?
-        username = try {
+      return try {
             val claims = getAllClaimsFromToken(token)
             claims!!.subject
         } catch (e: Exception) {
             null
         }
-        return username
     }
 
     @Throws(InvalidKeySpecException::class, NoSuchAlgorithmException::class)
@@ -77,26 +73,22 @@ class JWTTokenHelper {
 
 
     private fun getExpirationDate(token: String): Date? {
-        val expireDate: Date?
-        expireDate = try {
+    return try {
             val claims = getAllClaimsFromToken(token)
             claims!!.expiration
         } catch (e: Exception) {
             null
         }
-        return expireDate
     }
 
 
     fun getIssuedAtDateFromToken(token: String): Date? {
-        val issueAt: Date?
-        issueAt = try {
+        return try {
             val claims = getAllClaimsFromToken(token)
             claims!!.issuedAt
         } catch (e: Exception) {
             null
         }
-        return issueAt
     }
 
     fun getToken(request: HttpServletRequest): String? {

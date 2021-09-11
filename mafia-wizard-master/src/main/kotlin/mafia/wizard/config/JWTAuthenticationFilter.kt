@@ -35,7 +35,7 @@ class JWTAuthenticationFilter : OncePerRequestFilter {
 
                 if (jwtTokenHelper.validateToken(authToken, userDetails)) {
 
-                    val authentication: UsernamePasswordAuthenticationToken = UsernamePasswordAuthenticationToken(
+                    val authentication = UsernamePasswordAuthenticationToken(
                         userDetails,
                         null,
                         userDetails.authorities

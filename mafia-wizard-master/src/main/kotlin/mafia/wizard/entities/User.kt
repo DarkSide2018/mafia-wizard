@@ -49,7 +49,7 @@ data class User(
     )
     private var authorities: List<Authority> = mutableListOf()
 ) : UserDetails {
-    override fun getAuthorities(): List<Authority>? {
+    override fun getAuthorities(): List<Authority> {
         return authorities
     }
 

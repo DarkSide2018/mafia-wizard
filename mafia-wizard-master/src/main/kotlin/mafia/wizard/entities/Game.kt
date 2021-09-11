@@ -19,21 +19,21 @@ data class Game(
     @Column(name = "game_uuid", columnDefinition = "BINARY(16)")
     @GeneratedValue
     var gameUUID: UUID = UUID.randomUUID(),
-    @ManyToOne
-    @JoinColumn(name = "game_master_uuid", nullable = false)
-    var gameMaster: GameMaster = GameMaster(),
+    @ManyToMany(mappedBy = "games")
+    var gameMaster: List<GameMaster> = mutableListOf(),
     @Column(name = "game_number")
     var gameNumber: Int = 0,
+
     @Type(type = "json")
     @Column(columnDefinition = "jsonb")
     var players: String? = null,
+
     @Column(name = "created_at")
     var createdAt: OffsetDateTime? = null,
+
     @Column(name = "updated_at")
-    var updatedAt: OffsetDateTime? = null,
+    var updatedAt: OffsetDateTime? = OffsetDateTime.now(),
 ) {
-    fun assignGameMaster(gameMaster: GameMaster) {
-        this.gameMaster = gameMaster
-    }
+
 }
 

@@ -4,6 +4,6 @@ import models.RequestContext
 
 data class GameMasterContext(
     var requestContext: RequestContext=RequestContext(),
-    var gameMasterModel: GameMasterModel?=null
+    var gameMasterModel: GameMasterModel=GameMasterModel()
 ) {
 }

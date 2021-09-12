@@ -96,7 +96,7 @@ paths:
   /game/master:
     get:
       tags:
-      - gameMaster
+        - gameMaster
       summary: прочиатать информацию о юните
       operationId: readGameMaster
       parameters:
@@ -173,6 +173,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CommandResponse'
+  /game/master/all:
+    get:
+      tags:
+        - gameMaster
+      summary: получить список gamemaster
+      operationId: getAllGameMasters
+      responses:
+        200:
+          description: all responses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadAllGameMastersResponse'
+
 
 components:
   schemas:
@@ -182,10 +196,17 @@ components:
         - $ref: 'common.yaml#/components/schemas/BaseMessage'
         - $ref: 'common.yaml#/components/schemas/BaseResponse'
         - $ref: '#/components/schemas/GameMasterInfo'
+    ReadAllGameMastersResponse:
+      description: Структура для ответа на запрос с информацией о юните
+      allOf:
+        - $ref: 'common.yaml#/components/schemas/BaseMessage'
+        - $ref: 'common.yaml#/components/schemas/BaseResponse'
         - type: object
           properties:
-            payload:
-              type: string
+            gameMasters:
+              type: array
+              items:
+                $ref: '#/components/schemas/GameMasterInfo'
     CreateGameRequest:
       description: Структура для создания юнита в репоизтории
       allOf:
@@ -214,48 +235,19 @@ components:
         - $ref: 'common.yaml#/components/schemas/BaseMessage'
         - $ref: 'common.yaml#/components/schemas/BaseRequest'
         - $ref: '#/components/schemas/GameMetaInfo'
-        - type: object
-          properties:
-            debug:
-              allOf:
-                - $ref: 'common.yaml#/components/schemas/BaseDebugRequest'
-                - type: object
-                  properties:
-                    stub:
-                      type: string
-                      enum:
-                        - success
-                        - emptyTitle
-                        - databaseError
     UpdateGameMasterRequest:
       description: Структура для запроса обновления существующего юнита
       allOf:
         - $ref: 'common.yaml#/components/schemas/BaseMessage'
         - $ref: 'common.yaml#/components/schemas/BaseRequest'
         - $ref: '#/components/schemas/GameMasterInfo'
-        - type: object
-          properties:
-            debug:
-              allOf:
-                - $ref: 'common.yaml#/components/schemas/BaseDebugRequest'
-                - type: object
-                  properties:
-                    stub:
-                      type: string
-                      enum:
-                        - success
-                        - emptyTitle
-                        - databaseError
+
 
     CommandResponse:
       description: Структура для ответа на запрос об удалении юнита
       allOf:
         - $ref: 'common.yaml#/components/schemas/BaseMessage'
         - $ref: 'common.yaml#/components/schemas/BaseResponse'
-        - type: object
-          properties:
-            payload:
-              type: string
 
     GameMetaInfo:
       description: мета-инфомация для юнита

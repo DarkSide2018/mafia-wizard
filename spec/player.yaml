@@ -175,26 +175,8 @@ components:
       allOf:
         - $ref: 'common.yaml#/components/schemas/BaseMessage'
         - $ref: 'common.yaml#/components/schemas/BaseRequest'
+        - $ref: 'common.yaml#/components/schemas/BaseResponse'
         - $ref: '#/components/schemas/PlayerMetaInfo'
-        - type: object
-          required:
-            - uuid
-            - payload
-            - messageUUID
-          properties:
-            payload:
-              type: string
-            debug:
-              allOf:
-                - $ref: 'common.yaml#/components/schemas/BaseDebugRequest'
-                - type: object
-                  properties:
-                    stub:
-                      type: string
-                      enum:
-                        - success
-                        - emptyTitle
-                        - databaseError
 
     UpdatePlayerResponse:
       description: Структура для ответа на запрос с информацией о юните
@@ -276,11 +258,11 @@ components:
               type: number
               format: double
             created:
-              description: Порядковый номер в рейтинге
+              description: когда создан?
               type: string
               format: date-time
             updated:
-              description: Порядковый номер в рейтинге
+              description: когда был обновлен?
               type: string
               format: date-time
 
@@ -331,8 +313,6 @@ components:
         wasKilled:
           description: количесвто отстрелов в первую ночь
           type: integer
-      required:
-        - playerUuid
 
     SearchPlayerResponse:
       description: Структура для ответа на запрос поиска юнитов

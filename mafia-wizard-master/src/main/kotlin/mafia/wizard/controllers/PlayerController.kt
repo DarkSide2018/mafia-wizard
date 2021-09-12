@@ -1,5 +1,6 @@
 package mafia.wizard.controllers
 
+import mafia.wizard.entities.Player
 import mafia.wizard.openapi.models.*
 import mafia.wizard.services.PlayerService
 import org.springframework.beans.factory.annotation.Autowired
@@ -26,6 +27,10 @@ class PlayerController(
     fun getByUuid(@PathVariable uuid: UUID): ResponseEntity<ReadPlayerResponse> {
 
         return ResponseEntity.ok(playerService.getByUuid(uuid))
+    }
+    @GetMapping("/all")
+    fun getAll(): ResponseEntity<List<Player>>{
+        return ResponseEntity.ok(playerService.getAll())
     }
 
     @PostMapping

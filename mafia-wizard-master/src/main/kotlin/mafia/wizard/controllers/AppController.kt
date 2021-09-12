@@ -18,8 +18,4 @@ class AppController {
         return "Hello Spring Security!"
     }
 
-    @GetMapping("/players")
-    fun testEndPont(): ResponseEntity<List<Player>>{
-        return ResponseEntity.ok(playerService.getAll())
-    }
 }

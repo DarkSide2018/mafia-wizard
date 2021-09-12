@@ -8,11 +8,11 @@ import models.gameMaster.GameMasterModel
 import java.util.*
 
 fun GameMasterContext.setQuery(query: CreateGameMasterRequest) = apply {
-    gameMasterModel = query.toModel()
+    model = query.toModel()
 }
 
 fun GameMasterContext.setQuery(query: UpdateGameMasterRequest) = apply {
-    gameMasterModel = query.toModel()
+    model = query.toModel()
 }
 
 private fun CreateGameMasterRequest.toModel() = GameMasterModel(

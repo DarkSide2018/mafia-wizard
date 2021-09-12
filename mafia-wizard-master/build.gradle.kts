@@ -27,6 +27,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security:$springBootVersion")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion")
     implementation(kotlin("stdlib"))
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.5")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.12.5")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.1.51")
     implementation("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")

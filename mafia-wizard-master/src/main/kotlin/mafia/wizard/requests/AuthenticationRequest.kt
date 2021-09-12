@@ -1,8 +1,8 @@
 package mafia.wizard.requests
 
 data class AuthenticationRequest(
-    var userName: String,
-    var password: String,
+    var userName: String?=null,
+    var password: String?=null,
     ) {
 
 }

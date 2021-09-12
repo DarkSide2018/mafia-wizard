@@ -3,14 +3,13 @@ package mafia.wizard.services
 import exceptions.FieldWasNullException
 import mafia.wizard.mappers.gameMaster.createGameMasterEntity
 import mafia.wizard.mappers.gameMaster.setGameMaster
+import mafia.wizard.mappers.gameMaster.setGameMasterList
 import mafia.wizard.mappers.gameMaster.updateGameMasterEntity
 import mafia.wizard.openapi.models.*
 import mafia.wizard.repository.GameMasterRepository
-import mappers.gameMaster.setQuery
-import mappers.gameMaster.toCreateGameMasterResponse
-import mappers.gameMaster.toReadGameMasterResponse
-import mappers.gameMaster.toUpdateGameMasterResponse
+import mappers.gameMaster.*
 import models.gameMaster.GameMasterContext
+import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -22,6 +21,12 @@ class GameMasterService(
         return GameMasterContext()
             .setGameMaster(gameMasterRepository.findById(uuid).orElseThrow())
             .toReadGameMasterResponse()
+    }
+
+    fun getAll(): ReadAllGameMastersResponse {
+        return GameMasterContext()
+            .setGameMasterList(gameMasterRepository.findAllWithPagination(PageRequest.of(0, 100)))
+            .toReadAllGameMastersResponse()
     }
 
     fun createGameMaster(gameMaster: CreateGameMasterRequest): CommandResponse {

@@ -11,6 +11,7 @@ CREATE TABLE wizard.AUTH_USER_DETAILS (
                           updated_on            TIMESTAMPTZ   NULL default now(),
                           created_on            TIMESTAMPTZ   NULL default now(),
                           enabled               boolean       NULL default 'true',
+                          CONSTRAINT user_name_unique UNIQUE (USER_NAME),
                           CONSTRAINT user_pk PRIMARY KEY (user_id)
 );
 

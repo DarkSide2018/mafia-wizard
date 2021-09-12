@@ -8,18 +8,23 @@ import java.util.*
 
 @RestController
 @CrossOrigin
-@RequestMapping("/game/master/")
+@RequestMapping("/game/master")
 class GameMasterController(
     private val gameMasterService: GameMasterService
 ) {
-    @GetMapping("{uuid}")
+    @GetMapping("/{uuid}")
     fun getByUuid(@PathVariable uuid: UUID): ResponseEntity<ReadGameMasterResponse> {
         return ResponseEntity.ok(gameMasterService.getByUuid(uuid))
     }
+
+    @GetMapping("/all")
+    fun getAll(): ResponseEntity<ReadAllGameMastersResponse> {
+        return ResponseEntity.ok(gameMasterService.getAll())
+    }
+
     @PostMapping
     fun createGame(@RequestBody gameMaster: CreateGameMasterRequest): ResponseEntity<CommandResponse> {
-
-       return ResponseEntity.ok(gameMasterService.createGameMaster(gameMaster))
+        return ResponseEntity.ok(gameMasterService.createGameMaster(gameMaster))
     }
 
     @PutMapping
@@ -27,7 +32,7 @@ class GameMasterController(
         return ResponseEntity.ok(gameMasterService.updateGameMaster(game))
     }
 
-    @DeleteMapping("{uuid}")
+    @DeleteMapping("/{uuid}")
     fun deleteGame(@PathVariable uuid: UUID) {
         gameMasterService.deleteGameMaster(uuid)
     }

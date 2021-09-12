@@ -40,23 +40,19 @@ components:
 
     BaseResponse:
       description: Базовый класс для всех ответов
-      allOf:
-        - type: object
-          required:
-            - result
-          properties:
-            requestUUID:
-              type: string
-              format: uuid
-            result:
-              type: string
-              enum:
-                - success
-                - error
-            errors:
-              type: array
-              items:
-                $ref: '#/components/schemas/RequestError'
+      properties:
+        requestUUID:
+          type: string
+          format: uuid
+        result:
+          type: string
+          enum:
+            - success
+            - error
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/RequestError'
 
     RequestError:
       type: object

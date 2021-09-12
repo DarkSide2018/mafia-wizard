@@ -51,11 +51,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
             .authenticationEntryPoint(authenticationEntryPoint)
             .and()
             .authorizeRequests()
-            .antMatchers(
-                "/api/v1/auth/login",
-                "/player/**",).permitAll()
-            .antMatchers(HttpMethod.OPTIONS, "/**")
-            .permitAll().anyRequest().authenticated()
+            .antMatchers("/api/v1/auth/login", "/player/**",).permitAll()
+            .antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated()
             .and()
             .addFilterBefore(
                 JWTAuthenticationFilter(userService, jWTTokenHelper),

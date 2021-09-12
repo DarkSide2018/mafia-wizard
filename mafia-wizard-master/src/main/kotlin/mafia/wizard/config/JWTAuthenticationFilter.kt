@@ -10,27 +10,18 @@ import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class JWTAuthenticationFilter : OncePerRequestFilter {
-
-    private var userDetailsService: UserDetailsService
+class JWTAuthenticationFilter(
+    private var userDetailsService: UserDetailsService,
     private var jwtTokenHelper: JWTTokenHelper
-
-    constructor(
-        userDetailsService: UserDetailsService,
-        jwtTokenHelper: JWTTokenHelper
-    ) {
-        this.userDetailsService = userDetailsService;
-        this.jwtTokenHelper = jwtTokenHelper;
-
-    }
+) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        jwtTokenHelper.getToken(request)?.let { authToken ->
-            jwtTokenHelper.getUsernameFromToken(authToken)?.let { username ->
+        val authToken = jwtTokenHelper.getToken(request)
+        val username = jwtTokenHelper.getUsernameFromToken(authToken)
                 val userDetails: UserDetails = userDetailsService.loadUserByUsername(username);
 
                 if (jwtTokenHelper.validateToken(authToken, userDetails)) {
@@ -43,8 +34,8 @@ class JWTAuthenticationFilter : OncePerRequestFilter {
                     authentication.details = WebAuthenticationDetails(request);
                     SecurityContextHolder.getContext().authentication = authentication;
                 }
-            }
-        }
+
+
         filterChain.doFilter(request, response);
     }
 }

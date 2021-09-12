@@ -1,5 +1,8 @@
 package mafia.wizard.entities
 
+
+import org.hibernate.annotations.Fetch
+import org.hibernate.annotations.FetchMode
 import java.time.OffsetDateTime
 import java.util.*
 import javax.persistence.*
@@ -55,6 +58,10 @@ data class Player(
     var createdAt: OffsetDateTime? = null,
     @Column(name = "UPDATED_AT")
     var updatedAt: OffsetDateTime? = null,
+    @ManyToMany(mappedBy = "players")
+
+    var gameMasters:List<GameMaster> = mutableListOf()
+
 ) {
 }
 

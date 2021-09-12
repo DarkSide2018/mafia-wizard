@@ -1,5 +1,6 @@
 package mafia.wizard.config
 
+import exceptions.FieldWasNullException
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
@@ -24,25 +25,16 @@ class JWTTokenHelper {
 
     private val SIGNATURE_ALGORITHM = SignatureAlgorithm.HS256
 
-    private fun getAllClaimsFromToken(token: String): Claims? {
-        return try {
-            Jwts.parser()
+    private fun getAllClaimsFromToken(token: String): Claims {
+        return Jwts.parser()
                 .setSigningKey(secretKey)
                 .parseClaimsJws(token)
                 .body
-        } catch (e: Exception) {
-            null
-        }
     }
 
 
-    fun getUsernameFromToken(token: String): String? {
-      return try {
-            val claims = getAllClaimsFromToken(token)
-            claims!!.subject
-        } catch (e: Exception) {
-            null
-        }
+    fun getUsernameFromToken(token: String): String {
+           return getAllClaimsFromToken(token).subject
     }
 
     @Throws(InvalidKeySpecException::class, NoSuchAlgorithmException::class)
@@ -91,11 +83,11 @@ class JWTTokenHelper {
         }
     }
 
-    fun getToken(request: HttpServletRequest): String? {
+    fun getToken(request: HttpServletRequest): String {
         val authHeader = getAuthHeaderFromHeader(request)
         return if (authHeader != null && authHeader.startsWith("Bearer ")) {
             authHeader.substring(7)
-        } else null
+        } else throw FieldWasNullException("token was null")
     }
 
     fun getAuthHeaderFromHeader(request: HttpServletRequest): String? {

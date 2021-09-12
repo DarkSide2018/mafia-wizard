@@ -1,5 +1,7 @@
 package mafia.wizard.entities
 
+import org.hibernate.annotations.Fetch
+import org.hibernate.annotations.FetchMode
 import java.time.OffsetDateTime
 import java.util.*
 import javax.persistence.*
@@ -20,6 +22,16 @@ data class GameMaster(
         inverseJoinColumns = [JoinColumn(referencedColumnName = "game_uuid")]
     )
     var games:MutableList<Game> = mutableListOf(),
+
+    @ManyToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "game_master_to_player",
+        joinColumns = [JoinColumn(referencedColumnName = "game_master_uuid")],
+        inverseJoinColumns = [JoinColumn(referencedColumnName = "player_uuid")]
+    )
+    @Fetch(value = FetchMode.SUBSELECT)
+    var players:MutableList<Player> = mutableListOf(),
+
     @Column(name = "created_at")
     var createdAt: OffsetDateTime? = null,
     @Column(name = "updated_at")
@@ -27,6 +39,9 @@ data class GameMaster(
 ){
     fun addGame(game: Game){
         games.add(game)
+    }
+    fun addPlayer(player: Player){
+        players.add(player)
     }
 
 }

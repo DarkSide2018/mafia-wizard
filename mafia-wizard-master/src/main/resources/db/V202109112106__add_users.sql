@@ -43,9 +43,9 @@ INSERT INTO wizard.auth_authority (auth_id,
                                    role_code,
                                    role_description)
 VALUES ('cd39a1d5-d333-4d50-8768-d0ed7fd1fd42',
-        'ADMIN',
+        'ROLE_ADMIN',
         'admin role'),
        ('8fbde24e-c3ab-4c7a-9f52-b32977bac2ce',
-        'USER',
+        'ROLE_USER',
         'role');
 

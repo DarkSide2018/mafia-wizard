@@ -51,11 +51,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
             .authenticationEntryPoint(authenticationEntryPoint)
             .and()
             .authorizeRequests()
-            .antMatchers("/h2-console/**",
+            .antMatchers(
                 "/api/v1/auth/login",
-                "/game/master/**",
-                "/player/**",
-                "/players").permitAll()
+                "/player/**",).permitAll()
             .antMatchers(HttpMethod.OPTIONS, "/**")
             .permitAll().anyRequest().authenticated()
             .and()

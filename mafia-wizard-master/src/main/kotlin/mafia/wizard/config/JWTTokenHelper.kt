@@ -15,26 +15,26 @@ import javax.servlet.http.HttpServletRequest
 @Component
 class JWTTokenHelper {
     @Value("\${jwt.auth.app}")
-     var appName: String? = null
+    var appName: String? = null
 
     @Value("\${jwt.auth.secret_key}")
-     var secretKey: String? = null
+    var secretKey: String? = null
 
     @Value("\${jwt.auth.expires_in}")
-     var expiresIn = 0
+    var expiresIn = 0
 
     private val SIGNATURE_ALGORITHM = SignatureAlgorithm.HS256
 
     private fun getAllClaimsFromToken(token: String): Claims {
         return Jwts.parser()
-                .setSigningKey(secretKey)
-                .parseClaimsJws(token)
-                .body
+            .setSigningKey(secretKey)
+            .parseClaimsJws(token)
+            .body
     }
 
 
     fun getUsernameFromToken(token: String): String {
-           return getAllClaimsFromToken(token).subject
+        return getAllClaimsFromToken(token).subject
     }
 
     @Throws(InvalidKeySpecException::class, NoSuchAlgorithmException::class)
@@ -54,23 +54,17 @@ class JWTTokenHelper {
 
     fun validateToken(token: String, userDetails: UserDetails): Boolean {
         val username = getUsernameFromToken(token)
-        return username != null && username == userDetails.username &&
-                !isTokenExpired(token)
+        return username == userDetails.username && !isTokenExpired(token)
     }
 
     fun isTokenExpired(token: String): Boolean {
         val expireDate = getExpirationDate(token)
-        return expireDate!!.before(Date())
+        return expireDate.before(Date())
     }
 
 
-    private fun getExpirationDate(token: String): Date? {
-    return try {
-            val claims = getAllClaimsFromToken(token)
-            claims!!.expiration
-        } catch (e: Exception) {
-            null
-        }
+    private fun getExpirationDate(token: String): Date {
+        return getAllClaimsFromToken(token).expiration
     }
 
 

@@ -17,7 +17,7 @@ val postgresDriverVersion: String by project
 
 dependencies {
     implementation(project(":wizard-player-transport"))
-    implementation(project(":wizard-game-transport"))
+    implementation(project(":user-game-transport"))
     implementation(project(":transport-objects"))
     implementation("com.vladmihalcea:hibernate-types-55:2.12.1")
     implementation("org.postgresql:postgresql:$postgresDriverVersion")

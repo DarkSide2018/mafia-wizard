@@ -28,7 +28,7 @@ openApiGenerate {
     apiPackage.set("$openapiGroup.api")
     modelPackage.set("$openapiGroup.models")
     invokerPackage.set("$openapiGroup.invoker")
-    inputSpec.set("$rootDir/spec/game.yaml")
+    inputSpec.set("$rootDir/spec/user-game.yaml")
 
 
     globalProperties.apply {

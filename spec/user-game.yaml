@@ -207,9 +207,45 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReadGameMasterResponse'
-
-
+                $ref: '#/components/schemas/ReadUserResponse'
+    post:
+      tags:
+        - user
+      summary: создать юнит
+      operationId: createUser
+      requestBody:
+        description: Объект запроса для создания юнита
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+        required: true
+      responses:
+        200:
+          description: all responses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResponse'
+    put:
+      tags:
+        - user
+      summary: обновить информацию о user
+      operationId: updateUser
+      requestBody:
+        description: Объект запроса для обновления user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateGameMasterRequest'
+        required: true
+      responses:
+        200:
+          description: all responses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResponse'
 components:
   schemas:
     ReadGameMasterResponse:
@@ -223,7 +259,7 @@ components:
       allOf:
         - $ref: 'common.yaml#/components/schemas/BaseMessage'
         - $ref: 'common.yaml#/components/schemas/BaseResponse'
-        - $ref: '#/components/schemas/GameMasterInfo'
+        - $ref: '#/components/schemas/UserInfo'
     ReadAllGameMastersResponse:
       description: Структура для ответа на запрос с информацией о юните
       allOf:
@@ -249,6 +285,13 @@ components:
         - $ref: 'common.yaml#/components/schemas/BaseRequest'
         - $ref: '#/components/schemas/GameMasterInfo'
 
+    CreateUserRequest:
+      description: Структура для создания юнита в репоизтории
+      allOf:
+        - $ref: 'common.yaml#/components/schemas/BaseMessage'
+        - $ref: 'common.yaml#/components/schemas/BaseRequest'
+        - $ref: '#/components/schemas/UserInfo'
+
     ReadGameResponse:
       description: Структура для ответа на запрос с информацией о юните
       allOf:
@@ -270,6 +313,12 @@ components:
         - $ref: 'common.yaml#/components/schemas/BaseRequest'
         - $ref: '#/components/schemas/GameMasterInfo'
 
+    UpdateUserRequest:
+      description: Структура для запроса обновления существующего юнита
+      allOf:
+        - $ref: 'common.yaml#/components/schemas/BaseMessage'
+        - $ref: 'common.yaml#/components/schemas/BaseRequest'
+        - $ref: '#/components/schemas/UserInfo'
 
     CommandResponse:
       description: Структура для ответа на запрос об удалении юнита
@@ -329,16 +378,22 @@ components:
           description: идентификатор ведущего
           type: string
           format: uuid
-        nickName:
+        userName:
           description: nick name ведущего
           type: string
-        created:
+        password:
           description: Когда создали?
           type: string
-          format: date-time
-        updated:
-          description: Когда был апдейт?
+        firstName:
+          description: Имя
           type: string
-          format: date-time
-
+        lastName:
+          description: Фамилия
+          type: string
+        email:
+          description: email
+          type: string
+        phoneNumber:
+          description: phoneNumber
+          type: string
 

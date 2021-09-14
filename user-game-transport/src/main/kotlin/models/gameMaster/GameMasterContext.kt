@@ -1,6 +1,7 @@
 package models.gameMaster
 
 import models.RequestContext
+import java.util.*
 
 data class GameMasterContext(
     var requestContext: RequestContext = RequestContext(),
@@ -8,3 +9,7 @@ data class GameMasterContext(
     var modelList: List<GameMasterModel> = listOf()
 ) {
 }
+data class GameMasterModel(
+    var gameMasterUuid: UUID?=null,
+    var nickName:String?=null,
+)

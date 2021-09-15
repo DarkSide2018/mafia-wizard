@@ -51,15 +51,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
             .authenticationEntryPoint(authenticationEntryPoint)
             .and()
             .authorizeRequests()
-            .antMatchers("/api/v1/auth/login", "/player/**",).permitAll()
+            .antMatchers("/api/v1/auth/login","/**").permitAll()
             .antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated()
             .and()
             .addFilterBefore(
                 JWTAuthenticationFilter(userService, jWTTokenHelper),
                 UsernamePasswordAuthenticationFilter::class.java
             )
-        http.csrf().disable()
-            .cors() // решает вопрос с CORS на всем проекте
+        http.csrf().disable().cors() // решает вопрос с CORS на всем проекте
     }
 
 }

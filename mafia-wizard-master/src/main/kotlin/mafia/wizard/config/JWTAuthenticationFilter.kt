@@ -20,13 +20,11 @@ class JWTAuthenticationFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        val authToken = jwtTokenHelper.getToken(request)
-        val username = jwtTokenHelper.getUsernameFromToken(authToken)
+        jwtTokenHelper.getToken(request)?.let { authToken ->
+            jwtTokenHelper.getUsernameFromToken(authToken)?.let { username ->
                 val userDetails: UserDetails = userDetailsService.loadUserByUsername(username);
-
                 if (jwtTokenHelper.validateToken(authToken, userDetails)) {
-
-                    val authentication = UsernamePasswordAuthenticationToken(
+                    val authentication: UsernamePasswordAuthenticationToken = UsernamePasswordAuthenticationToken(
                         userDetails,
                         null,
                         userDetails.authorities
@@ -34,8 +32,8 @@ class JWTAuthenticationFilter(
                     authentication.details = WebAuthenticationDetails(request);
                     SecurityContextHolder.getContext().authentication = authentication;
                 }
-
-
+            }
+        }
         filterChain.doFilter(request, response);
     }
 }

@@ -1,8 +1,10 @@
 package mafia.wizard.controllers
 
-import mafia.wizard.services.PlayerService
+import mafia.wizard.openapi.models.CommandResponse
+import mafia.wizard.openapi.models.CreateUserRequest
+import mafia.wizard.openapi.models.ReadUserResponse
+import mafia.wizard.openapi.models.UpdateUserRequest
 import mafia.wizard.services.UserCrudService
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
@@ -13,18 +15,18 @@ import java.util.*
 class UserController(
     private val userCrudService: UserCrudService
 ) {
-    @Autowired
-    lateinit var playerService: PlayerService
     @GetMapping("/{uuid}")
-    fun getByUuid(@PathVariable uuid: UUID): ResponseEntity<String> {
-        return ResponseEntity.ok().build<String>()
+    fun getByUuid(@PathVariable uuid: UUID): ResponseEntity<ReadUserResponse> {
+        return ResponseEntity.ok(userCrudService.getByUuid(uuid))
     }
+
     @PostMapping
-    fun create(): ResponseEntity<String> {
-        return ResponseEntity.ok().build<String>()
+    fun create(@RequestBody createUserRequest: CreateUserRequest): ResponseEntity<CommandResponse> {
+        return ResponseEntity.ok(userCrudService.createUser(createUserRequest))
     }
+
     @PutMapping
-    fun update(): ResponseEntity<String> {
-        return ResponseEntity.ok().build<String>()
+    fun update(@RequestBody updateUserRequest: UpdateUserRequest): ResponseEntity<CommandResponse> {
+        return ResponseEntity.ok(userCrudService.updateUser(updateUserRequest))
     }
 }

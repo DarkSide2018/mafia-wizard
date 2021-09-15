@@ -77,11 +77,11 @@ class JWTTokenHelper {
         }
     }
 
-    fun getToken(request: HttpServletRequest): String {
+    fun getToken(request: HttpServletRequest): String? {
         val authHeader = getAuthHeaderFromHeader(request)
         return if (authHeader != null && authHeader.startsWith("Bearer ")) {
             authHeader.substring(7)
-        } else throw FieldWasNullException("token was null")
+        } else null
     }
 
     fun getAuthHeaderFromHeader(request: HttpServletRequest): String? {

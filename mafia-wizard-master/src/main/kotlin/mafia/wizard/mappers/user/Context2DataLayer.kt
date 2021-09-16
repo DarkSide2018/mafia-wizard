@@ -2,6 +2,7 @@ package mafia.wizard.mappers.user
 
 import mafia.wizard.entities.User
 import models.user.UserContext
+import org.springframework.security.crypto.password.PasswordEncoder
 import java.time.OffsetDateTime
 
 fun UserContext.createUserEntity(): User {
@@ -31,4 +32,10 @@ fun UserContext.updateUserEntity(userForUpdate:User): User {
         userForUpdate.updatedAt = OffsetDateTime.now()
     }
     return userForUpdate
+}
+
+
+fun UserContext.encodePassword(passwordEncoder: PasswordEncoder) = apply {
+    val model = this.userModel
+    this.userModel?.password = passwordEncoder.encode(model?.password)
 }

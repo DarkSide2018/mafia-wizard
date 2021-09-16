@@ -1,6 +1,7 @@
 package mafia.wizard.services
 
 import mafia.wizard.mappers.user.createUserEntity
+import mafia.wizard.mappers.user.encodePassword
 import mafia.wizard.mappers.user.setUser
 import mafia.wizard.mappers.user.updateUserEntity
 import mafia.wizard.openapi.models.CommandResponse
@@ -12,12 +13,15 @@ import mappers.user.setQuery
 import mappers.user.toCommandResponse
 import mappers.user.toReadUserResponse
 import models.user.UserContext
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
 class UserCrudService(
-    private val userDetailsRepo: UserDetailsRepo
+    private val userDetailsRepo: UserDetailsRepo,
+    private val passwordEncoder: PasswordEncoder
 ) {
 
     fun getByUuid(uuid: UUID): ReadUserResponse {
@@ -32,6 +36,7 @@ class UserCrudService(
     fun createUser(createUserRequest: CreateUserRequest): CommandResponse {
         val createUserContext = UserContext()
             .setQuery(createUserRequest)
+            .encodePassword(passwordEncoder)
         userDetailsRepo.save(createUserContext.createUserEntity())
         return createUserContext.toCommandResponse()
 
@@ -47,3 +52,4 @@ class UserCrudService(
         return updateUserContext.toCommandResponse()
     }
 }
+

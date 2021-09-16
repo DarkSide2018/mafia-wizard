@@ -16,7 +16,6 @@ import javax.annotation.PostConstruct
 
 @Configuration
 class AppConfig(
-    private var playerRepo: PlayerRepo,
     private val gameMasterRepository: GameMasterRepository
 ) {
     @PostConstruct

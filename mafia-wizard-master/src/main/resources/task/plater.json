@@ -1,29 +1,14 @@
 {
   "item": {
-    "messageType": "ReadPlayerResponse",
-    "result": "success",
-    "requestUUID": "96f10b7a-32b6-4a49-955b-200a52f08601",
-    "playerUuid": "ba79083b-e0e5-45b1-816d-1ddea8fb411e",
-    "nickName": "player1",
-    "foulAmount": 0,
-    "points": "123",
-    "additionalPoints": 0,
-    "penalties": 0,
-    "bestMove": 0,
-    "victoriesRed": 0,
-    "victoriesBlack": 0,
-    "defeatBlack": 0,
-    "defeatRed": 0,
-    "don": 0,
-    "sheriff": 0,
-    "wasKilled": 0,
-    "ratingId": 0,
-    "victoriesPercent": 0,
-    "victories": 0,
-    "victoriesRedPercent": 0,
-    "victoriesBlackPercent": 0,
-    "games": 0,
-    "rating": 0
-  },
-  "messageType": "CreatePlayerRequest"
+    "userUuid": "",
+    "userName": "saa",
+    "password": "aas123",
+    "createdAt": "",
+    "updatedAt": "",
+    "firstName": "",
+    "lastName": "",
+    "email": "",
+    "phoneNumber": "",
+    "messageType": "UpdateUserRequest"
+  }
 }

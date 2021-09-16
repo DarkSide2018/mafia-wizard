@@ -1,6 +1,5 @@
 package mafia.wizard.config
 
-import exceptions.FieldWasNullException
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm

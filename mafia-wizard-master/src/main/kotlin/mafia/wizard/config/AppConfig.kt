@@ -16,26 +16,23 @@ import javax.annotation.PostConstruct
 
 @Configuration
 class AppConfig(
+    private val playerRepo: PlayerRepo,
     private val gameMasterRepository: GameMasterRepository
 ) {
     @PostConstruct
     protected fun init() {
-
         val player = Player()
         player.nickName = "player1"
         val player2 = Player()
         player2.nickName = "player2"
-
+        playerRepo.save(player)
+        playerRepo.save(player2)
         val gameMaster = GameMaster()
         gameMaster.nickName = "nick"
         val game = Game()
         game.gameNumber = 2
         gameMaster.games = mutableListOf(game)
-        gameMaster.addPlayer(player)
-        gameMaster.addPlayer(player2)
         gameMasterRepository.save(gameMaster)
-
-
     }
 
     @Bean

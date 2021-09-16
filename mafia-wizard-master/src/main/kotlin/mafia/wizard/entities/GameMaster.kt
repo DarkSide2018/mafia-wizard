@@ -23,14 +23,6 @@ data class GameMaster(
     )
     var games:MutableList<Game> = mutableListOf(),
 
-    @ManyToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "game_master_to_player",
-        joinColumns = [JoinColumn(referencedColumnName = "game_master_uuid")],
-        inverseJoinColumns = [JoinColumn(referencedColumnName = "player_uuid")]
-    )
-    @Fetch(value = FetchMode.SUBSELECT)
-    var players:MutableList<Player> = mutableListOf(),
 
     @Column(name = "created_at")
     var createdAt: OffsetDateTime? = null,
@@ -39,9 +31,6 @@ data class GameMaster(
 ){
     fun addGame(game: Game){
         games.add(game)
-    }
-    fun addPlayer(player: Player){
-        players.add(player)
     }
 
 }

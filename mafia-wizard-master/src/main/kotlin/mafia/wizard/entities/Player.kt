@@ -57,10 +57,7 @@ data class Player(
     @Column(name = "CREATED_AT")
     var createdAt: OffsetDateTime? = null,
     @Column(name = "UPDATED_AT")
-    var updatedAt: OffsetDateTime? = null,
-    @ManyToMany(mappedBy = "players")
-
-    var gameMasters:List<GameMaster> = mutableListOf()
+    var updatedAt: OffsetDateTime? = null
 
 ) {
 }

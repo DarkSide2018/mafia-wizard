@@ -14,14 +14,15 @@ class GameContext2DataLayer(
         return Game(
             gameUUID = UUID.randomUUID(),
             gameNumber = gameContext.gameModel?.gameNumber ?: throw Exception("game number was null"),
-            players = objectMapper.writeValueAsString(gameContext.gameModel?.players?:throw Exception ("CreateGameContext null players"))
+            players = gameContext.gameModel?.players?.let { objectMapper.writeValueAsString(it) }
         )
+
     }
 
     fun updateGameEntity(updateGameContext: GameContext, gameForUpdate: Game): Game {
         val players = updateGameContext.gameModel?.players
         val gameNumber = updateGameContext.gameModel?.gameNumber
-        players?.let {gameForUpdate.players = objectMapper.writeValueAsString(it)}
+        players?.let { gameForUpdate.players = objectMapper.writeValueAsString(it) }
         gameNumber?.let { gameForUpdate.gameNumber = it }
         return gameForUpdate
     }

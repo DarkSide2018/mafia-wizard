@@ -361,8 +361,7 @@ components:
           description: Когда был апдейт?
           type: string
           format: date-time
-      required:
-        - players
+
     GameMasterInfo:
       description: мета-инфомация для юнита
       type: object

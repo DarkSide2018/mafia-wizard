@@ -17,7 +17,7 @@ class GameController(
         return ResponseEntity.ok(gameService.getByUuid(uuid))
     }
 
-    @GetMapping
+    @GetMapping("/all")
     fun getAll(): ResponseEntity<ReadAllGamesResponse> {
         return ResponseEntity.ok(gameService.getAll())
     }

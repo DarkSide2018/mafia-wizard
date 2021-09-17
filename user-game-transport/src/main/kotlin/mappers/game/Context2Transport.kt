@@ -1,15 +1,12 @@
 package mappers.game
 
 import exceptions.FieldWasNullException
-import mafia.wizard.openapi.models.CommandResponse
-import mafia.wizard.openapi.models.GamePlayerInfo
-import mafia.wizard.openapi.models.ReadGameResponse
+import mafia.wizard.openapi.models.*
 import models.game.GameContext
 import models.game.GamePlayer
 
 
 fun GameContext.toReadGameResponse(): ReadGameResponse {
-    val playerModelNotNull = this.gameModel
     return ReadGameResponse(
         requestUUID = this.requestContext.requestUUID,
         errors = this.requestContext.errors.takeIf { it.isNotEmpty() },
@@ -18,6 +15,21 @@ fun GameContext.toReadGameResponse(): ReadGameResponse {
         players = gameModel?.players?.map { it.toGamePlayerInfo() }
             ?: throw FieldWasNullException("players toReadGameResponse"),
         result = if (this.requestContext.errors.isEmpty()) ReadGameResponse.Result.SUCCESS else ReadGameResponse.Result.ERROR
+    )
+}
+
+fun GameContext.toReadAllGamesResponse(): ReadAllGamesResponse {
+    return ReadAllGamesResponse(
+        requestUUID = this.requestContext.requestUUID,
+        games = this.gameModelList?.map {
+            return@map GameMetaInfo(
+                gameNumber = it.gameNumber,
+                gameUuid = it.gameUUID,
+                players = it.players?.map { gamePlayer -> gamePlayer.toGamePlayerInfo() } ?: listOf()
+            )
+        },
+        errors = this.requestContext.errors.takeIf { it.isNotEmpty() },
+        result = if (this.requestContext.errors.isEmpty()) ReadAllGamesResponse.Result.SUCCESS else ReadAllGamesResponse.Result.ERROR
     )
 }
 

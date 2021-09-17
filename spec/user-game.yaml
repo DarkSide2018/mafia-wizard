@@ -33,26 +33,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CommandResponse'
-    get:
-      tags:
-        - game
-      summary: прочиатать информацию об игре
-      operationId: readGame
-      parameters:
-        - in: path
-          name: gameUuid
-          schema:
-            type: string
-            format: uuid
-          required: true
-          description: Numeric ID of the user to get
-      responses:
-        200:
-          description: all responses
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ReadGameResponse'
     put:
       tags:
         - game
@@ -92,6 +72,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CommandResponse'
+
+  /game/{gameUuid}:
+    get:
+      tags:
+        - game
+      summary: прочиатать информацию об игре
+      operationId: readGame
+      parameters:
+        - in: path
+          name: gameUuid
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: Numeric ID of the user to get
+      responses:
+        200:
+          description: all responses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadGameResponse'
 
   /game/master:
     get:
@@ -299,7 +301,17 @@ components:
         - $ref: 'common.yaml#/components/schemas/BaseResponse'
         - $ref: '#/components/schemas/GameMetaInfo'
 
-
+    ReadAllGamesResponse:
+      description: Структура для ответа на запрос с информацией о юните
+      allOf:
+        - $ref: 'common.yaml#/components/schemas/BaseMessage'
+        - $ref: 'common.yaml#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            games:
+              type: array
+              items:
+                $ref: '#/components/schemas/GameMetaInfo'
     UpdateGameRequest:
       description: Структура для запроса обновления существующего юнита
       allOf:

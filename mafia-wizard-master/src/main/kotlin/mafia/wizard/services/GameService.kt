@@ -3,15 +3,9 @@ package mafia.wizard.services
 import exceptions.FieldWasNullException
 import mafia.wizard.mappers.game.DataLayer2GameContext
 import mafia.wizard.mappers.game.GameContext2DataLayer
-import mafia.wizard.openapi.models.CommandResponse
-import mafia.wizard.openapi.models.CreateGameRequest
-import mafia.wizard.openapi.models.ReadGameResponse
-import mafia.wizard.openapi.models.UpdateGameRequest
+import mafia.wizard.openapi.models.*
 import mafia.wizard.repository.GameRepository
-import mappers.game.setQuery
-import mappers.game.toCreateGameResponse
-import mappers.game.toReadGameResponse
-import mappers.game.toUpdateGameResponse
+import mappers.game.*
 import models.game.GameContext
 import org.springframework.stereotype.Service
 import java.util.*
@@ -29,6 +23,12 @@ class GameService(
         return dataLayer2GameContext
             .setGameIntoContext(GameContext(), game)
             .toReadGameResponse()
+    }
+    fun getAll(): ReadAllGamesResponse {
+        val games = gameRepository.findAll()
+        return dataLayer2GameContext
+            .setGamesIntoContext(GameContext(), games)
+            .toReadAllGamesResponse()
     }
 
     fun createGame(game: CreateGameRequest): CommandResponse {

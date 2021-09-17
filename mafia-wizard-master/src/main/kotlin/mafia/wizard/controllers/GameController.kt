@@ -1,9 +1,6 @@
 package mafia.wizard.controllers
 
-import mafia.wizard.openapi.models.CommandResponse
-import mafia.wizard.openapi.models.CreateGameRequest
-import mafia.wizard.openapi.models.ReadGameResponse
-import mafia.wizard.openapi.models.UpdateGameRequest
+import mafia.wizard.openapi.models.*
 import mafia.wizard.services.GameService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -11,13 +8,18 @@ import java.util.*
 
 @RestController
 @CrossOrigin
-@RequestMapping("/game/")
+@RequestMapping("/game")
 class GameController(
     private val gameService: GameService
 ) {
-    @GetMapping("{uuid}")
+    @GetMapping("/{uuid}")
     fun getByUuid(@PathVariable uuid: UUID): ResponseEntity<ReadGameResponse> {
         return ResponseEntity.ok(gameService.getByUuid(uuid))
+    }
+
+    @GetMapping
+    fun getAll(): ResponseEntity<ReadAllGamesResponse> {
+        return ResponseEntity.ok(gameService.getAll())
     }
 
     @PostMapping

@@ -22,6 +22,11 @@ class PlayerController(
 
         return ResponseEntity.ok(playerService.getByNickName(nickName))
     }
+    @GetMapping("/like")
+    fun getByNicknameLike(@RequestParam("nick") nickName: String): ResponseEntity<ReadAllPlayersResponse> {
+
+        return ResponseEntity.ok(playerService.getByNickNameLike(nickName))
+    }
 
     @GetMapping("/{uuid}")
     fun getByUuid(@PathVariable uuid: UUID): ResponseEntity<ReadPlayerResponse> {
@@ -34,19 +39,19 @@ class PlayerController(
     }
 
     @PostMapping
-    fun createPlayer(@RequestBody createPlayerRequest: CreatePlayerRequest): ResponseEntity<CreatePlayerResponse> {
+    fun createPlayer(@RequestBody createPlayerRequest: CreatePlayerRequest): ResponseEntity<CommandResponse> {
 
         return ResponseEntity.ok(playerService.save(createPlayerRequest))
     }
 
     @PutMapping
-    fun updatePlayer(@RequestBody updatePlayerRequest: UpdatePlayerRequest): ResponseEntity<UpdatePlayerResponse> {
+    fun updatePlayer(@RequestBody updatePlayerRequest: UpdatePlayerRequest): ResponseEntity<CommandResponse> {
 
         return ResponseEntity.ok(playerService.update(updatePlayerRequest))
     }
 
     @DeleteMapping("/{uuid}")
-    fun deletePlayer(@PathVariable uuid: UUID): ResponseEntity<DeletePlayerResponse> {
+    fun deletePlayer(@PathVariable uuid: UUID): ResponseEntity<CommandResponse> {
         playerService.deleteByUuid(uuid)
         return ResponseEntity.ok().build()
     }

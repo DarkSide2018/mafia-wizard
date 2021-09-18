@@ -349,6 +349,7 @@ components:
         gameNumber:
           description: номер игры
           type: integer
+          format: int64
         players:
           type: array
           items:

@@ -112,7 +112,11 @@ components:
             - last
 
 
-
+    CommandResponse:
+      description: Структура для ответа
+      allOf:
+        - $ref: 'common.yaml#/components/schemas/BaseMessage'
+        - $ref: 'common.yaml#/components/schemas/BaseResponse'
 
 
 

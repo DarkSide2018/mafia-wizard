@@ -4,22 +4,22 @@ import java.util.*
 
 data class GameModel(
     var gameUUID:UUID,
-    var gameNumber:Int?,
+    var gameNumber:Long?,
     var players:List<GamePlayer>?=null
 )
 data class GamePlayer(
     val playerUUID: UUID,
-    val foulAmount:Int?=null,
+    val foulAmount:Long?=null,
     val nickName: String?=null,
-    val points: Int?=null,
-    val additionalPoints: Int?=null,
-    val penalties: Int?=null,
-    val bestMove: Int?=null,
-    val victoriesRed: Int?=null,
-    val defeatRed: Int?=null,
-    val victoriesBlack: Int?=null,
-    val defeatBlack: Int?=null,
-    val don: Int?=null,
-    val sheriff: Int?=null,
-    val wasKilled: Int?=null
+    val points: Long?=null,
+    val additionalPoints: Long?=null,
+    val penalties: Long?=null,
+    val bestMove: Long?=null,
+    val victoriesRed: Long?=null,
+    val defeatRed: Long?=null,
+    val victoriesBlack: Long?=null,
+    val defeatBlack: Long?=null,
+    val don: Long?=null,
+    val sheriff: Long?=null,
+    val wasKilled: Long?=null
 )

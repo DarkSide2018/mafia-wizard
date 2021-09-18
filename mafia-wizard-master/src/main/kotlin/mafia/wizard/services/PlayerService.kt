@@ -2,17 +2,13 @@ package mafia.wizard.services
 
 import mafia.wizard.entities.Player
 import mafia.wizard.mappers.player.setPlayer
+import mafia.wizard.mappers.player.setPlayers
 import mafia.wizard.mappers.player.toPlayerEntity
+import mafia.wizard.mappers.player.updatePlayer
 import mafia.wizard.openapi.models.*
 import mafia.wizard.repository.PlayerRepo
-import mappers.setQuery
-import mappers.toCreatePlayerResponse
-import mappers.toReadPlayerResponse
-import mappers.toUpdatePlayerResponse
-import models.CreatePlayerContext
+import mappers.*
 import models.PlayerContext
-import models.ReadPlayerContext
-import models.UpdatePlayerContext
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.*
@@ -29,35 +25,42 @@ class PlayerService {
     fun getByUuid(uuid: UUID): ReadPlayerResponse {
         val player = playerRepo.findById(uuid)
             .orElseThrow { return@orElseThrow RuntimeException("no such element with uuid : $uuid") }
-        return ReadPlayerContext()
+        return PlayerContext()
             .setPlayer(player)
             .toReadPlayerResponse()
     }
 
     fun getByNickName(nick: String): ReadPlayerResponse {
         val player = playerRepo.findByNickName(nick) ?: throw RuntimeException("no such player")
-        return ReadPlayerContext()
+        return PlayerContext()
             .setPlayer(player)
             .toReadPlayerResponse()
     }
 
-    fun save(createPlayerRequest: CreatePlayerRequest): CreatePlayerResponse {
-        val createPlayerContext = CreatePlayerContext()
-            .setQuery(createPlayerRequest)
-        playerRepo.save(createPlayerContext.toPlayerEntity())
-        return createPlayerContext.toCreatePlayerResponse()
+    fun getByNickNameLike(nick: String): ReadAllPlayersResponse {
+        val players = playerRepo.findByNickNameLike("%${nick}%") ?: throw RuntimeException("no such players")
+        return PlayerContext()
+            .setPlayers(players)
+            .toReadAllPlayersResponse()
     }
 
-    fun update(updatePlayerRequest: UpdatePlayerRequest): UpdatePlayerResponse {
+    fun save(createPlayerRequest: CreatePlayerRequest): CommandResponse {
+        val createPlayerContext = PlayerContext()
+            .setQuery(createPlayerRequest)
+        playerRepo.save(createPlayerContext.toPlayerEntity())
+        return createPlayerContext.toCommandResponse()
+    }
+
+    fun update(updatePlayerRequest: UpdatePlayerRequest): CommandResponse {
         val playerUuid =
             updatePlayerRequest.playerUuid ?: throw RuntimeException("UpdatePlayerRequest empty player uuid")
         val playerForUpdate = playerRepo.findById(playerUuid)
             .orElseThrow { return@orElseThrow RuntimeException("no such element with uuid : $playerUuid") }
-        val updatePlayerContext = UpdatePlayerContext(playerUuid)
+        val updatePlayerContext = PlayerContext()
             .setQuery(updatePlayerRequest)
 
-        playerRepo.save(updatePlayerContext.toPlayerEntity(playerForUpdate))
-        return updatePlayerContext.toUpdatePlayerResponse()
+        playerRepo.save(updatePlayerContext.updatePlayer(playerForUpdate))
+        return updatePlayerContext.toCommandResponse()
     }
 
     fun deleteByUuid(uuid: UUID) {

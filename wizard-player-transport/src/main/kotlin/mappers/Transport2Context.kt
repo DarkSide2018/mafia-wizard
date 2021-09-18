@@ -1,24 +1,24 @@
 package mappers
 
+import exceptions.FieldWasNullException
 import mafia.wizard.openapi.models.CreatePlayerRequest
-import mafia.wizard.openapi.models.DeletePlayerRequest
-import mafia.wizard.openapi.models.ReadPlayerRequest
 import mafia.wizard.openapi.models.UpdatePlayerRequest
-import models.*
+import models.PlayerContext
+import models.PlayerModel
 import java.util.*
 
-fun CreatePlayerContext.setQuery(query: CreatePlayerRequest) = apply {
+fun PlayerContext.setQuery(query: CreatePlayerRequest) = apply {
     requestUUID = UUID.randomUUID()
     playerModel = query.toModel()
 }
 
-fun UpdatePlayerContext.setQuery(query: UpdatePlayerRequest) = apply {
-    playerUUID = query.playerUuid ?: throw Exception("UpdatePlayerRequest empty playerUuid")
+fun PlayerContext.setQuery(query: UpdatePlayerRequest) = apply {
     requestUUID = UUID.randomUUID()
     playerModel = query.toModel()
 }
 
 private fun CreatePlayerRequest.toModel() = PlayerModel(
+    playerUUID  = UUID.randomUUID(),
     ratingId = this.ratingId ?: 0,
     foulAmount = this.foulAmount ?: 0,
     nickName = this.nickName ?: throw Exception("CreatePlayerRequest empty nickName"),
@@ -42,6 +42,7 @@ private fun CreatePlayerRequest.toModel() = PlayerModel(
 )
 
 private fun UpdatePlayerRequest.toModel() = PlayerModel(
+    playerUUID = this.playerUuid?:throw FieldWasNullException("player uuid"),
     ratingId = this.ratingId,
     foulAmount = this.foulAmount,
     nickName = this.nickName,

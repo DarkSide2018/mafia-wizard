@@ -1,7 +1,8 @@
 package models
 
 open class PlayerContext(
-    var playerModel:PlayerModel?=null
-):RequestContext() {
+    var playerModel: PlayerModel? = null,
+    var playerModelList: List<PlayerModel>? = null
+) : RequestContext() {
 
 }

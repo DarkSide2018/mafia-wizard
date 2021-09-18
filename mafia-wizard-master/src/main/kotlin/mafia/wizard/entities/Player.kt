@@ -1,8 +1,6 @@
 package mafia.wizard.entities
 
 
-import org.hibernate.annotations.Fetch
-import org.hibernate.annotations.FetchMode
 import java.time.OffsetDateTime
 import java.util.*
 import javax.persistence.*
@@ -15,43 +13,43 @@ data class Player(
     @GeneratedValue
     val playerUuid: UUID=UUID.randomUUID(),
     //1. Порядковый номер в рейтинге +
-    var ratingId:Int = 0,
+    var ratingId:Long = 0,
     //2. Количество фолов +
-    var foulAmount:Int=0,
+    var foulAmount:Long=0,
     //3. Игровой Ник +
     var nickName: String? = null,
     //4. Сумма баллов +
-    var points: Int = 0,
+    var points: Long = 0,
     //5. Дополнительные баллы за игру (сумма) +
-    var additionalPoints: Int = 0,
+    var additionalPoints: Long = 0,
     //6. Штрафные баллы (сумма) +
-    var penalties: Int = 0,
+    var penalties: Long = 0,
     //7. Лучший ход я(сумма) +
-    var bestMove: Int = 0,
+    var bestMove: Long = 0,
     //8. Число побед всего +
-    var victories: Int = 0,
+    var victories: Long = 0,
     //9. Процент побед
-    var victoriesPercent: Int = 0,
+    var victoriesPercent: Long = 0,
     //10. Количество побед за красных +
-    var victoriesRed: Int = 0,
+    var victoriesRed: Long = 0,
     //11. Процент побед за красных +
-    var victoriesRedPercent: Int = 0,
+    var victoriesRedPercent: Long = 0,
     //12. Количество поражений за красных +
-    var defeatRed: Int = 0,
+    var defeatRed: Long = 0,
     //13. Количество побед за чёрных +
-    var victoriesBlack: Int = 0,
+    var victoriesBlack: Long = 0,
     //14. Количество поражений за чёрных +
-    var defeatBlack: Int = 0,
+    var defeatBlack: Long = 0,
     //15. Процент побед за черных +
-    var victoriesBlackPercent: Int = 0,
+    var victoriesBlackPercent: Long = 0,
     //16. Количество побед за Дона +
-    var don: Int = 0,
+    var don: Long = 0,
     //17. Количество побед за шерифа +
-    var sheriff: Int = 0,
+    var sheriff: Long = 0,
     //18. Количество первых отстрелов +
-    var wasKilled: Int = 0,
+    var wasKilled: Long = 0,
     //19. Число игр всего +
-    var games: Int = 0,
+    var games: Long = 0,
     //20. Итоговый рейтинг (процент побед умножить на сумму баллов)
     var rating: Double = 0.0,
     @Column(name = "CREATED_AT")

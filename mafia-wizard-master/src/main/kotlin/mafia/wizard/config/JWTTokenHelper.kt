@@ -25,6 +25,7 @@ class JWTTokenHelper {
     private val SIGNATURE_ALGORITHM = SignatureAlgorithm.HS256
 
     private fun getAllClaimsFromToken(token: String): Claims {
+
         return Jwts.parser()
             .setSigningKey(secretKey)
             .parseClaimsJws(token)

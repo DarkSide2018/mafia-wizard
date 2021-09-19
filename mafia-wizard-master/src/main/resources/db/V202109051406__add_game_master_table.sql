@@ -10,9 +10,9 @@ CREATE TABLE wizard.game_masters (
 CREATE TABLE wizard.games (
                                      game_uuid      UUID          NOT NULL,
                                      game_number    int8          not NULL default 0,
-                                     players        JSON           null,
-                                     updated_at            TIMESTAMPTZ   NULL default now(),
-                                     created_at            TIMESTAMPTZ   NULL default now(),
+                                     players        JSON              null,
+                                     updated_at     TIMESTAMPTZ       NULL default now(),
+                                     created_at     TIMESTAMPTZ       NULL default now(),
                                      CONSTRAINT game_pk PRIMARY KEY (game_uuid)
 );
 

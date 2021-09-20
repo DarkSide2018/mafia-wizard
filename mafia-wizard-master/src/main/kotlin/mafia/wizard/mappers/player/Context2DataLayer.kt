@@ -2,6 +2,9 @@ package mafia.wizard.mappers.player
 
 import mafia.wizard.entities.Player
 import models.PlayerContext
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import java.lang.Exception
 import java.time.OffsetDateTime
 import java.util.*
@@ -62,4 +65,20 @@ fun PlayerContext.updatePlayer(playerToUpdate: Player): Player {
         playerToUpdate.updatedAt = OffsetDateTime.now()
     }
     return playerToUpdate
+}
+
+fun PlayerContext.createPageRequest(): PageRequest {
+    return PageRequest.of(
+        this.pageNumber?:0,
+        this.pageSize?:10,
+        mapSorting(this.sortBy,this.sortDir)
+    )
+}
+private fun mapSorting(sortBy: String?,value:String?): Sort {
+    if(sortBy == null) return Sort.by("createdAt").ascending()
+    return when(value){
+        "asc" -> Sort.by(sortBy).ascending()
+        "desc" -> Sort.by(sortBy).descending()
+        else -> Sort.by(sortBy).ascending()
+    }
 }

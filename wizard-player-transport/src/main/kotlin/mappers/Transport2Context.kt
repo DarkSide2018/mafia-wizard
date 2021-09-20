@@ -2,20 +2,31 @@ package mappers
 
 import exceptions.FieldWasNullException
 import mafia.wizard.openapi.models.CreatePlayerRequest
+import mafia.wizard.openapi.models.SearchPlayerRequest
 import mafia.wizard.openapi.models.UpdatePlayerRequest
 import models.PlayerContext
 import models.PlayerModel
 import java.util.*
 
-fun PlayerContext.setQuery(query: CreatePlayerRequest) = apply {
+fun PlayerContext.setCommand(query: CreatePlayerRequest) = apply {
     requestUUID = UUID.randomUUID()
     playerModel = query.toModel()
 }
 
-fun PlayerContext.setQuery(query: UpdatePlayerRequest) = apply {
+fun PlayerContext.setCommand(query: UpdatePlayerRequest) = apply {
     requestUUID = UUID.randomUUID()
     playerModel = query.toModel()
 }
+
+fun PlayerContext.setQuery(searchPlayerRequest: SearchPlayerRequest) = apply {
+    requestUUID = UUID.randomUUID()
+    pageSize = searchPlayerRequest.pageSize
+    pageNumber = searchPlayerRequest.pageNumber
+    sortBy = searchPlayerRequest.sortBy
+    sortDir = searchPlayerRequest.sortDir
+    search = searchPlayerRequest.nickName
+}
+
 
 private fun CreatePlayerRequest.toModel() = PlayerModel(
     playerUUID  = UUID.randomUUID(),

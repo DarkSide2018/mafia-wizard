@@ -4,6 +4,8 @@ import mafia.wizard.entities.Player
 import mafia.wizard.openapi.models.*
 import mafia.wizard.services.PlayerService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
@@ -22,10 +24,10 @@ class PlayerController(
 
         return ResponseEntity.ok(playerService.getByNickName(nickName))
     }
-    @GetMapping("/like")
-    fun getByNicknameLike(@RequestParam("nick") nickName: String): ResponseEntity<ReadAllPlayersResponse> {
+    @PostMapping("/like")
+    fun getByNicknameLike(@RequestBody searchPlayerRequest: SearchPlayerRequest): ResponseEntity<ReadAllPlayersResponse> {
 
-        return ResponseEntity.ok(playerService.getByNickNameLike(nickName))
+        return ResponseEntity.ok(playerService.getByNickNameLike(searchPlayerRequest))
     }
 
     @GetMapping("/{uuid}")
@@ -55,4 +57,5 @@ class PlayerController(
         playerService.deleteByUuid(uuid)
         return ResponseEntity.ok().build()
     }
+
 }

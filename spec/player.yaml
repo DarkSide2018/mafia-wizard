@@ -183,6 +183,12 @@ components:
         - $ref: 'common.yaml#/components/schemas/BaseResponse'
         - type: object
           properties:
+            totalPages:
+              type: string
+            totalElements:
+              type: string
+        - type: object
+          properties:
             players:
               type: array
               items:
@@ -244,8 +250,9 @@ components:
         - $ref: 'common.yaml#/components/schemas/BaseRequest'
         - type: object
           properties:
-            page:
-              $ref: 'common.yaml#/components/schemas/BasePaginatedRequest'
+            nickName:
+              type: string
+        - $ref: 'common.yaml#/components/schemas/BasePaginatedRequest'
 
     PlayerMetaInfo:
       description: мета-инфомация для юнита
@@ -350,6 +357,7 @@ components:
           type: integer
           format: int64
 
+
     SearchPlayerResponse:
       description: Структура для ответа на запрос поиска юнитов
       allOf:
@@ -363,4 +371,5 @@ components:
               type: array
               items:
                 $ref: 'common.yaml#/components/schemas/ResponseMessage'
+
 

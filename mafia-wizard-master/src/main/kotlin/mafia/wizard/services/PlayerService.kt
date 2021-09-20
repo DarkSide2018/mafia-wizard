@@ -1,15 +1,13 @@
 package mafia.wizard.services
 
 import mafia.wizard.entities.Player
-import mafia.wizard.mappers.player.setPlayer
-import mafia.wizard.mappers.player.setPlayers
-import mafia.wizard.mappers.player.toPlayerEntity
-import mafia.wizard.mappers.player.updatePlayer
+import mafia.wizard.mappers.player.*
 import mafia.wizard.openapi.models.*
 import mafia.wizard.repository.PlayerRepo
 import mappers.*
 import models.PlayerContext
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -37,16 +35,17 @@ class PlayerService {
             .toReadPlayerResponse()
     }
 
-    fun getByNickNameLike(nick: String): ReadAllPlayersResponse {
-        val players = playerRepo.findByNickNameLike("%${nick}%") ?: throw RuntimeException("no such players")
-        return PlayerContext()
+    fun getByNickNameLike(searchPlayerRequest: SearchPlayerRequest): ReadAllPlayersResponse {
+        val context = PlayerContext().setQuery(searchPlayerRequest)
+        val players = playerRepo.findByNickName(context.createPageRequest(),"%${context.search}%") ?: throw RuntimeException("no such players")
+        return context
             .setPlayers(players)
             .toReadAllPlayersResponse()
     }
 
     fun save(createPlayerRequest: CreatePlayerRequest): CommandResponse {
         val createPlayerContext = PlayerContext()
-            .setQuery(createPlayerRequest)
+            .setCommand(createPlayerRequest)
         playerRepo.save(createPlayerContext.toPlayerEntity())
         return createPlayerContext.toCommandResponse()
     }
@@ -57,7 +56,7 @@ class PlayerService {
         val playerForUpdate = playerRepo.findById(playerUuid)
             .orElseThrow { return@orElseThrow RuntimeException("no such element with uuid : $playerUuid") }
         val updatePlayerContext = PlayerContext()
-            .setQuery(updatePlayerRequest)
+            .setCommand(updatePlayerRequest)
 
         playerRepo.save(updatePlayerContext.updatePlayer(playerForUpdate))
         return updatePlayerContext.toCommandResponse()

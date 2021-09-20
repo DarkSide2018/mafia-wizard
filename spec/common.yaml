@@ -85,13 +85,24 @@ components:
       type: object
       description: Структура с описанием запрашиваемой страницы в запросах списков
       properties:
-        size:
+        pageSize:
           type: integer
           description: Размер запрашиваемой страницы
           format: int32
+        pageNumber:
+          type: integer
+          description: Размер запрашиваемой страницы
+          format: int32
+        sortBy:
+          type: string
+          description: по какому полю сортируем?
+        sortDir:
+          type: string
+          description: направление сортировки
         lastId:
           type: string
           description: Идентификатор последнего объекта предыдущей страницы
+
 
     BasePaginatedResponse:
       type: object

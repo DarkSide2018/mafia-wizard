@@ -7,6 +7,7 @@ import mafia.wizard.repository.PlayerRepo
 import mappers.*
 import models.PlayerContext
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.util.*
@@ -16,8 +17,12 @@ class PlayerService {
     @Autowired
     private lateinit var playerRepo: PlayerRepo
 
-    fun getAll(): MutableList<Player> {
-        return playerRepo.findAll()
+    fun getAll(readAllPlayersRequest: ReadAllPlayersRequest): ReadAllPlayersResponse {
+        val context = PlayerContext().setQuery(readAllPlayersRequest)
+        val all = playerRepo.findAll(context.createPageRequest())
+        return context
+            .setPlayers(all)
+            .toReadAllPlayersResponse()
     }
 
     fun getByUuid(uuid: UUID): ReadPlayerResponse {

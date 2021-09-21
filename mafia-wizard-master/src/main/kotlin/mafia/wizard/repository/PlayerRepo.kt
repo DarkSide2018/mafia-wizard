@@ -17,4 +17,5 @@ interface PlayerRepo: JpaRepository<Player, UUID> {
     @Query("FROM Player p WHERE p.nickName LIKE %:searchText% ORDER BY p.createdAt DESC ")
     fun findByNickName(page:Pageable, @Param("searchText") searchText: String): Page<Player>?
 
+//    fun findAllBy(page: Pageable): Page<Player>?
 }

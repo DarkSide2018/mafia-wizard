@@ -1,11 +1,8 @@
 package mafia.wizard.controllers
 
-import mafia.wizard.entities.Player
 import mafia.wizard.openapi.models.*
 import mafia.wizard.services.PlayerService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.domain.PageRequest
-import org.springframework.data.domain.Sort
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
@@ -35,9 +32,9 @@ class PlayerController(
 
         return ResponseEntity.ok(playerService.getByUuid(uuid))
     }
-    @GetMapping("/all")
-    fun getAll(): ResponseEntity<List<Player>>{
-        return ResponseEntity.ok(playerService.getAll())
+    @PostMapping("/all")
+    fun getAll(@RequestBody readAllPlayersRequest: ReadAllPlayersRequest): ResponseEntity<ReadAllPlayersResponse> {
+        return ResponseEntity.ok(playerService.getAll(readAllPlayersRequest))
     }
 
     @PostMapping

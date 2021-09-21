@@ -2,6 +2,7 @@ package mappers
 
 import exceptions.FieldWasNullException
 import mafia.wizard.openapi.models.CreatePlayerRequest
+import mafia.wizard.openapi.models.ReadAllPlayersRequest
 import mafia.wizard.openapi.models.SearchPlayerRequest
 import mafia.wizard.openapi.models.UpdatePlayerRequest
 import models.PlayerContext
@@ -25,6 +26,13 @@ fun PlayerContext.setQuery(searchPlayerRequest: SearchPlayerRequest) = apply {
     sortBy = searchPlayerRequest.sortBy
     sortDir = searchPlayerRequest.sortDir
     search = searchPlayerRequest.nickName
+}
+fun PlayerContext.setQuery(readAllPlayersRequest: ReadAllPlayersRequest) = apply {
+    requestUUID = UUID.randomUUID()
+    pageSize = readAllPlayersRequest.pageSize
+    pageNumber = readAllPlayersRequest.pageNumber
+    sortBy = readAllPlayersRequest.sortBy
+    sortDir = readAllPlayersRequest.sortDir
 }
 
 

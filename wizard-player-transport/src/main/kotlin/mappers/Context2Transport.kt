@@ -38,6 +38,9 @@ fun PlayerContext.toReadPlayerResponse(): ReadPlayerResponse {
 
 fun PlayerContext.toReadAllPlayersResponse(): ReadAllPlayersResponse {
     return ReadAllPlayersResponse(
+        totalPages = this.totalPages,
+        totalElements = this.totalElements,
+        pageNumber = this.pageNumber,
         requestUUID = this.requestUUID,
         players = this.playerModelList?.map {
             PlayerMetaInfo(

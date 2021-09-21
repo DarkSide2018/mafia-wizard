@@ -15,6 +15,7 @@ fun PlayerContext.setPlayers(players: List<Player>) = apply {
 fun PlayerContext.setPlayers(players: Page<Player>) = apply {
     totalPages = players.totalPages
     totalElements = players.totalElements
+    pageNumber = players.number
     playerModelList = players.content.map { it.toModel() }
 }
 

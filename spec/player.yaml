@@ -13,6 +13,27 @@ tags:
   - name: player
     description: создание, обновление, чтение, удаление и поиск игроков мафии
 paths:
+  /player/all:
+    post:
+      tags:
+        - player
+      summary: получить всех игроков
+      operationId: getAllPlayeers
+      requestBody:
+        description: Объект запроса для получения всех игроков
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePlayerRequest'
+        required: true
+      responses:
+        200:
+          description: all responses
+          content:
+            application/json:
+              schema:
+                $ref: 'common.yaml#/components/schemas/CommandResponse'
+
   /player/create:
     post:
       tags:
@@ -137,6 +158,12 @@ paths:
                 $ref: '#/components/schemas/ReadAllPlayersResponse'
 components:
   schemas:
+    ReadAllPlayersRequest:
+      description: Структура для создания юнита в репоизтории
+      allOf:
+        - $ref: 'common.yaml#/components/schemas/BaseMessage'
+        - $ref: 'common.yaml#/components/schemas/BaseRequest'
+        - $ref: 'common.yaml#/components/schemas/BasePaginatedRequest'
     CreatePlayerRequest:
       description: Структура для создания юнита в репоизтории
       allOf:
@@ -184,9 +211,12 @@ components:
         - type: object
           properties:
             totalPages:
-              type: string
+              type: integer
+            pageNumber:
+              type: integer
             totalElements:
-              type: string
+              type: integer
+              format: int64
         - type: object
           properties:
             players:

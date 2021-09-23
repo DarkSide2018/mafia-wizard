@@ -9,7 +9,8 @@ CREATE TABLE wizard.game_masters (
 
 CREATE TABLE wizard.games (
                                      game_uuid      UUID          NOT NULL,
-                                     game_number    int8          not NULL default 0,
+                                     game_number    int8              NULL default 0,
+                                     name           VARCHAR        NULL,
                                      players        JSON              null,
                                      updated_at     TIMESTAMPTZ       NULL default now(),
                                      created_at     TIMESTAMPTZ       NULL default now(),

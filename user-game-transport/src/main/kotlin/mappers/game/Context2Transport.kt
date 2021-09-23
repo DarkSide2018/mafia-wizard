@@ -1,9 +1,8 @@
 package mappers.game
 
-import exceptions.FieldWasNullException
 import mafia.wizard.openapi.models.*
+import models.PlayerModel
 import models.game.GameContext
-import models.game.GamePlayer
 
 
 fun GameContext.toReadGameResponse(): ReadGameResponse {
@@ -32,7 +31,7 @@ fun GameContext.toReadAllGamesResponse(): ReadAllGamesResponse {
     )
 }
 
-fun GameContext.toCreateGameResponse(): CommandResponse {
+fun GameContext.toCommandResponse(): CommandResponse {
     val errors = this.requestContext.errors
     return CommandResponse(
         requestUUID = this.requestContext.requestUUID,
@@ -41,16 +40,8 @@ fun GameContext.toCreateGameResponse(): CommandResponse {
     )
 }
 
-fun GameContext.toUpdateGameResponse(): CommandResponse {
-    val errors = this.requestContext.errors
-    return CommandResponse(
-        requestUUID = this.requestContext.requestUUID,
-        errors = errors.takeIf { it.isNotEmpty() },
-        result = if (errors.isEmpty()) CommandResponse.Result.SUCCESS else CommandResponse.Result.ERROR
-    )
-}
 
-fun GamePlayer.toGamePlayerInfo(): GamePlayerInfo {
+fun PlayerModel.toGamePlayerInfo(): GamePlayerInfo {
     return GamePlayerInfo(
         playerUuid = this.playerUUID,
         nickName = this.nickName,

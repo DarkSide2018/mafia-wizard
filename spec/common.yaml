@@ -20,9 +20,6 @@ components:
       type: object
       description: Базовый класс для запросов и  ответов
       properties:
-        messageUUID:
-          type: string
-          format: uuid
         messageType:
           type: string
           title: Дискриминатор

@@ -23,7 +23,8 @@ data class Game(
     var gameMaster: List<GameMaster> = mutableListOf(),
     @Column(name = "game_number")
     var gameNumber: Long = 0,
-
+    @Column(name = "name")
+    var name: String?=null,
     @Type(type = "json")
     @Column(columnDefinition = "jsonb")
     var players: String? = null,

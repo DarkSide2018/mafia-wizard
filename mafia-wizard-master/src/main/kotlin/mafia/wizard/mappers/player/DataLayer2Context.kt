@@ -19,7 +19,7 @@ fun PlayerContext.setPlayers(players: Page<Player>) = apply {
     playerModelList = players.content.map { it.toModel() }
 }
 
-private fun Player.toModel() = PlayerModel(
+ fun Player.toModel() = PlayerModel(
     playerUUID = this.playerUuid,
     ratingId = this.ratingId,
     foulAmount = this.foulAmount,

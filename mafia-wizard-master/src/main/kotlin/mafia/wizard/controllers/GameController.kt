@@ -26,6 +26,10 @@ class GameController(
     fun createGame(@RequestBody game: CreateGameRequest): ResponseEntity<CommandResponse> {
         return ResponseEntity.ok(gameService.createGame(game))
     }
+    @PostMapping("/player")
+    fun addPlayer(@RequestBody request: AddPlayerRequest): ResponseEntity<CommandResponse> {
+        return ResponseEntity.ok(gameService.addPlayer(request))
+    }
 
     @PutMapping
     fun updateGame(@RequestBody game: UpdateGameRequest): ResponseEntity<CommandResponse> {
@@ -37,4 +41,5 @@ class GameController(
         gameService.deleteGame(uuid)
         return ResponseEntity.ok().build<String>()
     }
+
 }

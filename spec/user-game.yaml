@@ -13,6 +13,24 @@ tags:
   - name: game
     description: создание, обновление, чтение,  и поиск игр мафии
 paths:
+  /game/player:
+    post:
+      tags:
+        - addPlayer
+      summary: добавить игрока в игру
+      requestBody:
+        description: Объект запроса для создания юнита
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddPlayerRequest'
+      responses:
+        200:
+          description: all responses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommandResponse'
   /game:
     post:
       tags:
@@ -273,6 +291,19 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/GameMasterInfo'
+    AddPlayerRequest:
+      description: Структура для создания юнита в репоизтории
+      allOf:
+        - $ref: 'common.yaml#/components/schemas/BaseMessage'
+        - $ref: 'common.yaml#/components/schemas/BaseRequest'
+        - type: object
+          properties:
+            playerUuid:
+              type: string
+              format: uuid
+            gameUuid:
+              type: string
+              format: uuid
     CreateGameRequest:
       description: Структура для создания юнита в репоизтории
       allOf:
@@ -346,6 +377,9 @@ components:
           description: идентификатор игры
           type: string
           format: uuid
+        name:
+          description: имя игры
+          type: string
         gameNumber:
           description: номер игры
           type: integer

@@ -16,6 +16,7 @@ repositories {
 val postgresDriverVersion: String by project
 
 dependencies {
+    val jacksonVersion: String by project
     implementation(project(":wizard-player-transport"))
     implementation(project(":user-game-transport"))
     implementation(project(":transport-objects"))
@@ -27,8 +28,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security:$springBootVersion")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion")
     implementation(kotlin("stdlib"))
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.12.5")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.12.5")
+    implementation("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
+    implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.1.51")
     implementation("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion")
     implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")

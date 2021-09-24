@@ -35,7 +35,7 @@ class GameService(
             .toReadAllGamesResponse()
     }
 
-    fun addPlayer(request: AddPlayerRequest): CommandResponse {
+    fun addPlayer(request: AddPlayerRequest): BaseResponse {
         val game = gameRepository.getById(request.gameUuid?:throw FieldWasNullException("gameUuid"))
         val player = playerRepo.getById(request.playerUuid?:throw FieldWasNullException("playerUuid"))
         val gameContext = GameContext()
@@ -48,14 +48,14 @@ class GameService(
         return gameContext.toCommandResponse()
     }
 
-    fun createGame(game: CreateGameRequest): CommandResponse {
+    fun createGame(game: CreateGameRequest): BaseResponse {
         val gameContext = GameContext().setQuery(game)
         val gameEntity = gameContext2DataLayer.toGameEntity(gameContext)
         gameRepository.save(gameEntity)
         return gameContext.toCommandResponse()
     }
 
-    fun updateGame(game: UpdateGameRequest): CommandResponse {
+    fun updateGame(game: UpdateGameRequest): BaseResponse {
         val gameContext = GameContext().setQuery(game)
         val gameForUpdate = gameRepository
             .findById(game.gameUuid ?: throw FieldWasNullException("updateGame gameUUID"))

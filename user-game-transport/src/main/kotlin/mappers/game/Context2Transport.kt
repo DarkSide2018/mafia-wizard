@@ -1,5 +1,6 @@
 package mappers.game
 
+import exceptions.FieldWasNullException
 import mafia.wizard.openapi.models.*
 import models.PlayerModel
 import models.game.GameContext
@@ -31,12 +32,13 @@ fun GameContext.toReadAllGamesResponse(): ReadAllGamesResponse {
     )
 }
 
-fun GameContext.toCommandResponse(): CommandResponse {
+fun GameContext.toCommandResponse(): BaseResponse {
     val errors = this.requestContext.errors
-    return CommandResponse(
+    return BaseResponse(
+        entityUuid = this.gameModel?.gameUUID?:throw FieldWasNullException("gameUUID"),
         requestUUID = this.requestContext.requestUUID,
         errors = errors.takeIf { it.isNotEmpty() },
-        result = if (errors.isEmpty()) CommandResponse.Result.SUCCESS else CommandResponse.Result.ERROR
+        result = if (errors.isEmpty()) BaseResponse.Result.SUCCESS else BaseResponse.Result.ERROR
     )
 }
 

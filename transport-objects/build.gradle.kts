@@ -15,7 +15,7 @@ dependencies {
 
     implementation(kotlin("stdlib"))
     testImplementation(kotlin("test-junit"))
-
+    implementation("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
 

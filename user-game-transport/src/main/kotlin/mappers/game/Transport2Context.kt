@@ -24,12 +24,14 @@ fun GameContext.addPlayerToGame(player:PlayerModel,gameModel: GameModel) = apply
 
 private fun CreateGameRequest.toModel() = GameModel(
     gameUUID = UUID.randomUUID(),
+    name = this.name,
     gameNumber = this.gameNumber,
     players = this.players?.map { PlayerModel(playerUUID = it.playerUuid?:throw FieldWasNullException("playerUuid"))}?.toMutableList()?: mutableListOf()
 )
 
 private fun UpdateGameRequest.toModel() = GameModel(
     gameUUID = this.gameUuid?:throw FieldWasNullException("UpdateGameRequest gameUuid"),
+    name = this.name,
     gameNumber = this.gameNumber,
     players = this.players?.map { PlayerModel(playerUUID = it.playerUuid?:throw FieldWasNullException("playerUuid"))}?.toMutableList()?: mutableListOf()
 )

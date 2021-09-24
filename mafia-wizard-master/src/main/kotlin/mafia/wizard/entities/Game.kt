@@ -22,7 +22,7 @@ data class Game(
     @ManyToMany(mappedBy = "games")
     var gameMaster: List<GameMaster> = mutableListOf(),
     @Column(name = "game_number")
-    var gameNumber: Long = 0,
+    var gameNumber: Long? = null,
     @Column(name = "name")
     var name: String?=null,
     @Type(type = "json")

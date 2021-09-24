@@ -13,7 +13,8 @@ class GameContext2DataLayer(
     fun toGameEntity(gameContext: GameContext): Game {
         return Game(
             gameUUID = UUID.randomUUID(),
-            gameNumber = gameContext.gameModel?.gameNumber ?: throw Exception("game number was null"),
+            name = gameContext.gameModel?.name,
+            gameNumber = gameContext.gameModel?.gameNumber,
             players = gameContext.gameModel?.players?.let { objectMapper.writeValueAsString(it) }
         )
 

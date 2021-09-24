@@ -38,6 +38,9 @@ components:
     BaseResponse:
       description: Базовый класс для всех ответов
       properties:
+        entityUuid:
+          type: string
+          format: uuid
         requestUUID:
           type: string
           format: uuid
@@ -119,12 +122,6 @@ components:
             - middle
             - last
 
-
-    CommandResponse:
-      description: Структура для ответа
-      allOf:
-        - $ref: 'common.yaml#/components/schemas/BaseMessage'
-        - $ref: 'common.yaml#/components/schemas/BaseResponse'
 
 
 

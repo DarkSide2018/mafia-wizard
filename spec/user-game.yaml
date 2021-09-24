@@ -30,7 +30,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CommandResponse'
+                $ref: 'common.yaml#/components/schemas/BaseResponse'
   /game:
     post:
       tags:
@@ -50,7 +50,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CommandResponse'
+                $ref: 'common.yaml#/components/schemas/BaseResponse'
     put:
       tags:
         - game
@@ -69,7 +69,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CommandResponse'
+                $ref: 'common.yaml#/components/schemas/BaseResponse'
     delete:
       tags:
         - game
@@ -89,7 +89,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CommandResponse'
+                $ref: 'common.yaml#/components/schemas/BaseResponse'
 
   /game/{gameUuid}:
     get:
@@ -152,7 +152,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CommandResponse'
+                $ref: 'common.yaml#/components/schemas/BaseResponse'
 
     put:
       tags:
@@ -172,7 +172,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CommandResponse'
+                $ref: 'common.yaml#/components/schemas/BaseResponse'
     delete:
       tags:
         - gameMaster
@@ -192,7 +192,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CommandResponse'
+                $ref: 'common.yaml#/components/schemas/BaseResponse'
   /game/master/all:
     get:
       tags:
@@ -246,7 +246,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CommandResponse'
+                $ref: 'common.yaml#/components/schemas/BaseResponse'
     put:
       tags:
         - user
@@ -265,7 +265,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CommandResponse'
+                $ref: 'common.yaml#/components/schemas/BaseResponse'
 components:
   schemas:
     ReadGameMasterResponse:
@@ -363,11 +363,6 @@ components:
         - $ref: 'common.yaml#/components/schemas/BaseRequest'
         - $ref: '#/components/schemas/UserInfo'
 
-    CommandResponse:
-      description: Структура для ответа на запрос об удалении юнита
-      allOf:
-        - $ref: 'common.yaml#/components/schemas/BaseMessage'
-        - $ref: 'common.yaml#/components/schemas/BaseResponse'
 
     GameMetaInfo:
       description: мета-инфомация для юнита

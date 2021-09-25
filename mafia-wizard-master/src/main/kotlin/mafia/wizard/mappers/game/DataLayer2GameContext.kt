@@ -2,6 +2,7 @@ package mafia.wizard.mappers.game
 
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
+import exceptions.FieldWasNullException
 import mafia.wizard.entities.Game
 import models.PlayerModel
 import models.game.GameContext
@@ -25,7 +26,8 @@ class DataLayer2GameContext(
 
     fun gameToGameModel(game: Game): GameModel {
         val model = GameModel(
-            gameUUID = game.gameUUID,
+            gameUUID = game.gameUUID?:throw FieldWasNullException("gameToGameModel gameUUID"),
+            name = game.name,
             gameNumber = game.gameNumber,
         )
         with(model) {

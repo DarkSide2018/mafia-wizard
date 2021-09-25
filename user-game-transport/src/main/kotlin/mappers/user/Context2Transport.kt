@@ -1,7 +1,8 @@
 package mappers.user
 
 import exceptions.FieldWasNullException
-import mafia.wizard.openapi.models.CommandResponse
+import mafia.wizard.openapi.models.BaseResponse
+
 import mafia.wizard.openapi.models.ReadUserResponse
 import models.user.UserContext
 
@@ -16,11 +17,11 @@ fun UserContext.toReadUserResponse(): ReadUserResponse {
     )
 }
 
-fun UserContext.toCommandResponse(): CommandResponse {
+fun UserContext.toCommandResponse(): BaseResponse {
     val errors = this.requestContext.errors
-    return CommandResponse(
+    return BaseResponse(
         requestUUID = this.requestContext.requestUUID,
         errors = errors.takeIf { it.isNotEmpty() },
-        result = if (errors.isEmpty()) CommandResponse.Result.SUCCESS else CommandResponse.Result.ERROR
+        result = if (errors.isEmpty()) BaseResponse.Result.SUCCESS else BaseResponse.Result.ERROR
     )
 }

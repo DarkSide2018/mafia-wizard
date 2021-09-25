@@ -11,6 +11,7 @@ import mafia.wizard.repository.GameMasterRepository
 import mafia.wizard.repository.PlayerRepo
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import java.util.*
 import javax.annotation.PostConstruct
 
 
@@ -30,6 +31,7 @@ class AppConfig(
         val gameMaster = GameMaster()
         gameMaster.nickName = "nick"
         val game = Game()
+        game.createdBy = "testing"
         game.gameNumber = 2
         gameMaster.games = mutableListOf(game)
         gameMasterRepository.save(gameMaster)

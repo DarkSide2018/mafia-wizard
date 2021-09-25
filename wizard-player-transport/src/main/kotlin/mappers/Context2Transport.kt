@@ -1,6 +1,6 @@
 package mappers
 
-import mafia.wizard.openapi.models.CommandResponse
+import mafia.wizard.openapi.models.BaseResponse
 import mafia.wizard.openapi.models.PlayerMetaInfo
 import mafia.wizard.openapi.models.ReadAllPlayersResponse
 import mafia.wizard.openapi.models.ReadPlayerResponse
@@ -72,8 +72,8 @@ fun PlayerContext.toReadAllPlayersResponse(): ReadAllPlayersResponse {
     )
 }
 
-fun PlayerContext.toCommandResponse() = CommandResponse(
+fun PlayerContext.toCommandResponse() = BaseResponse(
     requestUUID = this.requestUUID,
     errors = errors.takeIf { it.isNotEmpty() },
-    result = if (this.errors.isEmpty()) CommandResponse.Result.SUCCESS else CommandResponse.Result.ERROR
+    result = if (this.errors.isEmpty()) BaseResponse.Result.SUCCESS else BaseResponse.Result.ERROR
 )

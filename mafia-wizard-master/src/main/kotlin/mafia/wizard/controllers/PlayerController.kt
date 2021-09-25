@@ -38,19 +38,19 @@ class PlayerController(
     }
 
     @PostMapping
-    fun createPlayer(@RequestBody createPlayerRequest: CreatePlayerRequest): ResponseEntity<CommandResponse> {
+    fun createPlayer(@RequestBody createPlayerRequest: CreatePlayerRequest): ResponseEntity<BaseResponse> {
 
         return ResponseEntity.ok(playerService.save(createPlayerRequest))
     }
 
     @PutMapping
-    fun updatePlayer(@RequestBody updatePlayerRequest: UpdatePlayerRequest): ResponseEntity<CommandResponse> {
+    fun updatePlayer(@RequestBody updatePlayerRequest: UpdatePlayerRequest): ResponseEntity<BaseResponse> {
 
         return ResponseEntity.ok(playerService.update(updatePlayerRequest))
     }
 
     @DeleteMapping("/{uuid}")
-    fun deletePlayer(@PathVariable uuid: UUID): ResponseEntity<CommandResponse> {
+    fun deletePlayer(@PathVariable uuid: UUID): ResponseEntity<BaseResponse> {
         playerService.deleteByUuid(uuid)
         return ResponseEntity.ok().build()
     }

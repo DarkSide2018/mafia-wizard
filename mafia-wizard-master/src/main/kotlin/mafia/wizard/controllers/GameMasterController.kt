@@ -23,12 +23,12 @@ class GameMasterController(
     }
 
     @PostMapping
-    fun createGame(@RequestBody gameMaster: CreateGameMasterRequest): ResponseEntity<CommandResponse> {
+    fun createGame(@RequestBody gameMaster: CreateGameMasterRequest): ResponseEntity<BaseResponse> {
         return ResponseEntity.ok(gameMasterService.createGameMaster(gameMaster))
     }
 
     @PutMapping
-    fun updateGame(@RequestBody game: UpdateGameMasterRequest): ResponseEntity<CommandResponse> {
+    fun updateGame(@RequestBody game: UpdateGameMasterRequest): ResponseEntity<BaseResponse> {
         return ResponseEntity.ok(gameMasterService.updateGameMaster(game))
     }
 

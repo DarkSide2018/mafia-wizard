@@ -24,7 +24,7 @@ class GameController(
 
     @PostMapping
     fun createGame(@RequestBody game: CreateGameRequest): ResponseEntity<BaseResponse> {
-        return ResponseEntity.ok(gameService.createGame(game))
+        return ResponseEntity.ok(gameService.createOrGetDraft(game))
     }
     @PostMapping("/player")
     fun addPlayer(@RequestBody request: AddPlayerRequest): ResponseEntity<BaseResponse> {

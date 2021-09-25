@@ -29,14 +29,14 @@ class GameMasterService(
             .toReadAllGameMastersResponse()
     }
 
-    fun createGameMaster(gameMaster: CreateGameMasterRequest): CommandResponse {
+    fun createGameMaster(gameMaster: CreateGameMasterRequest): BaseResponse {
         val gameMasterContext = GameMasterContext()
             .setQuery(gameMaster)
         gameMasterRepository.save(gameMasterContext.createGameMasterEntity())
         return gameMasterContext.toCreateGameMasterResponse()
     }
 
-    fun updateGameMaster(gameMaster: UpdateGameMasterRequest): CommandResponse {
+    fun updateGameMaster(gameMaster: UpdateGameMasterRequest): BaseResponse {
         val gameMasterForUpdate = gameMasterRepository.getById(
             gameMaster.gameMasterUuid ?: throw FieldWasNullException("updateGameMaster gameMasterUuid")
         )

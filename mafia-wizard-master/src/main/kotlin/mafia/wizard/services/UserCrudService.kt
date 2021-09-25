@@ -4,7 +4,7 @@ import mafia.wizard.mappers.user.createUserEntity
 import mafia.wizard.mappers.user.encodePassword
 import mafia.wizard.mappers.user.setUser
 import mafia.wizard.mappers.user.updateUserEntity
-import mafia.wizard.openapi.models.CommandResponse
+import mafia.wizard.openapi.models.BaseResponse
 import mafia.wizard.openapi.models.CreateUserRequest
 import mafia.wizard.openapi.models.ReadUserResponse
 import mafia.wizard.openapi.models.UpdateUserRequest
@@ -13,7 +13,6 @@ import mappers.user.setQuery
 import mappers.user.toCommandResponse
 import mappers.user.toReadUserResponse
 import models.user.UserContext
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.util.*
@@ -33,7 +32,7 @@ class UserCrudService(
 
     }
 
-    fun createUser(createUserRequest: CreateUserRequest): CommandResponse {
+    fun createUser(createUserRequest: CreateUserRequest): BaseResponse {
         val createUserContext = UserContext()
             .setQuery(createUserRequest)
             .encodePassword(passwordEncoder)
@@ -42,7 +41,7 @@ class UserCrudService(
 
     }
 
-    fun updateUser(updateUserRequest: UpdateUserRequest): CommandResponse {
+    fun updateUser(updateUserRequest: UpdateUserRequest): BaseResponse {
         val userUuid = updateUserRequest.userUuid ?: throw RuntimeException("UpdateUserRequest empty player uuid")
         val userForUpdate = userDetailsRepo.findById(userUuid)
             .orElseThrow { return@orElseThrow RuntimeException("no such element with uuid : $userUuid") }

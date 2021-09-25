@@ -22,6 +22,7 @@ class JWTAuthenticationFilter(
     ) {
         jwtTokenHelper.getToken(request)?.let { authToken ->
             jwtTokenHelper.getUsernameFromToken(authToken)?.let { username ->
+                println("userName -> $username")
                 val userDetails: UserDetails = userDetailsService.loadUserByUsername(username);
                 if (jwtTokenHelper.validateToken(authToken, userDetails)) {
                     val authentication: UsernamePasswordAuthenticationToken = UsernamePasswordAuthenticationToken(

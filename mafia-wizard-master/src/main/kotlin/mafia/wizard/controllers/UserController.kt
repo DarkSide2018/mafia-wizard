@@ -1,6 +1,6 @@
 package mafia.wizard.controllers
 
-import mafia.wizard.openapi.models.CommandResponse
+import mafia.wizard.openapi.models.BaseResponse
 import mafia.wizard.openapi.models.CreateUserRequest
 import mafia.wizard.openapi.models.ReadUserResponse
 import mafia.wizard.openapi.models.UpdateUserRequest
@@ -21,12 +21,12 @@ class UserController(
     }
 
     @PostMapping
-    fun create(@RequestBody createUserRequest: CreateUserRequest): ResponseEntity<CommandResponse> {
+    fun create(@RequestBody createUserRequest: CreateUserRequest): ResponseEntity<BaseResponse> {
         return ResponseEntity.ok(userCrudService.createUser(createUserRequest))
     }
 
     @PutMapping
-    fun update(@RequestBody updateUserRequest: UpdateUserRequest): ResponseEntity<CommandResponse> {
+    fun update(@RequestBody updateUserRequest: UpdateUserRequest): ResponseEntity<BaseResponse> {
         return ResponseEntity.ok(userCrudService.updateUser(updateUserRequest))
     }
 }

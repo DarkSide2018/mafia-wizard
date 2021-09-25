@@ -48,14 +48,14 @@ class PlayerService {
             .toReadAllPlayersResponse()
     }
 
-    fun save(createPlayerRequest: CreatePlayerRequest): CommandResponse {
+    fun save(createPlayerRequest: CreatePlayerRequest): BaseResponse {
         val createPlayerContext = PlayerContext()
             .setCommand(createPlayerRequest)
         playerRepo.save(createPlayerContext.toPlayerEntity())
         return createPlayerContext.toCommandResponse()
     }
 
-    fun update(updatePlayerRequest: UpdatePlayerRequest): CommandResponse {
+    fun update(updatePlayerRequest: UpdatePlayerRequest): BaseResponse {
         val playerUuid =
             updatePlayerRequest.playerUuid ?: throw RuntimeException("UpdatePlayerRequest empty player uuid")
         val playerForUpdate = playerRepo.findById(playerUuid)

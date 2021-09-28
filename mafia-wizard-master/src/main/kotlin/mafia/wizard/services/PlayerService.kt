@@ -1,17 +1,14 @@
 package mafia.wizard.services
 
-import mafia.wizard.entities.Player
 import mafia.wizard.mappers.player.*
 import mafia.wizard.openapi.models.*
 import mafia.wizard.repository.PlayerRepo
 import mappers.*
 import models.PlayerContext
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.util.*
-
+const val FREE_STATUS = "FREE"
 @Service
 class PlayerService {
     @Autowired
@@ -19,7 +16,7 @@ class PlayerService {
 
     fun getAll(readAllPlayersRequest: ReadAllPlayersRequest): ReadAllPlayersResponse {
         val context = PlayerContext().setQuery(readAllPlayersRequest)
-        val all = playerRepo.findAll(context.createPageRequest())
+        val all = playerRepo.findAllByStatus(context.createPageRequest(),FREE_STATUS)
         return context
             .setPlayers(all)
             .toReadAllPlayersResponse()

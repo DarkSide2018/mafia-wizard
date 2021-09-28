@@ -27,7 +27,7 @@ private fun CreateGameRequest.toModel(gameUUID: UUID) = GameModel(
     name = this.name,
     gameNumber = this.gameNumber,
     players = this.players?.map { PlayerModel(playerUUID = it.playerUuid ?: throw FieldWasNullException("playerUuid")) }
-        ?.toMutableList() ?: mutableListOf()
+        ?.toMutableSet() ?: mutableSetOf<PlayerModel>()
 )
 
 private fun UpdateGameRequest.toModel() = GameModel(
@@ -35,5 +35,5 @@ private fun UpdateGameRequest.toModel() = GameModel(
     name = this.name,
     gameNumber = this.gameNumber,
     players = this.players?.map { PlayerModel(playerUUID = it.playerUuid ?: throw FieldWasNullException("playerUuid")) }
-        ?.toMutableList() ?: mutableListOf()
+        ?.toMutableSet() ?: mutableSetOf()
 )

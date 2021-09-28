@@ -12,15 +12,13 @@ import mafia.wizard.repository.GameRepository
 import mafia.wizard.repository.PlayerRepo
 import mappers.game.*
 import models.game.GameContext
-import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
-import org.springframework.data.domain.Sort
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
 import java.util.*
 
-const val DEFAULT_GAME_NAME = "Новый Cтол"
+const val BUSY_STATUS = "BUSY"
 
 @Service
 class GameService(
@@ -55,12 +53,15 @@ class GameService(
             )
         val gameEntity = gameContext2DataLayer.updateGameEntity(gameContext, game)
         gameRepository.save(gameEntity)
+        player.status = BUSY_STATUS
+        playerRepo.save(player)
         return gameContext.toCommandResponse()
     }
 
     fun createOrGetDraft(game: CreateGameRequest): BaseResponse {
         getDraftGame(game).takeIf { it.isNotEmpty() }?.get(0)?.let {
-            val gameContext = GameContext().setQuery(it.gameUUID?:throw FieldWasNullException("createOrGetDraft gameUuid"), game)
+            val gameContext =
+                GameContext().setQuery(it.gameUUID ?: throw FieldWasNullException("createOrGetDraft gameUuid"), game)
             return gameContext.toCommandResponse()
         } ?: return createGame(game)
     }
@@ -68,7 +69,7 @@ class GameService(
     fun getDraftGame(gameRequest: CreateGameRequest): MutableList<Game?> {
         val createdBy = (SecurityContextHolder.getContext().authentication.principal as User).userName
             ?: throw FieldWasNullException("userName")
-        return gameRepository.getDraftGame(PageRequest.of(0,1),
+        return gameRepository.getDraftGame(PageRequest.of(0, 1),
             createdBy,
             DRAFT_STATUS
         ).content

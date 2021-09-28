@@ -12,9 +12,12 @@ import java.util.*
 
 @Repository
 interface PlayerRepo: JpaRepository<Player, UUID> {
+
     fun findByNickName(userName: String): Player?
 
-    @Query("FROM Player p WHERE p.nickName LIKE %:searchText% ORDER BY p.createdAt DESC ")
+    @Query("FROM Player p WHERE p.nickName LIKE %:searchText% and p.status = 'FREE' ORDER BY p.createdAt DESC ")
     fun findByNickName(page:Pageable, @Param("searchText") searchText: String): Page<Player>?
+
+    fun findAllByStatus(page: Pageable,status:String):Page<Player>
 
 }

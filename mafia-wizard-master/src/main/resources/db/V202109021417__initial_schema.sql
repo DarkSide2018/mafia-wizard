@@ -1,7 +1,7 @@
 CREATE SCHEMA IF NOT EXISTS wizard;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE wizard.AUTH_USER_DETAILS (
-                          user_id                    UUID          NOT NULL,
+                          user_id               UUID          NOT NULL,
                           USER_NAME             VARCHAR       not NULL,
                           USER_KEY              VARCHAR       not NULL,
                           first_name            VARCHAR       not NULL,
@@ -35,6 +35,7 @@ CREATE TABLE wizard.AUTH_USER_AUTHORITY (
 
 CREATE TABLE wizard.players (
                                           player_uuid               UUID         NOT NULL DEFAULT uuid_generate_v4(),
+                                          status                    VARCHAR (6)  not NULL default 'FREE',
                                           rating_id                 int8         not NULL default 0,
                                           foul_amount               int8         not NULL default 0,
                                           nick_name                 VARCHAR      NULL,

@@ -14,6 +14,9 @@ data class Player(
     val playerUuid: UUID=UUID.randomUUID(),
     //1. Порядковый номер в рейтинге +
     var ratingId:Long = 0,
+
+    var status:String = "FREE",
+
     //2. Количество фолов +
     var foulAmount:Long=0,
     //3. Игровой Ник +

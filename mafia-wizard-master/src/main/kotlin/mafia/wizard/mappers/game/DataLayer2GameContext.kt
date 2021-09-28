@@ -35,7 +35,7 @@ class DataLayer2GameContext(
                 players =
                     objectMapper.readValue(
                         it,
-                        object : TypeReference<List<PlayerModel>>() {}) as MutableList<PlayerModel>
+                        object : TypeReference<MutableSet<PlayerModel>>() {}) as MutableSet<PlayerModel>
             }
         }
         return model

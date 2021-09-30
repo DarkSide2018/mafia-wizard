@@ -22,6 +22,10 @@ fun GameContext.addPlayerToGame(player: PlayerModel, gameModel: GameModel) = app
     this.gameModel = gameModel
 }
 
+fun GameContext.updatePlayerInGame(player: PlayerModel, gameModel: GameModel) = apply {
+    gameModel.addPlayer(player)
+    this.gameModel = gameModel
+}
 private fun CreateGameRequest.toModel(gameUUID: UUID) = GameModel(
     gameUUID = gameUUID,
     name = this.name,

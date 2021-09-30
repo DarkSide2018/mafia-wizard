@@ -31,6 +31,24 @@ paths:
             application/json:
               schema:
                 $ref: 'common.yaml#/components/schemas/BaseResponse'
+    put:
+      tags:
+        - updatePlayerInGame
+      summary: добавить игрока в игру
+      requestBody:
+        description: Объект запроса для создания юнита
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddPlayerRequest'
+      responses:
+        200:
+          description: all responses
+          content:
+            application/json:
+              schema:
+                $ref: 'common.yaml#/components/schemas/BaseResponse'
+
   /game:
     post:
       tags:
@@ -301,6 +319,17 @@ components:
             playerUuid:
               type: string
               format: uuid
+            gameUuid:
+              type: string
+              format: uuid
+    UpdatePlayerInGameRequest:
+      description: Структура для создания юнита в репоизтории
+      allOf:
+        - $ref: 'common.yaml#/components/schemas/BaseMessage'
+        - $ref: 'common.yaml#/components/schemas/BaseRequest'
+        - $ref: 'player.yaml#/components/schemas/GamePlayerInfo'
+        - type: object
+          properties:
             gameUuid:
               type: string
               format: uuid

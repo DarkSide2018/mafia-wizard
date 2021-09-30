@@ -57,6 +57,13 @@ class GameService(
         playerRepo.save(player)
         return gameContext.toCommandResponse()
     }
+    fun updatePlayerInGame(request: UpdatePlayerInGameRequest): BaseResponse {
+        val game = gameRepository.getById(request.gameUuid ?: throw FieldWasNullException("gameUuid"))
+
+        val gameContext = GameContext()
+
+        return gameContext.toCommandResponse()
+    }
 
     fun createOrGetDraft(game: CreateGameRequest): BaseResponse {
         getDraftGame(game).takeIf { it.isNotEmpty() }?.get(0)?.let {

@@ -31,6 +31,12 @@ class GameController(
         return ResponseEntity.ok(gameService.addPlayer(request))
     }
 
+    @PutMapping("/player")
+    fun updatePlayerInGame(@RequestBody request: UpdatePlayerInGameRequest): ResponseEntity<BaseResponse> {
+        return ResponseEntity.ok(gameService.updatePlayerInGame(request))
+    }
+
+
     @PutMapping
     fun updateGame(@RequestBody game: UpdateGameRequest): ResponseEntity<BaseResponse> {
         return ResponseEntity.ok(gameService.updateGame(game))

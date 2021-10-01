@@ -81,5 +81,5 @@ private fun UpdatePlayerRequest.toModel() = PlayerModel(
     sheriff = this.sheriff,
     wasKilled = this.wasKilled,
     games = this.games,
-    rating = this.rating,
+    rating = this.rating
 )

@@ -57,11 +57,15 @@ class GameService(
         playerRepo.save(player)
         return gameContext.toCommandResponse()
     }
+
     fun updatePlayerInGame(request: UpdatePlayerInGameRequest): BaseResponse {
         val game = gameRepository.getById(request.gameUuid ?: throw FieldWasNullException("gameUuid"))
-
         val gameContext = GameContext()
-
+            .updatePlayerInGame(
+                request.toModel(),
+                dataLayer2GameContext.gameToGameModel(game))
+        val gameEntity = gameContext2DataLayer.updateGameEntity(gameContext, game)
+        gameRepository.save(gameEntity)
         return gameContext.toCommandResponse()
     }
 

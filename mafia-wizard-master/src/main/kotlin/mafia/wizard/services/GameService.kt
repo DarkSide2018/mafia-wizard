@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
 import java.util.*
+import javax.transaction.Transactional
 
 const val BUSY_STATUS = "BUSY"
 
@@ -68,7 +69,7 @@ class GameService(
         gameRepository.save(gameEntity)
         return gameContext.toCommandResponse()
     }
-
+    @Transactional
     fun createOrGetDraft(game: CreateGameRequest): BaseResponse {
         getDraftGame(game).takeIf { it.isNotEmpty() }?.get(0)?.let {
             val gameContext =
@@ -78,6 +79,7 @@ class GameService(
     }
 
     fun getDraftGame(gameRequest: CreateGameRequest): MutableList<Game?> {
+
         val createdBy = (SecurityContextHolder.getContext().authentication.principal as User).userName
             ?: throw FieldWasNullException("userName")
         return gameRepository.getDraftGame(PageRequest.of(0, 1),
@@ -90,7 +92,7 @@ class GameService(
         val gameContext = GameContext().setQuery(UUID.randomUUID(), game)
         val gameEntity = gameContext2DataLayer.toGameEntity(gameContext)
         gameEntity.createdAt = OffsetDateTime.now()
-        gameRepository.save(gameEntity)
+        gameRepository.saveAndFlush(gameEntity)
         return gameContext.toCommandResponse()
     }
 

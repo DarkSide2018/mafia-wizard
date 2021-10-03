@@ -45,6 +45,7 @@ fun PlayerContext.updatePlayer(playerToUpdate: Player): Player {
         ratingId?.let { playerToUpdate.ratingId = it }
         foulAmount?.let { playerToUpdate.foulAmount = it }
         nickName?.let { playerToUpdate.nickName = it }
+        status?.let { playerToUpdate.status = it }
         additionalPoints?.let { playerToUpdate.additionalPoints = it }
         points?.let { playerToUpdate.points = it }
         penalties?.let { playerToUpdate.penalties = it }

@@ -1,5 +1,6 @@
 package mafia.wizard.services
 
+import exceptions.FieldWasNullException
 import mafia.wizard.mappers.player.*
 import mafia.wizard.openapi.models.*
 import mafia.wizard.repository.PlayerRepo
@@ -61,6 +62,16 @@ class PlayerService {
             .setCommand(updatePlayerRequest)
 
         playerRepo.save(updatePlayerContext.updatePlayer(playerForUpdate))
+        return updatePlayerContext.toCommandResponse()
+    }
+    fun updateArray(updatePlayerRequest: UpdatePlayerArrayRequest): BaseResponse {
+        val updatePlayerContext = PlayerContext()
+        updatePlayerRequest.players?.forEach {
+            val playerUuid = it.playerUuid
+            val playerForUpdate = playerRepo.findById(playerUuid ?:throw FieldWasNullException("playerUUID")).orElseThrow { return@orElseThrow RuntimeException("no such element with uuid : $playerUuid") }
+            updatePlayerContext.setCommand(it)
+            playerRepo.save(updatePlayerContext.updatePlayer(playerForUpdate))
+        }
         return updatePlayerContext.toCommandResponse()
     }
 

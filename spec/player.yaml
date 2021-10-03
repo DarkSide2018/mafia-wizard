@@ -75,7 +75,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ReadPlayerResponse'
-  /player/update:
+  /player:
     post:
       tags:
         - player
@@ -95,6 +95,26 @@ paths:
             application/json:
               schema:
                 $ref: 'common.yaml#/components/schemas/BaseResponse'
+    patch:
+      tags:
+        - player
+      summary: Обновить массив юнитов
+      operationId: updatePlayerArray
+      requestBody:
+        description: Объект запроса для обновления массива игроков
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePlayerArrayRequest'
+        required: true
+      responses:
+        200:
+          description: all responses
+          content:
+            application/json:
+              schema:
+                $ref: 'common.yaml#/components/schemas/BaseResponse'
+
   /player/delete:
     post:
       tags:
@@ -229,8 +249,19 @@ components:
       allOf:
         - $ref: 'common.yaml#/components/schemas/BaseMessage'
         - $ref: 'common.yaml#/components/schemas/BaseRequest'
-        - $ref: 'common.yaml#/components/schemas/BaseResponse'
         - $ref: '#/components/schemas/PlayerMetaInfo'
+
+    UpdatePlayerArrayRequest:
+      description: Структура для запроса обновления существующего юнита
+      allOf:
+        - $ref: 'common.yaml#/components/schemas/BaseMessage'
+        - $ref: 'common.yaml#/components/schemas/BaseRequest'
+        - type: object
+          properties:
+            players:
+              type: array
+              items:
+                $ref: '#/components/schemas/UpdatePlayerRequest'
 
     UpdatePlayerResponse:
       description: Структура для ответа на запрос с информацией о юните
@@ -318,6 +349,9 @@ components:
               description: Итоговый рейтинг (процент побед умножить на сумму баллов)
               type: number
               format: double
+            status:
+              description: играет или свободен?
+              type: string
             created:
               description: когда создан?
               type: string

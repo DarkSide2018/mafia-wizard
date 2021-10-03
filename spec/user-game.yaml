@@ -404,6 +404,9 @@ components:
         name:
           description: имя игры
           type: string
+        status:
+          description: статус игры
+          type: string
         gameNumber:
           description: номер игры
           type: integer

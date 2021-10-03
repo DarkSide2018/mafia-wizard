@@ -48,6 +48,11 @@ class PlayerController(
 
         return ResponseEntity.ok(playerService.update(updatePlayerRequest))
     }
+    @PatchMapping
+    fun updatePlayerArray(@RequestBody updatePlayerArrayRequest: UpdatePlayerArrayRequest): ResponseEntity<BaseResponse> {
+
+        return ResponseEntity.ok(playerService.updateArray(updatePlayerArrayRequest))
+    }
 
     @DeleteMapping("/{uuid}")
     fun deletePlayer(@PathVariable uuid: UUID): ResponseEntity<BaseResponse> {

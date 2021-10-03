@@ -26,7 +26,7 @@ data class Game(
     @Column(name = "name")
     var name: String?=null,
     @Column(name = "status")
-    var status: String= DRAFT_STATUS,
+    var status: String?= DRAFT_STATUS,
     @Type(type = "json")
     @Column(columnDefinition = "jsonb")
     var players: String? = null,

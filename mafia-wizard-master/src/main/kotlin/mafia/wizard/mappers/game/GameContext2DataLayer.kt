@@ -1,6 +1,7 @@
 package mafia.wizard.mappers.game
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import exceptions.FieldWasNullException
 import mafia.wizard.entities.Game
 import mafia.wizard.entities.User
 import models.game.GameContext
@@ -24,10 +25,10 @@ class GameContext2DataLayer(
     }
 
     fun updateGameEntity(updateGameContext: GameContext, gameForUpdate: Game): Game {
-        val players = updateGameContext.gameModel?.players
-        val gameNumber = updateGameContext.gameModel?.gameNumber
-        players?.let { gameForUpdate.players = objectMapper.writeValueAsString(it) }
-        gameNumber?.let { gameForUpdate.gameNumber = it }
+        val gameModel = updateGameContext.gameModel?:throw FieldWasNullException("gameModel")
+        gameModel.players.let { gameForUpdate.players = objectMapper.writeValueAsString(it) }
+        gameModel.gameNumber?.let { gameForUpdate.gameNumber = it }
+        gameModel.status?.let { gameForUpdate.status = it }
         return gameForUpdate
     }
 }

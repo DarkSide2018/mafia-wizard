@@ -10,12 +10,10 @@ import models.PlayerModel
 import java.util.*
 
 fun PlayerContext.setCommand(query: CreatePlayerRequest) = apply {
-    requestUUID = UUID.randomUUID()
     playerModel = query.toModel()
 }
 
 fun PlayerContext.setCommand(query: UpdatePlayerRequest) = apply {
-    requestUUID = UUID.randomUUID()
     playerModel = query.toModel()
 }
 
@@ -27,6 +25,7 @@ fun PlayerContext.setQuery(searchPlayerRequest: SearchPlayerRequest) = apply {
     sortDir = searchPlayerRequest.sortDir
     search = searchPlayerRequest.nickName
 }
+
 fun PlayerContext.setQuery(readAllPlayersRequest: ReadAllPlayersRequest) = apply {
     requestUUID = UUID.randomUUID()
     pageSize = readAllPlayersRequest.pageSize
@@ -37,7 +36,7 @@ fun PlayerContext.setQuery(readAllPlayersRequest: ReadAllPlayersRequest) = apply
 
 
 private fun CreatePlayerRequest.toModel() = PlayerModel(
-    playerUUID  = UUID.randomUUID(),
+    playerUUID = UUID.randomUUID(),
     ratingId = this.ratingId ?: 0,
     foulAmount = this.foulAmount ?: 0,
     nickName = this.nickName ?: throw Exception("CreatePlayerRequest empty nickName"),
@@ -60,12 +59,13 @@ private fun CreatePlayerRequest.toModel() = PlayerModel(
     rating = this.rating ?: 0.0,
 )
 
-private fun UpdatePlayerRequest.toModel() = PlayerModel(
-    playerUUID = this.playerUuid?:throw FieldWasNullException("player uuid"),
+fun UpdatePlayerRequest.toModel() = PlayerModel(
+    playerUUID = this.playerUuid ?: throw FieldWasNullException("player uuid"),
     ratingId = this.ratingId,
     foulAmount = this.foulAmount,
     nickName = this.nickName,
     points = this.points,
+    status = this.status,
     additionalPoints = this.additionalPoints,
     penalties = this.penalties,
     bestMove = this.bestMove,

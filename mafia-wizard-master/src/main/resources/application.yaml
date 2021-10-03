@@ -29,4 +29,4 @@ jwt:
   auth:
     app: Spring-Security-App
     secret_key: testkey#secret@12334
-    expires_in: 3600
+    expires_in: 10800

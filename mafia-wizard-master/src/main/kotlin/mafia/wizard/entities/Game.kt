@@ -17,7 +17,6 @@ const val DRAFT_STATUS = "DRAFT"
 data class Game(
     @Id
     @Column(name = "game_uuid", columnDefinition = "BINARY(16)")
-    @GeneratedValue
     var gameUUID: UUID?=null,
     @ManyToMany(mappedBy = "games")
     var gameMaster: List<GameMaster> = mutableListOf(),

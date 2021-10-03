@@ -1,8 +1,8 @@
 package mafia.wizard.services
 
 import exceptions.FieldWasNullException
+import mafia.wizard.config.NotFoundException
 import mafia.wizard.entities.DRAFT_STATUS
-import mafia.wizard.entities.Game
 import mafia.wizard.entities.User
 import mafia.wizard.mappers.game.DataLayer2GameContext
 import mafia.wizard.mappers.game.GameContext2DataLayer
@@ -12,12 +12,13 @@ import mafia.wizard.repository.GameRepository
 import mafia.wizard.repository.PlayerRepo
 import mappers.game.*
 import models.game.GameContext
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.data.domain.PageRequest
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
 import java.util.*
-import javax.transaction.Transactional
 
 const val BUSY_STATUS = "BUSY"
 
@@ -28,10 +29,10 @@ class GameService(
     private val playerRepo: PlayerRepo,
     private val gameRepository: GameRepository,
 ) {
-
+    var logger: Logger = LoggerFactory.getLogger(GameService::class.java)
     fun getByUuid(uuid: UUID): ReadGameResponse {
         val game = gameRepository.findById(uuid)
-            .orElseThrow { return@orElseThrow RuntimeException("no such element with uuid : $uuid") }
+            .orElseThrow { return@orElseThrow NotFoundException("no such element with uuid : $uuid") }
         return dataLayer2GameContext
             .setGameIntoContext(GameContext(), game)
             .toReadGameResponse()
@@ -69,23 +70,13 @@ class GameService(
         gameRepository.save(gameEntity)
         return gameContext.toCommandResponse()
     }
-    @Transactional
-    fun createOrGetDraft(game: CreateGameRequest): BaseResponse {
-        getDraftGame(game).takeIf { it.isNotEmpty() }?.get(0)?.let {
-            val gameContext =
-                GameContext().setQuery(it.gameUUID ?: throw FieldWasNullException("createOrGetDraft gameUuid"), game)
-            return gameContext.toCommandResponse()
-        } ?: return createGame(game)
-    }
-
-    fun getDraftGame(gameRequest: CreateGameRequest): MutableList<Game?> {
-
-        val createdBy = (SecurityContextHolder.getContext().authentication.principal as User).userName
-            ?: throw FieldWasNullException("userName")
-        return gameRepository.getDraftGame(PageRequest.of(0, 1),
-            createdBy,
-            DRAFT_STATUS
-        ).content
+    fun getDraftGame(): ReadGameResponse {
+        val createdBy = (SecurityContextHolder.getContext().authentication.principal as User).userName ?: throw FieldWasNullException("userName")
+        val gamePage = gameRepository.getDraftGame(PageRequest.of(0,1),createdBy,DRAFT_STATUS).takeIf { !it.isEmpty }?: throw NotFoundException("game")
+        val game = gamePage.content[0]?:throw NotFoundException("game in array")
+        return dataLayer2GameContext
+            .setGameIntoContext(GameContext(),game)
+            .toReadGameResponse()
     }
 
     fun createGame(game: CreateGameRequest): BaseResponse {
@@ -93,6 +84,7 @@ class GameService(
         val gameEntity = gameContext2DataLayer.toGameEntity(gameContext)
         gameEntity.createdAt = OffsetDateTime.now()
         gameRepository.saveAndFlush(gameEntity)
+        logger.debug("game created")
         return gameContext.toCommandResponse()
     }
 

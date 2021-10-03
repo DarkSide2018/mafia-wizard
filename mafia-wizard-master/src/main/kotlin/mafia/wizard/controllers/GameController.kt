@@ -2,6 +2,8 @@ package mafia.wizard.controllers
 
 import mafia.wizard.openapi.models.*
 import mafia.wizard.services.GameService
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
@@ -12,6 +14,7 @@ import java.util.*
 class GameController(
     private val gameService: GameService
 ) {
+    var logger: Logger = LoggerFactory.getLogger(GameController::class.java)
     @GetMapping("/{uuid}")
     fun getByUuid(@PathVariable uuid: UUID): ResponseEntity<ReadGameResponse> {
         return ResponseEntity.ok(gameService.getByUuid(uuid))
@@ -21,10 +24,16 @@ class GameController(
     fun getAll(): ResponseEntity<ReadAllGamesResponse> {
         return ResponseEntity.ok(gameService.getAll())
     }
+    @GetMapping("/draft")
+    fun draftGame(): ResponseEntity<ReadGameResponse> {
+        logger.info("draft game retrieve")
+        return ResponseEntity.ok(gameService.getDraftGame())
+    }
 
     @PostMapping
     fun createGame(@RequestBody game: CreateGameRequest): ResponseEntity<BaseResponse> {
-        return ResponseEntity.ok(gameService.createOrGetDraft(game))
+        logger.info("create game command")
+        return ResponseEntity.ok(gameService.createGame(game))
     }
     @PostMapping("/player")
     fun addPlayer(@RequestBody request: AddPlayerRequest): ResponseEntity<BaseResponse> {

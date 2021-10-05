@@ -24,5 +24,6 @@ data class PlayerModel(
     var sheriff: Long? = null,
     var wasKilled: Long? = null,
     var games: Long? = null,
+    var remark:Long?=null,
     var rating: Double? = null,
 )

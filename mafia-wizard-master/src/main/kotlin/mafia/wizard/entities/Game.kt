@@ -6,6 +6,7 @@ import org.hibernate.annotations.TypeDef
 import java.time.OffsetDateTime
 import java.util.*
 import javax.persistence.*
+
 const val DRAFT_STATUS = "DRAFT"
 
 @Table(name = "games")
@@ -17,15 +18,27 @@ const val DRAFT_STATUS = "DRAFT"
 data class Game(
     @Id
     @Column(name = "game_uuid", columnDefinition = "BINARY(16)")
-    var gameUUID: UUID?=null,
+    var gameUUID: UUID? = null,
     @ManyToMany(mappedBy = "games")
     var gameMaster: List<GameMaster> = mutableListOf(),
     @Column(name = "game_number")
     var gameNumber: Long? = null,
     @Column(name = "name")
-    var name: String?=null,
+    var name: String? = null,
+    @Column(name = "game_table")
+    var gameTable: String? = null,
+    @Column(name = "victory")
+    var victory: String? = null,
+    @Column(name = "don", columnDefinition = "BINARY(16)")
+    var don: UUID? = null,
+    @Column(name = "sheriff", columnDefinition = "BINARY(16)")
+    var sheriff: UUID? = null,
+    @Column(name = "criminal_one", columnDefinition = "BINARY(16)")
+    var criminalOne: UUID? = null,
+    @Column(name = "criminal_two", columnDefinition = "BINARY(16)")
+    var criminalTwo: UUID? = null,
     @Column(name = "status")
-    var status: String?= DRAFT_STATUS,
+    var status: String? = DRAFT_STATUS,
     @Type(type = "json")
     @Column(columnDefinition = "jsonb")
     var players: String? = null,
@@ -38,4 +51,3 @@ data class Game(
 ) {
 
 }
-

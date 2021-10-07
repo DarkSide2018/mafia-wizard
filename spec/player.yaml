@@ -360,6 +360,35 @@ components:
               description: когда был обновлен?
               type: string
               format: date-time
+    NightInfo:
+      description: мета-инфомация для ночи
+      type: object
+      properties:
+        killedPlayer:
+          type: string
+          format: uuid
+        sheriffChecked:
+          type: string
+          format: uuid
+        playerToCardNumber:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlayerToCardNumber'
+        playerLeftGame:
+          type: array
+          items:
+            type: string
+            format: uuid
+
+    PlayerToCardNumber:
+      description: мета-инфомация для обозначения к какой карте игрок принадлежит
+      type: object
+      properties:
+        playerUuid:
+          type: string
+          format: uuid
+        cardNumber:
+          type: integer
 
     GamePlayerInfo:
       description: мета-инфомация для юнита, которая не используется в статистике

@@ -42,6 +42,9 @@ data class Game(
     @Type(type = "json")
     @Column(columnDefinition = "jsonb")
     var players: String? = null,
+    @Type(type = "json")
+    @Column(columnDefinition = "jsonb")
+    var nights: String? = null,
     @Column(name = "created_at")
     var createdAt: OffsetDateTime? = null,
     @Column(name = "created_by")

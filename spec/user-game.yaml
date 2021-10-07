@@ -415,6 +415,10 @@ components:
           type: array
           items:
             $ref: 'player.yaml#/components/schemas/GamePlayerInfo'
+        nights:
+          type: array
+          items:
+            $ref: 'player.yaml#/components/schemas/NightInfo'
         created:
           description: Когда игра создана?
           type: string

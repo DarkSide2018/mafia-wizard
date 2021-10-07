@@ -14,9 +14,17 @@ data class GameModel(
     var criminalTwo: UUID?=null,
     var name:String?=null,
     var status:String?=null,
-    var players:MutableSet<PlayerModel> = mutableSetOf<PlayerModel>()
+    var players:MutableSet<PlayerModel> = mutableSetOf<PlayerModel>(),
+    var nights:MutableSet<Night> = mutableSetOf<Night>()
 ){
     fun addPlayer(value:PlayerModel){
         players.add(value)
     }
 }
+data class Night(
+    var killedPlayer:UUID,
+    var sheriffChecked: UUID,
+    var donChecked: UUID,
+    var playerLeftGame:List<UUID>,
+    var playerToCardNumber:Map<UUID,Int>
+)

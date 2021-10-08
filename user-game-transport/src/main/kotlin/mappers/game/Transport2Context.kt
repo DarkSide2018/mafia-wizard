@@ -1,12 +1,12 @@
 package mappers.game
 
 import exceptions.FieldWasNullException
-import mafia.wizard.openapi.models.CreateGameRequest
-import mafia.wizard.openapi.models.UpdateGameRequest
-import mafia.wizard.openapi.models.UpdatePlayerInGameRequest
+import mafia.wizard.openapi.models.*
 import models.PlayerModel
 import models.game.GameContext
 import models.game.GameModel
+import models.game.Night
+import models.game.PlayerToCardNumber
 
 import java.util.*
 
@@ -52,6 +52,7 @@ private fun CreateGameRequest.toModel(gameUUID: UUID) = GameModel(
     gameUUID = gameUUID,
     name = this.name,
     gameNumber = this.gameNumber,
+    nights = this.nights?.map { it.toNightModel() }?.toMutableSet(),
     status = "DRAFT",
     players = this.players?.map { PlayerModel(playerUUID = it.playerUuid ?: throw FieldWasNullException("playerUuid")) }
         ?.toMutableSet() ?: mutableSetOf<PlayerModel>()
@@ -62,8 +63,22 @@ private fun UpdateGameRequest.toModel() = GameModel(
     name = this.name,
     status = this.status,
     gameNumber = this.gameNumber,
-    players = this.players?.map { PlayerModel(playerUUID = it.playerUuid ?: throw FieldWasNullException("playerUuid")) }
+    nights = this.nights?.map { it.toNightModel() }?.toMutableSet(),
+    players = this.players?.map { it.toModel() }
         ?.toMutableSet() ?: mutableSetOf()
+)
+
+private fun NightInfo.toNightModel() = Night(
+    sheriffChecked = this.sheriffChecked,
+    donChecked = this.donChecked,
+    playerLeftGame = this.playerLeftGame,
+    killedPlayer = this.killedPlayer,
+    playerToCardNumber = this.playerToCardNumber?.map {
+        return@map PlayerToCardNumber(
+            it.playerUuid,
+            it.cardNumber
+        )
+    }
 )
 
 fun UpdatePlayerInGameRequest.toModel() = PlayerModel(

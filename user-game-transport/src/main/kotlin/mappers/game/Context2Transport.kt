@@ -44,8 +44,8 @@ fun GameContext.toCommandResponse(): BaseResponse {
 }
 
 
-fun PlayerModel.toGamePlayerInfo(): GamePlayerInfo {
-    return GamePlayerInfo(
+fun PlayerModel.toGamePlayerInfo(): UpdatePlayerInGameRequest {
+    return UpdatePlayerInGameRequest(
         playerUuid = this.playerUUID,
         nickName = this.nickName,
         foulAmount = this.foulAmount,

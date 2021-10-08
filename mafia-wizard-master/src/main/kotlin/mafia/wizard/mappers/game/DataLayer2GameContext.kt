@@ -7,12 +7,13 @@ import mafia.wizard.entities.Game
 import models.PlayerModel
 import models.game.GameContext
 import models.game.GameModel
+import models.game.Night
 
 import org.springframework.stereotype.Service
 
 @Service
 class DataLayer2GameContext(
-    private val objectMapper: ObjectMapper
+    private val objectMapper: ObjectMapper,
 ) {
     fun setGameIntoContext(readGameContext: GameContext, game: Game): GameContext {
         readGameContext.gameModel = gameToGameModel(game)
@@ -26,7 +27,7 @@ class DataLayer2GameContext(
 
     fun gameToGameModel(game: Game): GameModel {
         val model = GameModel(
-            gameUUID = game.gameUUID?:throw FieldWasNullException("gameToGameModel gameUUID"),
+            gameUUID = game.gameUUID ?: throw FieldWasNullException("gameToGameModel gameUUID"),
             name = game.name,
             gameNumber = game.gameNumber,
         )
@@ -36,6 +37,11 @@ class DataLayer2GameContext(
                     objectMapper.readValue(
                         it,
                         object : TypeReference<MutableSet<PlayerModel>>() {}) as MutableSet<PlayerModel>
+            }
+            game.nights?.let {
+                nights = objectMapper.readValue(
+                    it,
+                    object : TypeReference<MutableSet<PlayerModel>>() {}) as MutableSet<Night>
             }
         }
         return model

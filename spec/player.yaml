@@ -370,6 +370,9 @@ components:
         sheriffChecked:
           type: string
           format: uuid
+        donChecked:
+          type: string
+          format: uuid
         playerToCardNumber:
           type: array
           items:

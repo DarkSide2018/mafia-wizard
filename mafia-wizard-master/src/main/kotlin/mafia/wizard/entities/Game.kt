@@ -8,6 +8,7 @@ import java.util.*
 import javax.persistence.*
 
 const val DRAFT_STATUS = "DRAFT"
+const val ACTIVE_STATUS = "ACTIVE"
 
 @Table(name = "games")
 @Entity

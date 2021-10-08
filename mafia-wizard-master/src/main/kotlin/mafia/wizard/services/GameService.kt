@@ -70,9 +70,9 @@ class GameService(
         gameRepository.save(gameEntity)
         return gameContext.toCommandResponse()
     }
-    fun getDraftGame(): ReadGameResponse {
+    fun getGameByStatus(status:String): ReadGameResponse {
         val createdBy = (SecurityContextHolder.getContext().authentication.principal as User).userName ?: throw FieldWasNullException("userName")
-        val gamePage = gameRepository.getDraftGame(PageRequest.of(0,1),createdBy,DRAFT_STATUS).takeIf { !it.isEmpty }?: throw NotFoundException("game")
+        val gamePage = gameRepository.getDraftGame(PageRequest.of(0,1),createdBy,status).takeIf { !it.isEmpty }?: throw NotFoundException("game")
         val game = gamePage.content[0]?:throw NotFoundException("game in array")
         return dataLayer2GameContext
             .setGameIntoContext(GameContext(),game)

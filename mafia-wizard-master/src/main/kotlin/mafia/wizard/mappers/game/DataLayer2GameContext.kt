@@ -8,6 +8,7 @@ import models.PlayerModel
 import models.game.GameContext
 import models.game.GameModel
 import models.game.Night
+import models.game.PlayerToCardNumber
 
 import org.springframework.stereotype.Service
 
@@ -42,6 +43,11 @@ class DataLayer2GameContext(
                 nights = objectMapper.readValue(
                     it,
                     object : TypeReference<MutableSet<PlayerModel>>() {}) as MutableSet<Night>
+            }
+            game.playerToCardNumber?.let {
+                playerToCardNumber = objectMapper.readValue(
+                    it,
+                    object : TypeReference<MutableSet<PlayerToCardNumber>>() {}) as MutableSet<PlayerToCardNumber>
             }
         }
         return model

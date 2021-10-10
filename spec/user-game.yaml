@@ -322,6 +322,18 @@ components:
             gameUuid:
               type: string
               format: uuid
+    PlayerToCardNumber:
+      description: Структура для создания юнита в репоизтории
+      properties:
+        playerUuid:
+          type: string
+          format: uuid
+        slot:
+          type: integer
+        role:
+          type: string
+        note:
+          type: integer
     UpdatePlayerInGameRequest:
       description: Структура для создания юнита в репоизтории
       allOf:
@@ -412,22 +424,14 @@ components:
         victory:
           description: кто победил?
           type: string
-        don:
-          description: кто был доном?
-          type: string
-        sheriff:
-          description: кто был шерифом?
-          type: string
-        criminalOne:
-          description: кто был маф1?
-          type: string
-        criminalTwo:
-          description: кто был маф2?
-          type: string
         gameNumber:
           description: номер игры
           type: integer
           format: int64
+        playerToCardNumber:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlayerToCardNumber'
         players:
           type: array
           items:

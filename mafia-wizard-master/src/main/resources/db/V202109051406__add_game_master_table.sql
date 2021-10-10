@@ -9,21 +9,18 @@ CREATE TABLE wizard.game_masters
 
 CREATE TABLE wizard.games
 (
-    game_uuid    UUID    NOT NULL,
-    game_number  int8 NULL default 0,
-    name         VARCHAR(50) NULL,
-    game_table   VARCHAR(50) NULL,
-    victory      VARCHAR(50) NULL,
-    don          UUID NULL,
-    sheriff      UUID NULL,
-    criminal_one UUID NULL,
-    criminal_two UUID NULL,
-    status       VARCHAR default 'DRAFT',
-    players      JSON null,
-    nights       JSON null,
-    updated_at   TIMESTAMPTZ NULL default now(),
-    created_at   TIMESTAMPTZ NULL default now(),
-    created_by   VARCHAR NOT NULL,
+    game_uuid          UUID    NOT NULL,
+    game_number        int8 NULL default 0,
+    name               VARCHAR(50) NULL,
+    game_table         VARCHAR(50) NULL,
+    victory            VARCHAR(50) NULL,
+    player_to_card_number JSON null,
+    status             VARCHAR default 'DRAFT',
+    players            JSON null,
+    nights             JSON null,
+    updated_at         TIMESTAMPTZ NULL default now(),
+    created_at         TIMESTAMPTZ NULL default now(),
+    created_by         VARCHAR NOT NULL,
     CONSTRAINT game_pk PRIMARY KEY (game_uuid)
 );
 

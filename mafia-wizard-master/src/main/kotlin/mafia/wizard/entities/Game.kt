@@ -30,14 +30,9 @@ data class Game(
     var gameTable: String? = null,
     @Column(name = "victory")
     var victory: String? = null,
-    @Column(name = "don", columnDefinition = "BINARY(16)")
-    var don: UUID? = null,
-    @Column(name = "sheriff", columnDefinition = "BINARY(16)")
-    var sheriff: UUID? = null,
-    @Column(name = "criminal_one", columnDefinition = "BINARY(16)")
-    var criminalOne: UUID? = null,
-    @Column(name = "criminal_two", columnDefinition = "BINARY(16)")
-    var criminalTwo: UUID? = null,
+    @Type(type = "json")
+    @Column(columnDefinition = "jsonb")
+    var playerToCardNumber:String?=null,
     @Column(name = "status")
     var status: String? = DRAFT_STATUS,
     @Type(type = "json")

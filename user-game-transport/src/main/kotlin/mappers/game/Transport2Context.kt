@@ -54,6 +54,13 @@ private fun CreateGameRequest.toModel(gameUUID: UUID) = GameModel(
     gameNumber = this.gameNumber,
     nights = this.nights?.map { it.toNightModel() }?.toMutableSet(),
     status = "DRAFT",
+    playerToCardNumber = this.playerToCardNumber?.map {
+        return@map PlayerToCardNumber(
+            it.playerUuid,
+            it.slot,
+            it.role,
+        )
+    }?.toMutableSet(),
     players = this.players?.map { PlayerModel(playerUUID = it.playerUuid ?: throw FieldWasNullException("playerUuid")) }
         ?.toMutableSet() ?: mutableSetOf<PlayerModel>()
 )
@@ -64,6 +71,13 @@ private fun UpdateGameRequest.toModel() = GameModel(
     status = this.status,
     gameNumber = this.gameNumber,
     nights = this.nights?.map { it.toNightModel() }?.toMutableSet(),
+    playerToCardNumber = this.playerToCardNumber?.map {
+        return@map PlayerToCardNumber(
+            it.playerUuid,
+            it.slot,
+            it.role,
+        )
+    }?.toMutableSet(),
     players = this.players?.map { it.toModel() }
         ?.toMutableSet() ?: mutableSetOf()
 )
@@ -72,13 +86,7 @@ private fun NightInfo.toNightModel() = Night(
     sheriffChecked = this.sheriffChecked,
     donChecked = this.donChecked,
     playerLeftGame = this.playerLeftGame,
-    killedPlayer = this.killedPlayer,
-    playerToCardNumber = this.playerToCardNumber?.map {
-        return@map PlayerToCardNumber(
-            it.playerUuid,
-            it.cardNumber
-        )
-    }
+    killedPlayer = this.killedPlayer
 )
 
 fun UpdatePlayerInGameRequest.toModel() = PlayerModel(

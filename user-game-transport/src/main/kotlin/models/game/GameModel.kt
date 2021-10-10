@@ -9,14 +9,11 @@ data class GameModel(
     var gameNumber: Long?,
     var gameTable: String? = null,
     var victory: String? = null,
-    var don: UUID? = null,
-    var sheriff: UUID? = null,
-    var criminalOne: UUID? = null,
-    var criminalTwo: UUID? = null,
     var name: String? = null,
     var status: String? = null,
+    var playerToCardNumber: MutableSet<PlayerToCardNumber>? = mutableSetOf<PlayerToCardNumber>(),
     var players: MutableSet<PlayerModel> = mutableSetOf<PlayerModel>(),
-    var nights: MutableSet<Night>?= mutableSetOf(),
+    var nights: MutableSet<Night>? = mutableSetOf(),
 ) {
     fun addPlayer(value: PlayerModel) {
         players.add(value)
@@ -28,10 +25,10 @@ data class Night(
     var sheriffChecked: UUID?,
     var donChecked: UUID?,
     var playerLeftGame: List<UUID>?,
-    var playerToCardNumber: List<PlayerToCardNumber>?,
 )
 
 data class PlayerToCardNumber(
     val playerUuid: java.util.UUID? = null,
     val cardNumber: kotlin.Int? = null,
+    val gameRole: kotlin.String? = null,
 )

@@ -4,6 +4,7 @@ import exceptions.FieldWasNullException
 import mafia.wizard.openapi.models.*
 import models.PlayerModel
 import models.game.GameContext
+import models.game.Night
 
 
 fun GameContext.toReadGameResponse(): ReadGameResponse {
@@ -14,6 +15,7 @@ fun GameContext.toReadGameResponse(): ReadGameResponse {
         gameUuid = gameModel?.gameUUID,
         name = gameModel?.name,
         players = gameModel?.players?.map { it.toGamePlayerInfo() } ?: listOf(),
+        nights = gameModel?.nights?.map { it.toNightInfo() } ?: listOf(),
         result = if (this.requestContext.errors.isEmpty()) ReadGameResponse.Result.SUCCESS else ReadGameResponse.Result.ERROR
     )
 }
@@ -60,5 +62,14 @@ fun PlayerModel.toGamePlayerInfo(): UpdatePlayerInGameRequest {
         don = this.don,
         sheriff = this.sheriff,
         wasKilled = this.wasKilled
+    )
+}
+fun Night.toNightInfo():NightInfo{
+    return NightInfo(
+         nightNumber=this.nightNumber,
+         killedPlayer=this.killedPlayer,
+         sheriffChecked=this.sheriffChecked,
+         donChecked=this.donChecked,
+         playerLeftGame=this.playerLeftGame
     )
 }

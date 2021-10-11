@@ -34,17 +34,20 @@ class GameContext2DataLayer(
         gameModel.nights?.let { nightSet ->
             val nights = objectMapper.readValue(gameForUpdate.nights?:"[]",
                 object : TypeReference<MutableSet<Night>>() {}) as MutableSet<Night>
-            val first = nightSet.first()
-            val filteredNight = nights.firstOrNull {
-                it.nightNumber == first.nightNumber
-            }?: Night(nightNumber =first.nightNumber )
+            nightSet.takeIf {
+                it.isNotEmpty()
+            }?.first()?.let {firstNight->
 
-            first.killedPlayer?.let { filteredNight.killedPlayer = it }
-            first.donChecked?.let { filteredNight.donChecked = it }
-            first.sheriffChecked?.let { filteredNight.sheriffChecked = it }
-            nights.removeIf{it.nightNumber == filteredNight.nightNumber}
-            nights.add(filteredNight)
-            gameForUpdate.nights = objectMapper.writeValueAsString(nights)
+                val filteredNight = nights.firstOrNull {
+                    it.nightNumber == firstNight.nightNumber
+                }?: Night(nightNumber =firstNight.nightNumber )
+                firstNight.killedPlayer?.let { filteredNight.killedPlayer = it }
+                firstNight.donChecked?.let { filteredNight.donChecked = it }
+                firstNight.sheriffChecked?.let { filteredNight.sheriffChecked = it }
+                nights.removeIf{it.nightNumber == filteredNight.nightNumber}
+                nights.add(filteredNight)
+                gameForUpdate.nights = objectMapper.writeValueAsString(nights)
+            }
         }
         return gameForUpdate
     }

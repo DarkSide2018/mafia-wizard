@@ -364,6 +364,8 @@ components:
       description: мета-инфомация для ночи
       type: object
       properties:
+        nightNumber:
+          type: integer
         killedPlayer:
           type: string
           format: uuid
@@ -373,10 +375,6 @@ components:
         donChecked:
           type: string
           format: uuid
-        playerToCardNumber:
-          type: array
-          items:
-            $ref: '#/components/schemas/PlayerToCardNumber'
         playerLeftGame:
           type: array
           items:

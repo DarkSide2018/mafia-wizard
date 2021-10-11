@@ -42,7 +42,7 @@ class DataLayer2GameContext(
             game.nights?.let {
                 nights = objectMapper.readValue(
                     it,
-                    object : TypeReference<MutableSet<PlayerModel>>() {}) as MutableSet<Night>
+                    object : TypeReference<MutableSet<Night>>() {}) as MutableSet<Night>
             }
             game.playerToCardNumber?.let {
                 playerToCardNumber = objectMapper.readValue(

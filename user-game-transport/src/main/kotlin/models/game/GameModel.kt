@@ -21,10 +21,11 @@ data class GameModel(
 }
 
 data class Night(
-    var killedPlayer: UUID?,
-    var sheriffChecked: UUID?,
-    var donChecked: UUID?,
-    var playerLeftGame: List<UUID>?,
+    var nightNumber:Int?=null,
+    var killedPlayer: UUID?=null,
+    var sheriffChecked: UUID?=null,
+    var donChecked: UUID?=null,
+    var playerLeftGame: List<UUID>?=null,
 )
 
 data class PlayerToCardNumber(

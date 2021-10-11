@@ -2,7 +2,6 @@ package mafia.wizard.services
 
 import exceptions.FieldWasNullException
 import mafia.wizard.config.NotFoundException
-import mafia.wizard.entities.DRAFT_STATUS
 import mafia.wizard.entities.User
 import mafia.wizard.mappers.game.DataLayer2GameContext
 import mafia.wizard.mappers.game.GameContext2DataLayer

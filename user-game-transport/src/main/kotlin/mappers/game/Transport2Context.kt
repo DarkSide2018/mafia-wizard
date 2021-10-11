@@ -83,6 +83,7 @@ private fun UpdateGameRequest.toModel() = GameModel(
 )
 
 private fun NightInfo.toNightModel() = Night(
+    nightNumber = this.nightNumber,
     sheriffChecked = this.sheriffChecked,
     donChecked = this.donChecked,
     playerLeftGame = this.playerLeftGame,

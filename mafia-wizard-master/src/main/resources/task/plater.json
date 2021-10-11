@@ -1,18 +1,6 @@
 [
   {
-    "playerUuid": "5f8224cb-5e38-4c30-bd5a-9ee1003342b9",
-    "nickName": "Антон",
-    "foulAmount": 0,
-    "points": 0,
-    "additionalPoints": 16,
-    "penalties": 11,
-    "bestMove": 0,
-    "victoriesRed": 0,
-    "victoriesBlack": 0,
-    "defeatBlack": 0,
-    "defeatRed": 0,
-    "don": 0,
-    "sheriff": 0,
-    "wasKilled": 0
+    "nightNumber": 0,
+    "killedPlayer": "5f8224cb-5e38-4c30-bd5a-9ee1003342b9"
   }
 ]

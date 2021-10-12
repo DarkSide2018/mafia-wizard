@@ -7,8 +7,11 @@ import mafia.wizard.entities.Game
 import mafia.wizard.entities.User
 import models.game.GameContext
 import models.game.Night
+import models.game.PlayerToCardNumber
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
+
+const val EMPTY_ARRAY: String = "[]"
 
 @Component
 class GameContext2DataLayer(
@@ -28,27 +31,53 @@ class GameContext2DataLayer(
 
     fun updateGameEntity(updateGameContext: GameContext, gameForUpdate: Game): Game {
         val gameModel = updateGameContext.gameModel ?: throw FieldWasNullException("gameModel")
-        gameModel.players.takeIf { it.isNotEmpty() }?.let { gameForUpdate.players = objectMapper.writeValueAsString(it) }
+        gameModel.players.takeIf { it.isNotEmpty() }
+            ?.let { gameForUpdate.players = objectMapper.writeValueAsString(it) }
         gameModel.gameNumber?.let { gameForUpdate.gameNumber = it }
         gameModel.status?.let { gameForUpdate.status = it }
-        gameModel.nights?.let { nightSet ->
-            val nights = objectMapper.readValue(gameForUpdate.nights?:"[]",
+        updateGameNights(gameModel.nights, gameForUpdate)
+        updatePlayerToCardNumber(gameModel.playerToCardNumber, gameForUpdate)
+        return gameForUpdate
+    }
+
+    private fun updatePlayerToCardNumber(playerToCardNumber: MutableSet<PlayerToCardNumber>?, gameForUpdate: Game) {
+        playerToCardNumber?.let { plSet ->
+            val plToCardNumbers = objectMapper.readValue(gameForUpdate.playerToCardNumber ?: EMPTY_ARRAY,
+                object : TypeReference<MutableSet<PlayerToCardNumber>>() {}) as MutableSet<PlayerToCardNumber>
+            plSet.takeIf {
+                it.isNotEmpty()
+            }?.first()?.let { firstPl ->
+                val filteredPl = plToCardNumbers.firstOrNull {
+                    it.cardNumber == firstPl.cardNumber
+                } ?: PlayerToCardNumber(cardNumber = firstPl.cardNumber)
+                firstPl.gameRole?.let { filteredPl.gameRole = it }
+                firstPl.note?.let { filteredPl.note = it }
+                firstPl.playerUuid?.let { filteredPl.playerUuid = it }
+                plToCardNumbers.removeIf { it.cardNumber == filteredPl.cardNumber }
+                plToCardNumbers.add(filteredPl)
+                gameForUpdate.playerToCardNumber = objectMapper.writeValueAsString(plToCardNumbers)
+            }
+        }
+    }
+
+    private fun updateGameNights(nightsIn: MutableSet<Night>?, gameForUpdate: Game) {
+        nightsIn?.let { nightSet ->
+            val nights = objectMapper.readValue(gameForUpdate.nights ?: EMPTY_ARRAY,
                 object : TypeReference<MutableSet<Night>>() {}) as MutableSet<Night>
             nightSet.takeIf {
                 it.isNotEmpty()
-            }?.first()?.let {firstNight->
-
+            }?.first()?.let { firstNight ->
                 val filteredNight = nights.firstOrNull {
                     it.nightNumber == firstNight.nightNumber
-                }?: Night(nightNumber =firstNight.nightNumber )
+                } ?: Night(nightNumber = firstNight.nightNumber)
                 firstNight.killedPlayer?.let { filteredNight.killedPlayer = it }
                 firstNight.donChecked?.let { filteredNight.donChecked = it }
                 firstNight.sheriffChecked?.let { filteredNight.sheriffChecked = it }
-                nights.removeIf{it.nightNumber == filteredNight.nightNumber}
+                firstNight.playerLeftGame?.let { filteredNight.playerLeftGame = it }
+                nights.removeIf { it.nightNumber == filteredNight.nightNumber }
                 nights.add(filteredNight)
                 gameForUpdate.nights = objectMapper.writeValueAsString(nights)
             }
         }
-        return gameForUpdate
     }
 }

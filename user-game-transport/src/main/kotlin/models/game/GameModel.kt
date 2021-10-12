@@ -1,6 +1,5 @@
 package models.game
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import models.PlayerModel
 import java.util.*
 
@@ -25,11 +24,12 @@ data class Night(
     var killedPlayer: UUID?=null,
     var sheriffChecked: UUID?=null,
     var donChecked: UUID?=null,
-    var playerLeftGame: List<UUID>?=null,
+    var playerLeftGame: UUID?=null,
 )
 
 data class PlayerToCardNumber(
-    val playerUuid: java.util.UUID? = null,
-    val cardNumber: kotlin.Int? = null,
-    val gameRole: kotlin.String? = null,
+    var playerUuid: java.util.UUID? = null,
+    var cardNumber: kotlin.Int? = null,
+    var gameRole: kotlin.String? = null,
+    var note:Int?=null,
 )

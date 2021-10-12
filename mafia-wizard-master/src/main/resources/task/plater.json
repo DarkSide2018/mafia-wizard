@@ -1,6 +1,23 @@
 [
   {
     "nightNumber": 0,
-    "killedPlayer": "ef48ad1e-b271-4d06-8ed2-76cd1633889b"
+    "killedPlayer": "d596cda2-965b-43f6-81cf-7e357cbf447e",
+    "playerLeftGame": "d596cda2-965b-43f6-81cf-7e357cbf447e"
+  },
+  {
+    "nightNumber": 3,
+    "sheriffChecked": "ef48ad1e-b271-4d06-8ed2-76cd1633889b",
+    "playerLeftGame": "ef48ad1e-b271-4d06-8ed2-76cd1633889b"
+  },
+  {
+    "nightNumber": 1,
+    "killedPlayer": "d596cda2-965b-43f6-81cf-7e357cbf447e",
+    "sheriffChecked": "ef48ad1e-b271-4d06-8ed2-76cd1633889b",
+    "playerLeftGame": "d596cda2-965b-43f6-81cf-7e357cbf447e"
+  },
+  {
+    "nightNumber": 2,
+    "sheriffChecked": "d596cda2-965b-43f6-81cf-7e357cbf447e",
+    "playerLeftGame": "d596cda2-965b-43f6-81cf-7e357cbf447e"
   }
 ]

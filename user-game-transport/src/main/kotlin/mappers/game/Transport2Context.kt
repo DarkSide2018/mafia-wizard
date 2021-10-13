@@ -73,9 +73,10 @@ private fun UpdateGameRequest.toModel() = GameModel(
     nights = this.nights?.map { it.toNightModel() }?.toMutableSet(),
     playerToCardNumber = this.playerToCardNumber?.map {
         return@map PlayerToCardNumber(
-            it.playerUuid,
-            it.slot,
-            it.role,
+            note = it.note,
+            playerUuid = it.playerUuid,
+            cardNumber = it.slot,
+            gameRole = it.role,
         )
     }?.toMutableSet(),
     players = this.players?.map { it.toModel() }

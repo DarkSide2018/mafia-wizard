@@ -14,6 +14,12 @@ fun GameContext.toReadGameResponse(): ReadGameResponse {
         gameNumber = gameModel?.gameNumber,
         gameUuid = gameModel?.gameUUID,
         name = gameModel?.name,
+        playerToCardNumber = gameModel?.playerToCardNumber?.map { return@map PlayerToCardNumberDTO(
+            playerUuid = it.playerUuid,
+            slot = it.cardNumber,
+            role = it.gameRole,
+            note = it.note
+        )}?: listOf(),
         players = gameModel?.players?.map { it.toGamePlayerInfo() } ?: listOf(),
         nights = gameModel?.nights?.map { it.toNightInfo() } ?: listOf(),
         result = if (this.requestContext.errors.isEmpty()) ReadGameResponse.Result.SUCCESS else ReadGameResponse.Result.ERROR

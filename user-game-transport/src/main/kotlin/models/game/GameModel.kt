@@ -24,12 +24,12 @@ data class Night(
     var killedPlayer: UUID?=null,
     var sheriffChecked: UUID?=null,
     var donChecked: UUID?=null,
-    var playerLeftGame: UUID?=null,
+    var playerLeftGame: UUID?=null
 )
 
 data class PlayerToCardNumber(
     var playerUuid: java.util.UUID? = null,
     var cardNumber: kotlin.Int? = null,
     var gameRole: kotlin.String? = null,
-    var note:Int?=null,
+    var note:kotlin.Int?=null
 )

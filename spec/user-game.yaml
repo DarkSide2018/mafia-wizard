@@ -322,7 +322,7 @@ components:
             gameUuid:
               type: string
               format: uuid
-    PlayerToCardNumber:
+    PlayerToCardNumberDTO:
       description: Структура для создания юнита в репоизтории
       properties:
         playerUuid:
@@ -431,7 +431,7 @@ components:
         playerToCardNumber:
           type: array
           items:
-            $ref: '#/components/schemas/PlayerToCardNumber'
+            $ref: '#/components/schemas/PlayerToCardNumberDTO'
         players:
           type: array
           items:

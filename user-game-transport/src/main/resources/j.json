@@ -1,0 +1,26 @@
+[
+  {
+    "playerUuid": "6bc81f9f-198a-4aa3-b1e3-7e5791dea5dc",
+    "cardNumber": 4,
+    "gameRole": "Дон"
+  },
+  {
+    "playerUuid": "60056a6d-0fbd-4811-9c76-1f023fb46265",
+    "cardNumber": 2,
+    "gameRole": "мирный6"
+  },
+  {
+    "playerUuid": "ef48ad1e-b271-4d06-8ed2-76cd1633889b",
+    "cardNumber": 1
+  },
+  {
+    "playerUuid": "2a86972f-4063-47bb-940b-99e07b184b9a",
+    "cardNumber": 5,
+    "gameRole": "шериф"
+  },
+  {
+    "playerUuid": "646eed7e-8e05-4084-9ad6-e65e9612acc5",
+    "cardNumber": 3,
+    "gameRole": "мирный2"
+  }
+]

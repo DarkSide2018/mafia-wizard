@@ -69,6 +69,7 @@ private fun UpdateGameRequest.toModel() = GameModel(
     gameUUID = this.gameUuid ?: throw FieldWasNullException("UpdateGameRequest gameUuid"),
     name = this.name,
     status = this.status,
+    victory = this.victory,
     gameNumber = this.gameNumber,
     nights = this.nights?.map { it.toNightModel() }?.toMutableSet(),
     playerToCardNumber = this.playerToCardNumber?.map {

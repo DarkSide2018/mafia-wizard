@@ -31,6 +31,7 @@ class DataLayer2GameContext(
             gameUUID = game.gameUUID ?: throw FieldWasNullException("gameToGameModel gameUUID"),
             name = game.name,
             gameNumber = game.gameNumber,
+            victory = game.victory
         )
         with(model) {
             game.players?.let {

@@ -60,6 +60,10 @@ class GameController(
     fun updateGame(@RequestBody game: UpdateGameRequest): ResponseEntity<BaseResponse> {
         return ResponseEntity.ok(gameService.updateGame(game))
     }
+    @PutMapping("/finish")
+    fun finishGame(@RequestBody game: UpdateGameRequest): ResponseEntity<BaseResponse> {
+        return ResponseEntity.ok(gameService.finishGame(game))
+    }
 
     @DeleteMapping("{uuid}")
     fun deleteGame(@PathVariable uuid: UUID): ResponseEntity<String> {

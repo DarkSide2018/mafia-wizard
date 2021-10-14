@@ -13,6 +13,7 @@ fun GameContext.toReadGameResponse(): ReadGameResponse {
         errors = this.requestContext.errors.takeIf { it.isNotEmpty() },
         gameNumber = gameModel?.gameNumber,
         gameUuid = gameModel?.gameUUID,
+        victory = gameModel?.victory,
         name = gameModel?.name,
         playerToCardNumber = gameModel?.playerToCardNumber?.map { return@map PlayerToCardNumberDTO(
             playerUuid = it.playerUuid,

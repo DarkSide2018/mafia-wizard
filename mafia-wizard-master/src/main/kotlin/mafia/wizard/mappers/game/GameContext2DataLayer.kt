@@ -35,6 +35,7 @@ class GameContext2DataLayer(
             ?.let { gameForUpdate.players = objectMapper.writeValueAsString(it) }
         gameModel.gameNumber?.let { gameForUpdate.gameNumber = it }
         gameModel.status?.let { gameForUpdate.status = it }
+        gameModel.victory?.let { gameForUpdate.victory = it }
         updateGameNights(gameModel.nights, gameForUpdate)
         updatePlayerToCardNumber(gameModel.playerToCardNumber, gameForUpdate)
         return gameForUpdate

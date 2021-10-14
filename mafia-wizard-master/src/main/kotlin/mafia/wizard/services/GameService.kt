@@ -28,6 +28,7 @@ class GameService(
     private val playerRepo: PlayerRepo,
     private val gameRepository: GameRepository,
 ) {
+    val FREE_STATUS = "FREE"
     var logger: Logger = LoggerFactory.getLogger(GameService::class.java)
     fun getByUuid(uuid: UUID): ReadGameResponse {
         val game = gameRepository.findById(uuid)
@@ -69,12 +70,15 @@ class GameService(
         gameRepository.save(gameEntity)
         return gameContext.toCommandResponse()
     }
-    fun getGameByStatus(status:String): ReadGameResponse {
-        val createdBy = (SecurityContextHolder.getContext().authentication.principal as User).userName ?: throw FieldWasNullException("userName")
-        val gamePage = gameRepository.getDraftGame(PageRequest.of(0,1),createdBy,status).takeIf { !it.isEmpty }?: throw NotFoundException("game")
-        val game = gamePage.content[0]?:throw NotFoundException("game in array")
+
+    fun getGameByStatus(status: String): ReadGameResponse {
+        val createdBy = (SecurityContextHolder.getContext().authentication.principal as User).userName
+            ?: throw FieldWasNullException("userName")
+        val gamePage = gameRepository.getDraftGame(PageRequest.of(0, 1), createdBy, status).takeIf { !it.isEmpty }
+            ?: throw NotFoundException("game")
+        val game = gamePage.content[0] ?: throw NotFoundException("game in array")
         return dataLayer2GameContext
-            .setGameIntoContext(GameContext(),game)
+            .setGameIntoContext(GameContext(), game)
             .toReadGameResponse()
     }
 
@@ -95,6 +99,24 @@ class GameService(
         val updatedGame = gameContext2DataLayer.updateGameEntity(gameContext, gameForUpdate)
         gameRepository.save(updatedGame)
         return gameContext.toCommandResponse()
+    }
+
+    fun finishGame(game: UpdateGameRequest): BaseResponse {
+        val gameContext = GameContext().setQuery(game)
+        playerBusyToFreeStatus(gameContext)
+        val gameForUpdate = gameRepository
+            .findById(game.gameUuid ?: throw FieldWasNullException("updateGame gameUUID"))
+            .orElseThrow()
+        val updatedGame = gameContext2DataLayer.updateGameEntity(gameContext, gameForUpdate)
+        gameRepository.save(updatedGame)
+        return gameContext.toCommandResponse()
+    }
+    fun playerBusyToFreeStatus(game: GameContext) {
+        game.gameModel?.players?.forEach {
+            val player = playerRepo.getById(it.playerUUID ?: throw FieldWasNullException("playerUuid"))
+            player.status = FREE_STATUS
+            playerRepo.save(player)
+        }
     }
 
     fun deleteGame(uuid: UUID) {

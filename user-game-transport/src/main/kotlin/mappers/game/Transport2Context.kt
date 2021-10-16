@@ -25,7 +25,6 @@ fun GameContext.addPlayerToGame(player: PlayerModel, gameModel: GameModel) = app
 
 fun GameContext.updatePlayerInGame(player: PlayerModel, gameModel: GameModel) = apply {
 
-
     val updatedPlayers = gameModel.players.map {
         if (it.playerUUID == player.playerUUID) {
             it.additionalPoints = player.additionalPoints

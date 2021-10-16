@@ -21,15 +21,16 @@ import java.util.*
 
 const val BUSY_STATUS = "BUSY"
 
+
 @Service
 class GameService(
     private val dataLayer2GameContext: DataLayer2GameContext,
     private val gameContext2DataLayer: GameContext2DataLayer,
     private val playerRepo: PlayerRepo,
+    private val playerCalculator: PlayerCalculator,
     private val gameRepository: GameRepository,
 ) {
-    val FREE_STATUS = "FREE"
-    var logger: Logger = LoggerFactory.getLogger(GameService::class.java)
+    var logger: Logger = LoggerFactory.getLogger(javaClass)
     fun getByUuid(uuid: UUID): ReadGameResponse {
         val game = gameRepository.findById(uuid)
             .orElseThrow { return@orElseThrow NotFoundException("no such element with uuid : $uuid") }
@@ -103,20 +104,13 @@ class GameService(
 
     fun finishGame(game: UpdateGameRequest): BaseResponse {
         val gameContext = GameContext().setQuery(game)
-        playerBusyToFreeStatus(gameContext)
+        playerCalculator.playerBusyToFreeStatus(gameContext)
         val gameForUpdate = gameRepository
             .findById(game.gameUuid ?: throw FieldWasNullException("updateGame gameUUID"))
             .orElseThrow()
         val updatedGame = gameContext2DataLayer.updateGameEntity(gameContext, gameForUpdate)
         gameRepository.save(updatedGame)
         return gameContext.toCommandResponse()
-    }
-    fun playerBusyToFreeStatus(game: GameContext) {
-        game.gameModel?.players?.forEach {
-            val player = playerRepo.getById(it.playerUUID ?: throw FieldWasNullException("playerUuid"))
-            player.status = FREE_STATUS
-            playerRepo.save(player)
-        }
     }
 
     fun deleteGame(uuid: UUID) {

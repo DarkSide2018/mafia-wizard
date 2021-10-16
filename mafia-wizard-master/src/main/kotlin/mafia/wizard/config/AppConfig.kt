@@ -11,8 +11,6 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 class AppConfig(
 ) {
-
-
     @Bean
     fun objectMapper(): ObjectMapper {
         return ObjectMapper()

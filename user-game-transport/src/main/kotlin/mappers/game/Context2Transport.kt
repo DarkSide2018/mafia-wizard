@@ -32,6 +32,7 @@ fun GameContext.toReadAllGamesResponse(): ReadAllGamesResponse {
         requestUUID = this.requestContext.requestUUID,
         games = this.gameModelList?.map {
             return@map GameMetaInfo(
+                name = it.name,
                 gameNumber = it.gameNumber,
                 gameUuid = it.gameUUID,
                 players = it.players?.map { gamePlayer -> gamePlayer.toGamePlayerInfo() } ?: listOf()

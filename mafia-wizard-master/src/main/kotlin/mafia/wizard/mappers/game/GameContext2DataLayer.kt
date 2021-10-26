@@ -34,6 +34,7 @@ class GameContext2DataLayer(
         gameModel.players.takeIf { it.isNotEmpty() }
             ?.let { gameForUpdate.players = objectMapper.writeValueAsString(it) }
         gameModel.gameNumber?.let { gameForUpdate.gameNumber = it }
+        gameModel.name?.let { gameForUpdate.name = it }
         gameModel.status?.let { gameForUpdate.status = it }
         gameModel.victory?.let { gameForUpdate.victory = it }
         updateGameNights(gameModel.nights, gameForUpdate)

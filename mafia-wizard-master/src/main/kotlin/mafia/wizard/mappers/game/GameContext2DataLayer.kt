@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import exceptions.FieldWasNullException
 import mafia.wizard.entities.Game
 import mafia.wizard.entities.User
+import models.PlayerModel
 import models.game.GameContext
 import models.game.Night
 import models.game.PlayerToCardNumber
@@ -32,7 +33,13 @@ class GameContext2DataLayer(
     fun updateGameEntity(updateGameContext: GameContext, gameForUpdate: Game): Game {
         val gameModel = updateGameContext.gameModel ?: throw FieldWasNullException("gameModel")
         gameModel.players.takeIf { it.isNotEmpty() }
-            ?.let { gameForUpdate.players = objectMapper.writeValueAsString(it) }
+            ?.let { set ->
+                val playerModelSet = objectMapper.readValue(
+                    gameForUpdate.players,
+                    object : TypeReference<MutableSet<PlayerModel>>() {}) as MutableSet<PlayerModel>
+                playerModelSet.addAll(set)
+                gameForUpdate.players = objectMapper.writeValueAsString(playerModelSet.distinctBy { it.playerUUID })
+            }
         gameModel.gameNumber?.let { gameForUpdate.gameNumber = it }
         gameModel.name?.let { gameForUpdate.name = it }
         gameModel.status?.let { gameForUpdate.status = it }

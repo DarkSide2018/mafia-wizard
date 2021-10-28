@@ -1,23 +1,18 @@
 [
   {
-    "nightNumber": 0,
-    "killedPlayer": "d596cda2-965b-43f6-81cf-7e357cbf447e",
-    "playerLeftGame": "d596cda2-965b-43f6-81cf-7e357cbf447e"
-  },
-  {
-    "nightNumber": 3,
-    "sheriffChecked": "ef48ad1e-b271-4d06-8ed2-76cd1633889b",
-    "playerLeftGame": "ef48ad1e-b271-4d06-8ed2-76cd1633889b"
-  },
-  {
-    "nightNumber": 1,
-    "killedPlayer": "d596cda2-965b-43f6-81cf-7e357cbf447e",
-    "sheriffChecked": "ef48ad1e-b271-4d06-8ed2-76cd1633889b",
-    "playerLeftGame": "d596cda2-965b-43f6-81cf-7e357cbf447e"
-  },
-  {
-    "nightNumber": 2,
-    "sheriffChecked": "d596cda2-965b-43f6-81cf-7e357cbf447e",
-    "playerLeftGame": "d596cda2-965b-43f6-81cf-7e357cbf447e"
+    "playerUUID": "646eed7e-8e05-4084-9ad6-e65e9612acc5",
+    "foulAmount": 0,
+    "nickName": "Вячеслав",
+    "points": 0,
+    "additionalPoints": 0,
+    "penalties": 0,
+    "bestMove": 0,
+    "victoriesRed": 0,
+    "defeatRed": 0,
+    "victoriesBlack": 0,
+    "defeatBlack": 0,
+    "don": 0,
+    "sheriff": 0,
+    "wasKilled": 0
   }
 ]

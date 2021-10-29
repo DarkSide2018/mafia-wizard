@@ -35,6 +35,7 @@ CREATE TABLE wizard.AUTH_USER_AUTHORITY (
 
 CREATE TABLE wizard.players (
                                           player_uuid               UUID         NOT NULL DEFAULT uuid_generate_v4(),
+                                          image                     bytea        null,
                                           status                    VARCHAR (6)  not NULL default 'FREE',
                                           rating_id                 int8         not NULL default 0,
                                           foul_amount               int8         not NULL default 0,
@@ -57,6 +58,8 @@ CREATE TABLE wizard.players (
                                           games                     int8         not NULL default 0,
                                           rating                    float8       not NULL default 0.0,
                                           updated_at                TIMESTAMPTZ  NULL default now(),
+                                          updated_by                VARCHAR      not NULL,
                                           created_at                TIMESTAMPTZ  NULL default now(),
+                                          created_by                VARCHAR  not NULL,
                                           CONSTRAINT player_pk PRIMARY KEY (player_uuid)
 );

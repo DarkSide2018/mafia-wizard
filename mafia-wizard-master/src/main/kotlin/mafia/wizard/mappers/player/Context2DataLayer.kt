@@ -1,18 +1,23 @@
 package mafia.wizard.mappers.player
 
 import mafia.wizard.entities.Player
+import mafia.wizard.entities.User
 import models.PlayerContext
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
+import org.springframework.security.core.context.SecurityContextHolder
 import java.lang.Exception
 import java.time.OffsetDateTime
 import java.util.*
 
 fun PlayerContext.toPlayerEntity(): Player {
     val playerModelNotNull = this.playerModel ?: throw Exception("CreatePlayerContext null player model")
+    val createdBy = SecurityContextHolder.getContext().authentication.principal as User
     return Player(
         playerUuid = UUID.randomUUID(),
+        createdBy = createdBy.userName,
+        updatedBy = createdBy.userName,
         ratingId = playerModelNotNull.ratingId ?: throw Exception("empty ratingId"),
         foulAmount = playerModelNotNull.foulAmount ?: throw Exception("empty foulAmount"),
         nickName = playerModelNotNull.nickName ?: throw Exception("empty nickName"),

@@ -20,6 +20,7 @@ dependencies {
     implementation(project(":wizard-player-transport"))
     implementation(project(":user-game-transport"))
     implementation(project(":transport-objects"))
+    implementation("org.imgscalr:imgscalr-lib:4.2")
     implementation("com.vladmihalcea:hibernate-types-55:2.12.1")
     implementation("org.postgresql:postgresql:$postgresDriverVersion")
     implementation("io.jsonwebtoken:jjwt:0.9.1")

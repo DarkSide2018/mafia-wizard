@@ -4,6 +4,7 @@ import mafia.wizard.entities.Player
 import models.PlayerContext
 import models.PlayerModel
 import org.springframework.data.domain.Page
+import java.util.*
 
 fun PlayerContext.setPlayer(player: Player) = apply {
     playerModel = player.toModel()
@@ -12,6 +13,7 @@ fun PlayerContext.setPlayer(player: Player) = apply {
 fun PlayerContext.setPlayers(players: List<Player>) = apply {
     playerModelList = players.map { it.toModel() }
 }
+
 fun PlayerContext.setPlayers(players: Page<Player>) = apply {
     totalPages = players.totalPages
     totalElements = players.totalElements
@@ -19,11 +21,12 @@ fun PlayerContext.setPlayers(players: Page<Player>) = apply {
     playerModelList = players.content.map { it.toModel() }
 }
 
- fun Player.toModel() = PlayerModel(
+fun Player.toModel() = PlayerModel(
     playerUUID = this.playerUuid,
     ratingId = this.ratingId,
     foulAmount = this.foulAmount,
     nickName = this.nickName,
+    image = Base64.getEncoder().encodeToString(this.image?:"".toByteArray()),
     points = this.points,
     additionalPoints = this.additionalPoints,
     penalties = this.penalties,

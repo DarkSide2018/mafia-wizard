@@ -3,11 +3,9 @@ package mafia.wizard.mappers.player
 import mafia.wizard.entities.Player
 import mafia.wizard.entities.User
 import models.PlayerContext
-import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.security.core.context.SecurityContextHolder
-import java.lang.Exception
 import java.time.OffsetDateTime
 import java.util.*
 

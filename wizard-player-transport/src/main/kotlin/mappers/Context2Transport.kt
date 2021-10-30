@@ -49,6 +49,7 @@ fun PlayerContext.toReadAllPlayersResponse(): ReadAllPlayersResponse {
                 foulAmount = it.foulAmount,
                 nickName = it.nickName,
                 points = it.points,
+                image = it.image,
                 additionalPoints = it.additionalPoints,
                 penalties = it.penalties,
                 bestMove = it.bestMove,

@@ -3,8 +3,10 @@ package mafia.wizard.controllers
 import mafia.wizard.openapi.models.*
 import mafia.wizard.services.PlayerService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
 import java.util.*
 
 @RestController
@@ -25,6 +27,11 @@ class PlayerController(
     fun getByNicknameLike(@RequestBody searchPlayerRequest: SearchPlayerRequest): ResponseEntity<ReadAllPlayersResponse> {
 
         return ResponseEntity.ok(playerService.getByNickNameLike(searchPlayerRequest))
+    }
+    @PostMapping("/image/{uuid}", consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
+    fun image(@RequestParam("file") file: MultipartFile,
+              @PathVariable uuid: UUID): ResponseEntity<BaseResponse> {
+        return ResponseEntity.ok(playerService.saveImage(uuid,file))
     }
 
     @GetMapping("/{uuid}")

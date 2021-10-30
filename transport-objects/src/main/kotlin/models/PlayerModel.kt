@@ -8,6 +8,7 @@ data class PlayerModel(
     var foulAmount: Long? = null,
     var nickName: String? = null,
     var points: Long? = null,
+    var image:String?=null,
     var additionalPoints: Long? = null,
     var penalties: Long? = null,
     var bestMove: Long? = null,

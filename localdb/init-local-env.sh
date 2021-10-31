@@ -13,6 +13,10 @@ docker run --name mafia-wizard      \
              -e POSTGRES_DB=wizard -p 5440:5432 \
              -d postgres
 
+./gradlew clean
+./gradlew flywayMigrate
+./gradlew openApiGenerate
+./gradlew bootJar
 echo "=========================="
-echo "postgres was created"
+echo "local env was created"
 echo "----------------"

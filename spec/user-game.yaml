@@ -334,6 +334,8 @@ components:
           type: string
         note:
           type: integer
+        addPoints:
+          type: number
     UpdatePlayerInGameRequest:
       description: Структура для создания юнита в репоизтории
       allOf:

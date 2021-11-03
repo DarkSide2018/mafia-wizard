@@ -1,6 +1,7 @@
 package models.game
 
 import models.PlayerModel
+import java.math.BigDecimal
 import java.util.*
 
 data class GameModel(
@@ -31,5 +32,6 @@ data class PlayerToCardNumber(
     var playerUuid: java.util.UUID? = null,
     var cardNumber: kotlin.Int? = null,
     var gameRole: kotlin.String? = null,
-    var note:kotlin.Int?=null
+    var note:kotlin.Int?=null,
+    var addPoints:BigDecimal?=null
 )

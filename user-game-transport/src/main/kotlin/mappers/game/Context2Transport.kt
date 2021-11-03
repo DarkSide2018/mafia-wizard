@@ -15,12 +15,15 @@ fun GameContext.toReadGameResponse(): ReadGameResponse {
         gameUuid = gameModel?.gameUUID,
         victory = gameModel?.victory,
         name = gameModel?.name,
-        playerToCardNumber = gameModel?.playerToCardNumber?.map { return@map PlayerToCardNumberDTO(
-            playerUuid = it.playerUuid,
-            slot = it.cardNumber,
-            role = it.gameRole,
-            note = it.note
-        )}?: listOf(),
+        playerToCardNumber = gameModel?.playerToCardNumber?.map {
+            return@map PlayerToCardNumberDTO(
+                playerUuid = it.playerUuid,
+                slot = it.cardNumber,
+                role = it.gameRole,
+                note = it.note,
+                addPoints = it.addPoints
+            )
+        } ?: listOf(),
         players = gameModel?.players?.map { it.toGamePlayerInfo() } ?: listOf(),
         nights = gameModel?.nights?.map { it.toNightInfo() } ?: listOf(),
         result = if (this.requestContext.errors.isEmpty()) ReadGameResponse.Result.SUCCESS else ReadGameResponse.Result.ERROR
@@ -46,7 +49,7 @@ fun GameContext.toReadAllGamesResponse(): ReadAllGamesResponse {
 fun GameContext.toCommandResponse(): BaseResponse {
     val errors = this.requestContext.errors
     return BaseResponse(
-        entityUuid = this.gameModel?.gameUUID?:throw FieldWasNullException("gameUUID"),
+        entityUuid = this.gameModel?.gameUUID ?: throw FieldWasNullException("gameUUID"),
         requestUUID = this.requestContext.requestUUID,
         errors = errors.takeIf { it.isNotEmpty() },
         result = if (errors.isEmpty()) BaseResponse.Result.SUCCESS else BaseResponse.Result.ERROR
@@ -72,12 +75,13 @@ fun PlayerModel.toGamePlayerInfo(): UpdatePlayerInGameRequest {
         wasKilled = this.wasKilled
     )
 }
-fun Night.toNightInfo():NightInfo{
+
+fun Night.toNightInfo(): NightInfo {
     return NightInfo(
-         nightNumber=this.nightNumber,
-         killedPlayer=this.killedPlayer,
-         sheriffChecked=this.sheriffChecked,
-         donChecked=this.donChecked,
-         playerLeftGame=this.playerLeftGame
+        nightNumber = this.nightNumber,
+        killedPlayer = this.killedPlayer,
+        sheriffChecked = this.sheriffChecked,
+        donChecked = this.donChecked,
+        playerLeftGame = this.playerLeftGame
     )
 }

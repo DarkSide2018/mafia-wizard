@@ -74,6 +74,7 @@ private fun UpdateGameRequest.toModel() = GameModel(
     playerToCardNumber = this.playerToCardNumber?.map {
         return@map PlayerToCardNumber(
             note = it.note,
+            addPoints = it.addPoints,
             playerUuid = it.playerUuid,
             cardNumber = it.slot,
             gameRole = it.role,

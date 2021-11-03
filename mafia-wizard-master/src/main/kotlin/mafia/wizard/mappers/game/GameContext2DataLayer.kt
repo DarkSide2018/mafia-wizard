@@ -61,6 +61,7 @@ class GameContext2DataLayer(
                 } ?: PlayerToCardNumber(cardNumber = firstPl.cardNumber)
                 firstPl.gameRole?.let { filteredPl.gameRole = it }
                 firstPl.note?.let { filteredPl.note = it }
+                firstPl.addPoints?.let { filteredPl.addPoints = it }
                 firstPl.playerUuid?.let { filteredPl.playerUuid = it }
                 plToCardNumbers.removeIf { it.cardNumber == filteredPl.cardNumber }
                 plToCardNumbers.add(filteredPl)

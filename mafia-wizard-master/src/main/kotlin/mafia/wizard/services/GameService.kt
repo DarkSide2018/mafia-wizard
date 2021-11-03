@@ -1,6 +1,7 @@
 package mafia.wizard.services
 
 import exceptions.FieldWasNullException
+import mafia.wizard.common.getActorName
 import mafia.wizard.config.NotFoundException
 import mafia.wizard.entities.User
 import mafia.wizard.mappers.game.DataLayer2GameContext
@@ -40,7 +41,7 @@ class GameService(
     }
 
     fun getAll(): ReadAllGamesResponse {
-        val games = gameRepository.findAll()
+        val games = gameRepository.findAllByCreatedBy(getActorName())
         return dataLayer2GameContext
             .setGamesIntoContext(GameContext(), games)
             .toReadAllGamesResponse()

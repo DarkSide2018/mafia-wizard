@@ -1,6 +1,7 @@
 package mafia.wizard.services
 
 import exceptions.FieldWasNullException
+import mafia.wizard.common.getActorName
 import mafia.wizard.mappers.player.*
 import mafia.wizard.openapi.models.*
 import mafia.wizard.repository.PlayerRepo
@@ -25,8 +26,10 @@ class PlayerService {
     private lateinit var playerRepo: PlayerRepo
 
     fun getAll(readAllPlayersRequest: ReadAllPlayersRequest): ReadAllPlayersResponse {
-        val context = PlayerContext().setQuery(readAllPlayersRequest)
-        val all = playerRepo.findAllByStatus(context.createPageRequest(), FREE_STATUS)
+        val context = PlayerContext(userActor = getActorName()).setQuery(readAllPlayersRequest)
+        val all = playerRepo.findAllByStatusAndCreatedBy(context.createPageRequest(),
+            FREE_STATUS,
+            context.userActor)
         return context
             .setPlayers(all)
             .toReadAllPlayersResponse()
@@ -35,21 +38,23 @@ class PlayerService {
     fun getByUuid(uuid: UUID): ReadPlayerResponse {
         val player = playerRepo.findById(uuid)
             .orElseThrow { return@orElseThrow RuntimeException("no such element with uuid : $uuid") }
-        return PlayerContext()
+        return PlayerContext(userActor = getActorName())
             .setPlayer(player)
             .toReadPlayerResponse()
     }
 
     fun getByNickName(nick: String): ReadPlayerResponse {
-        val player = playerRepo.findByNickName(nick) ?: throw RuntimeException("no such player")
-        return PlayerContext()
+        val context = PlayerContext(userActor = getActorName())
+        val player =
+            playerRepo.findByNickNameAndCreatedBy(nick, context.userActor) ?: throw RuntimeException("no such player")
+        return context
             .setPlayer(player)
             .toReadPlayerResponse()
     }
 
     fun getByNickNameLike(searchPlayerRequest: SearchPlayerRequest): ReadAllPlayersResponse {
-        val context = PlayerContext().setQuery(searchPlayerRequest)
-        val players = playerRepo.findByNickName(context.createPageRequest(), "%${context.search}%")
+        val context = PlayerContext(userActor = getActorName()).setQuery(searchPlayerRequest)
+        val players = playerRepo.findByNickName(context.createPageRequest(), context.userActor, "%${context.search}%")
             ?: throw RuntimeException("no such players")
         return context
             .setPlayers(players)
@@ -57,7 +62,7 @@ class PlayerService {
     }
 
     fun save(createPlayerRequest: CreatePlayerRequest): BaseResponse {
-        val createPlayerContext = PlayerContext()
+        val createPlayerContext = PlayerContext(userActor = getActorName())
             .setCommand(createPlayerRequest)
         playerRepo.save(createPlayerContext.toPlayerEntity())
         return createPlayerContext.toCommandResponse()
@@ -68,7 +73,7 @@ class PlayerService {
             updatePlayerRequest.playerUuid ?: throw RuntimeException("UpdatePlayerRequest empty player uuid")
         val playerForUpdate = playerRepo.findById(playerUuid)
             .orElseThrow { return@orElseThrow RuntimeException("no such element with uuid : $playerUuid") }
-        val updatePlayerContext = PlayerContext()
+        val updatePlayerContext = PlayerContext(userActor = getActorName())
             .setCommand(updatePlayerRequest)
 
         playerRepo.save(updatePlayerContext.updatePlayer(playerForUpdate))
@@ -76,7 +81,7 @@ class PlayerService {
     }
 
     fun updateArray(updatePlayerRequest: UpdatePlayerArrayRequest): BaseResponse {
-        val updatePlayerContext = PlayerContext()
+        val updatePlayerContext = PlayerContext(userActor = getActorName())
         updatePlayerRequest.players?.forEach {
             val playerUuid = it.playerUuid
             val playerForUpdate = playerRepo.findById(playerUuid ?: throw FieldWasNullException("playerUUID"))
@@ -93,7 +98,7 @@ class PlayerService {
         val bufferedImage = resizeImage(ImageIO.read(bais), 200)
         player.image = toByteArray(bufferedImage)
         playerRepo.save(player)
-        return PlayerContext().toCommandResponse()
+        return PlayerContext(userActor = getActorName()).toCommandResponse()
     }
 
     fun toByteArray(bi: BufferedImage): ByteArray? {
@@ -105,7 +110,6 @@ class PlayerService {
     fun resizeImage(originalImage: BufferedImage, targetWidth: Int): BufferedImage {
         return Scalr.resize(originalImage, targetWidth)
     }
-
 
     fun deleteByUuid(uuid: UUID) {
         playerRepo.deleteById(uuid)

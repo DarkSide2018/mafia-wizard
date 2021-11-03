@@ -9,7 +9,8 @@ open class PlayerContext(
     var pageNumber: Int? = null,
     var sortBy: String? = null,
     var sortDir: String? = null,
-    var search:String? = null
+    var search:String? = null,
+    var userActor:String,
 ) : RequestContext() {
 
 }

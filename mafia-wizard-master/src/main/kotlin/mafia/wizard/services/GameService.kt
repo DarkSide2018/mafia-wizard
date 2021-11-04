@@ -104,11 +104,12 @@ class GameService(
     }
 
     fun finishGame(game: UpdateGameRequest): BaseResponse {
-        val gameContext = GameContext().setQuery(game)
-        playerCalculator.playerBusyToFreeStatus(gameContext)
+        val gameContext = GameContext().finishGame(game)
         val gameForUpdate = gameRepository
             .findById(game.gameUuid ?: throw FieldWasNullException("updateGame gameUUID"))
             .orElseThrow()
+        dataLayer2GameContext.finishingGame(gameContext,gameForUpdate)
+        playerCalculator.playerBusyToFreeStatus(gameContext)
         val updatedGame = gameContext2DataLayer.updateGameEntity(gameContext, gameForUpdate)
         gameRepository.save(updatedGame)
         return gameContext.toCommandResponse()

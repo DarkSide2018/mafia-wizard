@@ -1,6 +1,7 @@
 package mafia.wizard.entities
 
 
+import java.math.BigDecimal
 import java.time.OffsetDateTime
 import java.util.*
 import javax.persistence.*
@@ -27,7 +28,7 @@ data class Player(
     //4. Сумма баллов +
     var points: Long = 0,
     //5. Дополнительные баллы за игру (сумма) +
-    var additionalPoints: Long = 0,
+    var additionalPoints: BigDecimal = 0.0.toBigDecimal(),
     //6. Штрафные баллы (сумма) +
     var penalties: Long = 0,
     //7. Лучший ход я(сумма) +
@@ -57,7 +58,7 @@ data class Player(
     //19. Число игр всего +
     var games: Long = 0,
     //20. Итоговый рейтинг (процент побед умножить на сумму баллов)
-    var rating: Double = 0.0,
+    var rating: BigDecimal = 0.0.toBigDecimal(),
     @Column(name = "CREATED_AT")
     var createdAt: OffsetDateTime? = null,
     @Column(name = "UPDATED_AT")

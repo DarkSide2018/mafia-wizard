@@ -12,7 +12,7 @@ fun GameContext.toReadGameResponse(): ReadGameResponse {
         requestUUID = this.requestContext.requestUUID,
         errors = this.requestContext.errors.takeIf { it.isNotEmpty() },
         gameNumber = gameModel?.gameNumber,
-        gameUuid = gameModel?.gameUUID,
+        gameUuid = gameModel?.gameUUID?:throw FieldWasNullException("wrong gameUuid"),
         victory = gameModel?.victory,
         name = gameModel?.name,
         playerToCardNumber = gameModel?.playerToCardNumber?.map {
@@ -38,7 +38,7 @@ fun GameContext.toReadAllGamesResponse(): ReadAllGamesResponse {
                 name = it.name,
                 gameNumber = it.gameNumber,
                 gameUuid = it.gameUUID,
-                players = it.players?.map { gamePlayer -> gamePlayer.toGamePlayerInfo() } ?: listOf()
+                players = it.players.map { gamePlayer -> gamePlayer.toGamePlayerInfo() }
             )
         },
         errors = this.requestContext.errors.takeIf { it.isNotEmpty() },

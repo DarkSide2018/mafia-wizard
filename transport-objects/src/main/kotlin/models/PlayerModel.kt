@@ -1,5 +1,6 @@
 package models
 
+import java.math.BigDecimal
 import java.util.*
 
 data class PlayerModel(
@@ -9,7 +10,7 @@ data class PlayerModel(
     var nickName: String? = null,
     var points: Long? = null,
     var image:String?=null,
-    var additionalPoints: Long? = null,
+    var additionalPoints: BigDecimal? = null,
     var penalties: Long? = null,
     var bestMove: Long? = null,
     var victories: Long? = null,
@@ -26,5 +27,5 @@ data class PlayerModel(
     var wasKilled: Long? = null,
     var games: Long? = null,
     var remark:Long?=null,
-    var rating: Double? = null,
+    var rating: BigDecimal? = null,
 )

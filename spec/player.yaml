@@ -350,7 +350,6 @@ components:
             rating:
               description: Итоговый рейтинг (процент побед умножить на сумму баллов)
               type: number
-              format: double
             status:
               description: играет или свободен?
               type: string
@@ -412,8 +411,7 @@ components:
           format: int64
         additionalPoints:
           description: additionalPoints
-          type: integer
-          format: int64
+          type: number
         penalties:
           description: Штрафные баллы (сумма)
           type: integer

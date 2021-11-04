@@ -21,6 +21,12 @@ class DataLayer2GameContext(
         return readGameContext
     }
 
+    fun finishingGame(context: GameContext, game: Game): GameContext {
+        context.gameModel?.victory = game.victory
+        context.gameModel?.playerToCardNumber = gameToGameModel(game).playerToCardNumber
+        return context
+    }
+
     fun setGamesIntoContext(readGameContext: GameContext, games: List<Game>): GameContext {
         readGameContext.gameModelList = games.map { gameToGameModel(it) }
         return readGameContext

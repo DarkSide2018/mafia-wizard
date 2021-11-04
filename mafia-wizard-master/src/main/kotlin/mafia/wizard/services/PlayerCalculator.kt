@@ -7,15 +7,18 @@ import models.game.GameContext
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
+import java.math.RoundingMode
 
 @Service
 class PlayerCalculator(
     private val playerRepo: PlayerRepo,
 ) {
     var logger: Logger = LoggerFactory.getLogger(javaClass)
+    private val BLACK_VICTORY = "Черные"
     private val FREE_STATUS = "FREE"
-    private final val maf: String = "Мафиози"
-    private final val citizen: String = "Мирный"
+    private val RED_VICTORY = "Красные"
+    private val maf: String = "Мафиози"
+    private val citizen: String = "Мирный"
     val BLACK_ROLES = listOf<String>(
         "Дон",
         "${maf}1",
@@ -42,17 +45,17 @@ class PlayerCalculator(
     fun calculatePercentage(player: Player) {
         player.victoriesPercent =
             player.victories.toBigDecimal()
-                .divide(player.games.toBigDecimal())
+                .divide(player.games.toBigDecimal(),RoundingMode.HALF_UP)
                 .multiply(100.00.toBigDecimal())
                 .toLong()
         player.victoriesRedPercent =
             player.victoriesRed.toBigDecimal()
-                .divide(player.games.toBigDecimal())
+                .divide(player.games.toBigDecimal(),RoundingMode.HALF_UP)
                 .multiply(100.00.toBigDecimal())
                 .toLong()
         player.victoriesBlackPercent =
             player.victoriesBlack.toBigDecimal()
-                .divide(player.games.toBigDecimal())
+                .divide(player.games.toBigDecimal(),RoundingMode.HALF_UP)
                 .multiply(100.00.toBigDecimal())
                 .toLong()
     }
@@ -60,26 +63,30 @@ class PlayerCalculator(
     fun setPlayerProperties(player: Player, game: GameContext) {
         player.games++
         player.status = FREE_STATUS
+        calculateVictories(player, game)
         calculatePoints(player, game)
         calculateDonAndSheriff(player, game)
         calculateFirstNightKill(player, game)
-        calculateVictories(player, game)
     }
 
     fun calculatePoints(player: Player, game: GameContext) {
-        game.gameModel?.players?.firstOrNull { it.playerUUID == player.playerUuid }?.let { playerModel ->
-            playerModel.penalties?.let { player.penalties += it }
-            playerModel.foulAmount?.let { player.foulAmount += it }
-            playerModel.points?.let { player.points += it }
-            playerModel.additionalPoints?.let { player.additionalPoints += it }
+        game.gameModel?.playerToCardNumber?.firstOrNull { it.playerUuid == player.playerUuid }?.let { pcn ->
+            pcn.note?.let { player.foulAmount += it }
+            pcn.addPoints?.let { player.additionalPoints += it }
         }
-
     }
 
     fun calculateDonAndSheriff(player: Player, game: GameContext) {
         game.gameModel?.playerToCardNumber?.firstOrNull { it.playerUuid == player.playerUuid }?.let {
-            if (it.gameRole == "Дон") player.don++
-            if (it.gameRole == "Шериф") player.sheriff++
+            if (it.gameRole == "Дон") {
+                player.don++
+                if (game.gameModel?.victory == BLACK_VICTORY) player.points++
+            }
+
+            if (it.gameRole == "Шериф") {
+                player.sheriff++
+                if (game.gameModel?.victory == RED_VICTORY) player.points++
+            }
         }
     }
 
@@ -97,33 +104,31 @@ class PlayerCalculator(
                 } else {
                     calculateVictoriesAsBlackRole(player, game)
                 }
-                player.victories++
             }
         }
     }
 
     fun calculateVictoriesAsRedRole(player: Player, game: GameContext) {
         when (game.gameModel?.victory) {
-            "Красные" -> {
+            RED_VICTORY -> {
+                player.points++
                 player.victoriesRed++
             }
-            "Черные" -> {
-                player.victoriesBlack++
+            BLACK_VICTORY -> {
+                player.defeatBlack++
             }
-            else -> throw Exception("Unexpected victory")
         }
     }
 
     fun calculateVictoriesAsBlackRole(player: Player, game: GameContext) {
         when (game.gameModel?.victory) {
-            "Красные" -> {
-                player.defeatBlack++
+            RED_VICTORY -> {
+                player.defeatRed++
             }
-            "Черные" -> {
+            BLACK_VICTORY -> {
+                player.points++
                 player.victoriesBlack++
             }
-            else -> throw Exception("Unexpected victory")
         }
     }
-
 }

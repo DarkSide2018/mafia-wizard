@@ -41,7 +41,7 @@ private fun CreatePlayerRequest.toModel() = PlayerModel(
     foulAmount = this.foulAmount ?: 0,
     nickName = this.nickName ?: throw Exception("CreatePlayerRequest empty nickName"),
     points = this.points ?: 0,
-    additionalPoints = this.additionalPoints ?: 0,
+    additionalPoints = this.additionalPoints ?: 0.0.toBigDecimal(),
     penalties = this.penalties ?: 0,
     bestMove = this.bestMove ?: 0,
     victories = this.victories ?: 0,
@@ -56,7 +56,7 @@ private fun CreatePlayerRequest.toModel() = PlayerModel(
     sheriff = this.sheriff ?: 0,
     wasKilled = this.wasKilled ?: 0,
     games = this.games ?: 0,
-    rating = this.rating ?: 0.0,
+    rating = this.rating ?: 0.0.toBigDecimal(),
 )
 
 fun UpdatePlayerRequest.toModel() = PlayerModel(

@@ -9,17 +9,17 @@ spring:
       hibernate:
         default_schema: wizard
   datasource:
-    url: jdbc:postgresql://localhost:5440/wizard
-    username: migration
-    password: 123456
+    url: jdbc:postgresql://ec2-34-193-112-164.compute-1.amazonaws.com:5432/d3nh4fia1c7qgq
+    username: amygbmsolcjzdj
+    password: d2b8eacd265629f322dedc77d0f3b6e13e721712df9cfb1e2b58a1506dcc7e82
     hikari:
       schema: wizard
     driver-class-name: org.postgresql.Driver
   flyway:
-    user: migration
-    password: 123456
+    user: amygbmsolcjzdj
+    password: d2b8eacd265629f322dedc77d0f3b6e13e721712df9cfb1e2b58a1506dcc7e82
     schemas: wizard
-    url: jdbc:postgresql://localhost:5440/wizard
+    url: jdbc:postgresql://ec2-34-193-112-164.compute-1.amazonaws.com:5432/d3nh4fia1c7qgq
     enabled: true
     locations: classpath:db
 

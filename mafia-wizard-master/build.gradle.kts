@@ -21,6 +21,7 @@ dependencies {
     implementation(project(":user-game-transport"))
     implementation(project(":transport-objects"))
     implementation("org.imgscalr:imgscalr-lib:4.2")
+    implementation("org.flywaydb:flyway-core")
     implementation("com.vladmihalcea:hibernate-types-55:2.12.1")
     implementation("org.postgresql:postgresql:$postgresDriverVersion")
     implementation("io.jsonwebtoken:jjwt:0.9.1")
@@ -42,13 +43,5 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "11"
     }
-}
-
-flyway {
-    url = "jdbc:postgresql://localhost:5440/wizard"
-    user = "migration"
-    password = "123456"
-    baselineOnMigrate = true
-    locations = arrayOf("filesystem:src/main/resources/db")
 }
 

@@ -27,7 +27,7 @@ class PlayerService {
 
     fun getAll(readAllPlayersRequest: ReadAllPlayersRequest): ReadAllPlayersResponse {
         val context = PlayerContext(userActor = getActorName()).setQuery(readAllPlayersRequest)
-        val all = playerRepo.findAllByStatusAndCreatedBy(context.createPageRequest(),
+        val all = playerRepo.findAllByStatusAndCreatedByOrderByRating(context.createPageRequest(),
             FREE_STATUS,
             context.userActor)
         return context

@@ -20,6 +20,6 @@ interface PlayerRepo: JpaRepository<Player, UUID> {
                        @Param("actor") actor: String,
                        @Param("searchText") searchText: String): Page<Player>?
 
-    fun findAllByStatusAndCreatedBy(page: Pageable,status:String,createdBy:String):Page<Player>
+    fun findAllByStatusAndCreatedByOrderByRating(page: Pageable,status:String,createdBy:String):Page<Player>
 
 }

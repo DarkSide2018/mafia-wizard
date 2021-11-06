@@ -24,6 +24,7 @@ class DataLayer2GameContext(
     fun finishingGame(context: GameContext, game: Game): GameContext {
         context.gameModel?.victory = game.victory
         context.gameModel?.playerToCardNumber = gameToGameModel(game).playerToCardNumber
+        context.gameModel?.nights = gameToGameModel(game).nights
         return context
     }
 

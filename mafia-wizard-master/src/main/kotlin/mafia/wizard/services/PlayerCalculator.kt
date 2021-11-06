@@ -38,14 +38,21 @@ class PlayerCalculator(
             val player = playerRepo.getById(it.playerUUID ?: throw FieldWasNullException("playerUuid"))
             setPlayerProperties(player, game)
             calculatePercentage(player, game)
+            calculateRating(player)
             playerRepo.save(player)
         }
+    }
+    fun calculateRating(player: Player) {
+        player.rating = (player.points.toBigDecimal()
+            .plus(player.additionalPoints)
+            .minus(player.penalties.toBigDecimal()))
+            .multiply(player.victoriesPercent.toBigDecimal().divide(100.00.toBigDecimal(),2,RoundingMode.HALF_EVEN))
     }
 
     fun calculatePercentage(player: Player, game: GameContext) {
         player.victoriesPercent =
             player.victories.toBigDecimal()
-                .divide(player.games.toBigDecimal(), 2, RoundingMode.HALF_UP)
+                .divide(player.games.toBigDecimal(), 2, RoundingMode.HALF_EVEN)
                 .multiply(100.00.toBigDecimal())
                 .toLong()
         game.gameModel?.playerToCardNumber?.firstOrNull { it.playerUuid == player.playerUuid }?.let {
@@ -105,7 +112,7 @@ class PlayerCalculator(
 
     fun calculateFirstNightKill(player: Player, game: GameContext) {
         game.gameModel?.nights?.firstOrNull { it.killedPlayer == player.playerUuid }?.let {
-            if (it.nightNumber == 1) player.wasKilled++
+            if (it.nightNumber == 0) player.wasKilled++
         }
     }
 

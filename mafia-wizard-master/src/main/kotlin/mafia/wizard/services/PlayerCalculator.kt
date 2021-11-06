@@ -37,27 +37,40 @@ class PlayerCalculator(
         game.gameModel?.players?.forEach {
             val player = playerRepo.getById(it.playerUUID ?: throw FieldWasNullException("playerUuid"))
             setPlayerProperties(player, game)
-            calculatePercentage(player)
+            calculatePercentage(player, game)
             playerRepo.save(player)
         }
     }
 
-    fun calculatePercentage(player: Player) {
+    fun calculatePercentage(player: Player, game: GameContext) {
         player.victoriesPercent =
             player.victories.toBigDecimal()
-                .divide(player.games.toBigDecimal(),RoundingMode.HALF_UP)
+                .divide(player.games.toBigDecimal(), 2, RoundingMode.HALF_UP)
                 .multiply(100.00.toBigDecimal())
                 .toLong()
-        player.victoriesRedPercent =
-            player.victoriesRed.toBigDecimal()
-                .divide(player.games.toBigDecimal(),RoundingMode.HALF_UP)
-                .multiply(100.00.toBigDecimal())
-                .toLong()
-        player.victoriesBlackPercent =
-            player.victoriesBlack.toBigDecimal()
-                .divide(player.games.toBigDecimal(),RoundingMode.HALF_UP)
-                .multiply(100.00.toBigDecimal())
-                .toLong()
+        game.gameModel?.playerToCardNumber?.firstOrNull { it.playerUuid == player.playerUuid }?.let {
+            it.gameRole?.let { gameRole ->
+                if (RED_ROLES.contains(gameRole)) {
+                    player.victoriesRedPercent =
+                        player.victoriesRed.toBigDecimal()
+                            .divide(player.games.toBigDecimal()
+                                .minus(player.victoriesBlack.toBigDecimal().minus(player.defeatBlack.toBigDecimal())),
+                                2,
+                                RoundingMode.HALF_UP)
+                            .multiply(100.00.toBigDecimal())
+                            .toLong()
+                } else {
+                    player.victoriesBlackPercent =
+                        player.victoriesBlack.toBigDecimal()
+                            .divide(player.games.toBigDecimal()
+                                .minus(player.victoriesRed.toBigDecimal().minus(player.defeatRed.toBigDecimal())),
+                                2,
+                                RoundingMode.HALF_UP)
+                            .multiply(100.00.toBigDecimal())
+                            .toLong()
+                }
+            }
+        }
     }
 
     fun setPlayerProperties(player: Player, game: GameContext) {
@@ -112,10 +125,11 @@ class PlayerCalculator(
         when (game.gameModel?.victory) {
             RED_VICTORY -> {
                 player.points++
+                player.victories++
                 player.victoriesRed++
             }
             BLACK_VICTORY -> {
-                player.defeatBlack++
+                player.defeatRed++
             }
         }
     }
@@ -123,9 +137,10 @@ class PlayerCalculator(
     fun calculateVictoriesAsBlackRole(player: Player, game: GameContext) {
         when (game.gameModel?.victory) {
             RED_VICTORY -> {
-                player.defeatRed++
+                player.defeatBlack++
             }
             BLACK_VICTORY -> {
+                player.victories++
                 player.points++
                 player.victoriesBlack++
             }

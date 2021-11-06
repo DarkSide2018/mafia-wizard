@@ -98,8 +98,10 @@ class GameService(
         val gameForUpdate = gameRepository
             .findById(game.gameUuid ?: throw FieldWasNullException("updateGame gameUUID"))
             .orElseThrow()
-        val updatedGame = gameContext2DataLayer.updateGameEntity(gameContext, gameForUpdate)
-        gameRepository.save(updatedGame)
+        if(gameForUpdate.status != "FINISHED"){
+            val updatedGame = gameContext2DataLayer.updateGameEntity(gameContext, gameForUpdate)
+            gameRepository.save(updatedGame)
+        }
         return gameContext.toCommandResponse()
     }
 

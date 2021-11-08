@@ -55,7 +55,7 @@ class GameContext2DataLayer(
                 object : TypeReference<MutableSet<PlayerToCardNumber>>() {}) as MutableSet<PlayerToCardNumber>
             plSet.takeIf {
                 it.isNotEmpty()
-            }?.first()?.let { firstPl ->
+            }?.forEach { firstPl ->
                 val filteredPl = plToCardNumbers.firstOrNull {
                     it.cardNumber == firstPl.cardNumber
                 } ?: PlayerToCardNumber(cardNumber = firstPl.cardNumber)

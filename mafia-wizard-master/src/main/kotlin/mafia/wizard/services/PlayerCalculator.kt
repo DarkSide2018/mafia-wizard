@@ -20,18 +20,11 @@ class PlayerCalculator(
     private val maf: String = "Мафиози"
     private val citizen: String = "Мирный"
     val BLACK_ROLES = listOf<String>(
-        "Дон",
-        "${maf}1",
-        "${maf}2")
+        "Дон", maf)
     val RED_ROLES =
         listOf<String>(
             "Шериф",
-            "${citizen}1",
-            "${citizen}2",
-            "${citizen}3",
-            "${citizen}4",
-            "${citizen}5",
-            "${citizen}6")
+            citizen)
 
     fun playerBusyToFreeStatus(game: GameContext) {
         game.gameModel?.players?.forEach {

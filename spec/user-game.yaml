@@ -49,6 +49,27 @@ paths:
               schema:
                 $ref: 'common.yaml#/components/schemas/BaseResponse'
 
+  /game/election:
+    post:
+      tags:
+       - election
+      summary: завершить голосование
+      operationId: finishElection
+      requestBody:
+        description: Объект запроса для создания юнита
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FinishElectionRequest'
+        required: true
+      responses:
+        200:
+          description: all responses
+          content:
+            application/json:
+              schema:
+                $ref: 'common.yaml#/components/schemas/BaseResponse'
+
   /game:
     post:
       tags:
@@ -346,6 +367,21 @@ components:
             gameUuid:
               type: string
               format: uuid
+    FinishElectionRequest:
+      description: Структура для запроса конца голосования
+      type: object
+      properties:
+        gameUuid:
+          type: string
+          format: uuid
+        slot:
+          type: integer
+        playerUuid:
+          type: integer
+          format: uuid
+        numberOfVotes:
+          type: integer
+
     CreateGameRequest:
       description: Структура для создания юнита в репоизтории
       allOf:
@@ -442,6 +478,10 @@ components:
           type: array
           items:
             $ref: 'player.yaml#/components/schemas/NightInfo'
+        elections:
+          type: array
+          items:
+            $ref: 'player.yaml#/components/schemas/ElectionInfo'
         created:
           description: Когда игра создана?
           type: string

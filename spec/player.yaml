@@ -361,6 +361,18 @@ components:
               description: когда был обновлен?
               type: string
               format: date-time
+    ElectionInfo:
+      description: мета-инфомация для голосования
+      type: object
+      properties:
+        slot:
+          type: integer
+        playerUuid:
+          type: string
+          format: uuid
+        numberOfVotes:
+          type: integer
+
     NightInfo:
       description: мета-инфомация для ночи
       type: object

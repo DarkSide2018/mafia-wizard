@@ -369,6 +369,17 @@ components:
               format: uuid
     FinishElectionRequest:
       description: Структура для запроса конца голосования
+      allOf:
+        - $ref: '#/components/schemas/ElectionInfo'
+
+    ElectionInfo:
+      description: Структура для запроса конца голосования
+      required:
+        - gameUuid
+        - slot
+        - playerUuid
+        - playerName
+        - numberOfVotes
       type: object
       properties:
         gameUuid:
@@ -377,8 +388,10 @@ components:
         slot:
           type: integer
         playerUuid:
-          type: integer
+          type: string
           format: uuid
+        playerName:
+          type: string
         numberOfVotes:
           type: integer
 
@@ -481,7 +494,7 @@ components:
         elections:
           type: array
           items:
-            $ref: 'player.yaml#/components/schemas/ElectionInfo'
+            $ref: '#/components/schemas/ElectionInfo'
         created:
           description: Когда игра создана?
           type: string

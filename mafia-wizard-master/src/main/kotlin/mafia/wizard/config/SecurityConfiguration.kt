@@ -27,7 +27,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
     lateinit var jWTTokenHelper: JWTTokenHelper
 
     @Autowired
-    private val authenticationEntryPoint: AuthenticationEntryPoint? = null
+    private var authenticationEntryPoint: AuthenticationEntryPoint?=null
 
     @Throws(Exception::class)
      override fun configure(auth: AuthenticationManagerBuilder) {

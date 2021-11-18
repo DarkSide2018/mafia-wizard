@@ -84,6 +84,16 @@ class GameService(
             .toReadGameResponse()
     }
 
+    fun finishElection(request: FinishElectionRequest):BaseResponse{
+        val context = request.toGameContext()
+        val gameForUpdate = gameRepository
+            .findById(context.gameModel?.gameUUID ?: throw FieldWasNullException("updateGame gameUUID"))
+            .orElseThrow()
+        val updatedGame = gameContext2DataLayer.updateGameEntity(context, gameForUpdate)
+        gameRepository.save(updatedGame)
+        return context.toCommandResponse()
+    }
+
     fun createGame(game: CreateGameRequest): BaseResponse {
         val gameContext = GameContext().setQuery(UUID.randomUUID(), game)
         val gameEntity = gameContext2DataLayer.toGameEntity(gameContext)

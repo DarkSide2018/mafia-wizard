@@ -6,6 +6,7 @@ import exceptions.FieldWasNullException
 import mafia.wizard.entities.Game
 import mafia.wizard.entities.User
 import models.PlayerModel
+import models.game.Election
 import models.game.GameContext
 import models.game.Night
 import models.game.PlayerToCardNumber
@@ -24,6 +25,7 @@ class GameContext2DataLayer(
             createdBy = (SecurityContextHolder.getContext().authentication.principal as User).userName,
             name = gameContext.gameModel?.name,
             gameNumber = gameContext.gameModel?.gameNumber,
+            elections = gameContext.gameModel?.elections?.let { objectMapper.writeValueAsString(it) },
             nights = gameContext.gameModel?.nights?.let { objectMapper.writeValueAsString(it) },
             players = gameContext.gameModel?.players?.let { objectMapper.writeValueAsString(it) }
         )
@@ -44,6 +46,13 @@ class GameContext2DataLayer(
         gameModel.name?.let { gameForUpdate.name = it }
         gameModel.status?.let { gameForUpdate.status = it }
         gameModel.victory?.let { gameForUpdate.victory = it }
+        gameModel.elections.takeIf { it.isNotEmpty() }?.let {electionSet->
+            val electionSetRead = objectMapper.readValue(
+                gameForUpdate.elections,
+                object : TypeReference<MutableSet<Election>>() {}) as MutableSet<Election>
+            electionSetRead.addAll(electionSet)
+            gameForUpdate.elections=objectMapper.writeValueAsString(electionSetRead)
+        }
         updateGameNights(gameModel.nights, gameForUpdate)
         updatePlayerToCardNumber(gameModel.playerToCardNumber, gameForUpdate)
         return gameForUpdate

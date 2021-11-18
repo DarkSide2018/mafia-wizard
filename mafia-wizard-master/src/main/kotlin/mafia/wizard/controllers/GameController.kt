@@ -45,6 +45,11 @@ class GameController(
         logger.info("create game command")
         return ResponseEntity.ok(gameService.createGame(game))
     }
+    @PostMapping("/election")
+    fun createGame(@RequestBody request: FinishElectionRequest): ResponseEntity<BaseResponse> {
+        logger.info("finish election command")
+        return ResponseEntity.ok(gameService.finishElection(request))
+    }
 
     @PostMapping("/player")
     fun addPlayer(@RequestBody request: AddPlayerRequest): ResponseEntity<BaseResponse> {

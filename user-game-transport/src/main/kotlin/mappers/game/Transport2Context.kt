@@ -3,10 +3,7 @@ package mappers.game
 import exceptions.FieldWasNullException
 import mafia.wizard.openapi.models.*
 import models.PlayerModel
-import models.game.GameContext
-import models.game.GameModel
-import models.game.Night
-import models.game.PlayerToCardNumber
+import models.game.*
 
 import java.util.*
 
@@ -21,6 +18,22 @@ fun GameContext.finishGame(query: UpdateGameRequest) = apply {
     gameModel = GameModel(query.gameUuid?:throw FieldWasNullException("wrong gameUuid"),query.gameNumber)
     gameModel?.status = query.status
     gameModel?.players = query.players?.map { it.toModel() }?.toMutableSet() ?: mutableSetOf()
+}
+
+fun FinishElectionRequest.toGameContext(): GameContext {
+    val election = Election(
+        this.slot,
+        this.playerUuid,
+        this.playerName,
+        this.numberOfVotes
+    )
+    val gameModel = GameModel(
+        gameUUID = this.gameUuid,
+        elections = mutableSetOf<Election>(election)
+    )
+    return GameContext(
+        gameModel = gameModel
+    )
 }
 
 fun GameContext.addPlayerToGame(player: PlayerModel, gameModel: GameModel) = apply {

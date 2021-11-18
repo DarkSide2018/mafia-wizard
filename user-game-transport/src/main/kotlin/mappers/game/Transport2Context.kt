@@ -14,21 +14,23 @@ fun GameContext.setQuery(gameUUID: UUID, query: CreateGameRequest) = apply {
 fun GameContext.setQuery(query: UpdateGameRequest) = apply {
     gameModel = query.toModel()
 }
+
 fun GameContext.finishGame(query: UpdateGameRequest) = apply {
-    gameModel = GameModel(query.gameUuid?:throw FieldWasNullException("wrong gameUuid"),query.gameNumber)
+    gameModel = GameModel(query.gameUuid ?: throw FieldWasNullException("wrong gameUuid"), query.gameNumber)
     gameModel?.status = query.status
     gameModel?.players = query.players?.map { it.toModel() }?.toMutableSet() ?: mutableSetOf()
 }
 
 fun FinishElectionRequest.toGameContext(): GameContext {
     val election = Election(
-        this.slot,
-        this.playerUuid,
-        this.playerName,
-        this.numberOfVotes
-    )
+        UUID.randomUUID(),
+        sortOrder, slot,
+        playerUuid,
+        playerName,
+        numberOfVotes)
+
     val gameModel = GameModel(
-        gameUUID = this.gameUuid,
+        gameUUID = this.gameUuid?:throw Exception("gameUuid was null"),
         elections = mutableSetOf<Election>(election)
     )
     return GameContext(

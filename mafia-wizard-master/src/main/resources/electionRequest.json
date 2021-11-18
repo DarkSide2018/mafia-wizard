@@ -1,7 +1,9 @@
 {
   "gameUuid":"",
-  "slot":"",
-  "playerUuid":"",
-  "playerName":"",
-  "numberOfVotes":""
+  "electionId": "202aea17-e942-4710-8e89-881fbfa1885d",
+  "sortOrder":"1",
+  "slot":"2",
+  "playerUuid":"bd2dbdb1-3dcb-47b5-8d21-a072e6affe68",
+  "playerName":"Name",
+  "numberOfVotes":"3"
 }

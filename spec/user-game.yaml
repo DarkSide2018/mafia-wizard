@@ -374,14 +374,13 @@ components:
 
     ElectionInfo:
       description: Структура для запроса конца голосования
-      required:
-        - gameUuid
-        - slot
-        - playerUuid
-        - playerName
-        - numberOfVotes
       type: object
       properties:
+        electionId:
+          type: string
+          format: uuid
+        sortOrder:
+          type: integer
         gameUuid:
           type: string
           format: uuid

@@ -23,6 +23,8 @@ data class GameModel(
 }
 
 data class Election(
+    var electionId:UUID?=null,
+    var sortOrder:Int?=null,
     var slot: Int? = null,
     var playerUuid: UUID? = null,
     var playerName: String? = null,

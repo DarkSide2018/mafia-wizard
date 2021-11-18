@@ -1,0 +1,35 @@
+
+  [
+    {
+      "electionId": "ebe97a21-0968-4b16-b40a-7b166d026276",
+      "sortOrder": 1,
+      "slot": 2,
+      "playerUuid": "bd2dbdb1-3dcb-47b5-8d21-a072e6affe68",
+      "playerName": "Name",
+      "numberOfVotes": 3
+    },
+    {
+      "electionId": "18195633-0694-435e-9f0e-e4c85fd7f009",
+      "sortOrder": 1,
+      "slot": 2,
+      "playerUuid": "bd2dbdb1-3dcb-47b5-8d21-a072e6affe68",
+      "playerName": "Name",
+      "numberOfVotes": 3
+    },
+    {
+      "electionId": "ef3ba80c-d031-4a77-9935-3f191a7db1bd",
+      "sortOrder": 1,
+      "slot": 2,
+      "playerUuid": "bd2dbdb1-3dcb-47b5-8d21-a072e6affe68",
+      "playerName": "Name",
+      "numberOfVotes": 3
+    },
+    {
+      "electionId": "202aea17-e942-4710-8e89-881fbfa1885d",
+      "sortOrder": 1,
+      "slot": 2,
+      "playerUuid": "bd2dbdb1-3dcb-47b5-8d21-a072e6affe68",
+      "playerName": "Name",
+      "numberOfVotes": 3
+    }
+  ]

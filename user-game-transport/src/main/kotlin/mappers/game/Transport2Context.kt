@@ -45,7 +45,7 @@ fun GameContext.addPlayerToGame(player: PlayerModel, gameModel: GameModel) = app
 
 fun GameContext.updatePlayerInGame(player: PlayerModel, gameModel: GameModel) = apply {
 
-    val updatedPlayers = gameModel.players.map {
+    val updatedPlayers = gameModel.players?.map {
         if (it.playerUUID == player.playerUUID) {
             it.additionalPoints = player.additionalPoints
             it.foulAmount = player.foulAmount
@@ -62,7 +62,7 @@ fun GameContext.updatePlayerInGame(player: PlayerModel, gameModel: GameModel) = 
             it.wasKilled = player.wasKilled
         }
         return@map it
-    }.toMutableSet()
+    }?.toMutableSet()
     gameModel.players = updatedPlayers
     this.gameModel = gameModel
 }

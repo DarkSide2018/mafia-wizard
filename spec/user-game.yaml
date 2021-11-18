@@ -370,9 +370,9 @@ components:
     FinishElectionRequest:
       description: Структура для запроса конца голосования
       allOf:
-        - $ref: '#/components/schemas/ElectionInfo'
+        - $ref: '#/components/schemas/ElectionDTO'
 
-    ElectionInfo:
+    ElectionDTO:
       description: Структура для запроса конца голосования
       type: object
       properties:
@@ -493,7 +493,7 @@ components:
         elections:
           type: array
           items:
-            $ref: '#/components/schemas/ElectionInfo'
+            $ref: '#/components/schemas/ElectionDTO'
         created:
           description: Когда игра создана?
           type: string

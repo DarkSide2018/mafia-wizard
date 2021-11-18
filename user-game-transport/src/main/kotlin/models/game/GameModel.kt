@@ -12,26 +12,24 @@ data class GameModel(
     var name: String? = null,
     var status: String? = null,
     var playerToCardNumber: MutableSet<PlayerToCardNumber>? = mutableSetOf<PlayerToCardNumber>(),
-    var players: MutableSet<PlayerModel> = mutableSetOf<PlayerModel>(),
+    var players: MutableSet<PlayerModel>? = mutableSetOf<PlayerModel>(),
     var nights: MutableSet<Night>? = mutableSetOf(),
-    var elections: MutableSet<Election> = mutableSetOf<Election>(),
+    var elections: MutableSet<Election>? = mutableSetOf<Election>(),
 
     ) {
     fun addPlayer(value: PlayerModel) {
-        players.add(value)
+        players?.add(value)
     }
 }
 
-data class Election(
+class Election(
     var electionId:UUID?=null,
     var sortOrder:Int?=null,
     var slot: Int? = null,
     var playerUuid: UUID? = null,
     var playerName: String? = null,
     var numberOfVotes: Int? = null,
-) {
-
-}
+)
 
 data class Night(
     var nightNumber: Int? = null,

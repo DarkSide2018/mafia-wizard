@@ -5,10 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import exceptions.FieldWasNullException
 import mafia.wizard.entities.Game
 import models.PlayerModel
-import models.game.GameContext
-import models.game.GameModel
-import models.game.Night
-import models.game.PlayerToCardNumber
+import models.game.*
 
 import org.springframework.stereotype.Service
 
@@ -56,6 +53,12 @@ class DataLayer2GameContext(
                 playerToCardNumber = objectMapper.readValue(
                     it,
                     object : TypeReference<MutableSet<PlayerToCardNumber>>() {}) as MutableSet<PlayerToCardNumber>
+            }
+            game.elections?.let {
+                elections = objectMapper.readValue(
+                    it,
+                    object : TypeReference<MutableSet<Election>>() {}) as MutableSet<Election>
+
             }
         }
         return model

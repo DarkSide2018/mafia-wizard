@@ -3,8 +3,10 @@ package mappers.game
 import exceptions.FieldWasNullException
 import mafia.wizard.openapi.models.*
 import models.PlayerModel
+import models.game.Election
 import models.game.GameContext
 import models.game.Night
+import java.util.*
 
 
 fun GameContext.toReadGameResponse(): ReadGameResponse {
@@ -12,7 +14,7 @@ fun GameContext.toReadGameResponse(): ReadGameResponse {
         requestUUID = this.requestContext.requestUUID,
         errors = this.requestContext.errors.takeIf { it.isNotEmpty() },
         gameNumber = gameModel?.gameNumber,
-        gameUuid = gameModel?.gameUUID?:throw FieldWasNullException("wrong gameUuid"),
+        gameUuid = gameModel?.gameUUID ?: throw FieldWasNullException("wrong gameUuid"),
         victory = gameModel?.victory,
         name = gameModel?.name,
         playerToCardNumber = gameModel?.playerToCardNumber?.map {
@@ -24,6 +26,7 @@ fun GameContext.toReadGameResponse(): ReadGameResponse {
                 addPoints = it.addPoints
             )
         } ?: listOf(),
+        elections = gameModel?.elections?.map { it.toElectionDto(this.gameModel?.gameUUID) }?: listOf(),
         players = gameModel?.players?.map { it.toGamePlayerInfo() } ?: listOf(),
         nights = gameModel?.nights?.map { it.toNightInfo() } ?: listOf(),
         result = if (this.requestContext.errors.isEmpty()) ReadGameResponse.Result.SUCCESS else ReadGameResponse.Result.ERROR
@@ -38,7 +41,7 @@ fun GameContext.toReadAllGamesResponse(): ReadAllGamesResponse {
                 name = it.name,
                 gameNumber = it.gameNumber,
                 gameUuid = it.gameUUID,
-                players = it.players.map { gamePlayer -> gamePlayer.toGamePlayerInfo() }
+                players = it.players?.map { gamePlayer -> gamePlayer.toGamePlayerInfo() }
             )
         },
         errors = this.requestContext.errors.takeIf { it.isNotEmpty() },
@@ -83,5 +86,17 @@ fun Night.toNightInfo(): NightInfo {
         sheriffChecked = this.sheriffChecked,
         donChecked = this.donChecked,
         playerLeftGame = this.playerLeftGame
+    )
+}
+
+fun Election.toElectionDto(gameUUID: UUID?): ElectionDTO {
+    return ElectionDTO(
+        electionId = this.electionId,
+        sortOrder = this.sortOrder,
+        gameUuid = gameUUID,
+        slot = this.slot,
+        playerUuid = this.playerUuid,
+        playerName = this.playerName,
+        numberOfVotes = this.numberOfVotes
     )
 }

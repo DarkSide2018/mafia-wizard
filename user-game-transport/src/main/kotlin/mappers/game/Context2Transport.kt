@@ -94,9 +94,11 @@ fun Election.toElectionDto(gameUUID: UUID?): ElectionDTO {
         electionId = this.electionId,
         sortOrder = this.sortOrder,
         gameUuid = gameUUID,
-        slot = this.slot,
-        playerUuid = this.playerUuid,
-        playerName = this.playerName,
-        numberOfVotes = this.numberOfVotes
+        dropdowns = this.drops?.map { ElectionDropDown(
+            it.slot,
+            it.playerUuid,
+            it.playerName,
+            it.numberOfVotes
+        ) }
     )
 }

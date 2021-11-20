@@ -46,12 +46,12 @@ class GameContext2DataLayer(
         gameModel.name?.let { gameForUpdate.name = it }
         gameModel.status?.let { gameForUpdate.status = it }
         gameModel.victory?.let { gameForUpdate.victory = it }
-        gameModel.elections.takeIf { !it.isNullOrEmpty() }?.let {electionSet->
+        gameModel.elections?.takeIf { it.isNotEmpty() }?.let { electionSet->
             val electionSetRead = objectMapper.readValue(
                 gameForUpdate.elections,
                 object : TypeReference<MutableSet<Election>>() {}) as MutableSet<Election>
             electionSetRead.addAll(electionSet)
-            gameForUpdate.elections=objectMapper.writeValueAsString( electionSetRead.distinctBy { it.playerUuid })
+            gameForUpdate.elections=objectMapper.writeValueAsString(electionSetRead)
         }
         updateGameNights(gameModel.nights, gameForUpdate)
         updatePlayerToCardNumber(gameModel.playerToCardNumber, gameForUpdate)

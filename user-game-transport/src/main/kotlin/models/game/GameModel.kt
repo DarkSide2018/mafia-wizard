@@ -6,7 +6,7 @@ import java.util.*
 
 data class GameModel(
     var gameUUID: UUID,
-    var gameNumber: Long?=null,
+    var gameNumber: Long? = null,
     var gameTable: String? = null,
     var victory: String? = null,
     var name: String? = null,
@@ -23,12 +23,16 @@ data class GameModel(
 }
 
 class Election(
-    var electionId:UUID?=null,
-    var sortOrder:Int?=null,
-    var slot: Int? = null,
-    var playerUuid: UUID? = null,
-    var playerName: String? = null,
-    var numberOfVotes: Int? = null,
+    var electionId: UUID? = null,
+    var sortOrder: Int? = null,
+    var drops: List<ElectionDropDownBusiness>? = mutableListOf(),
+)
+
+data class ElectionDropDownBusiness(
+    val slot: Int? = null,
+    val playerUuid: UUID? = null,
+    val playerName: String? = null,
+    val numberOfVotes: Int? = null,
 )
 
 data class Night(

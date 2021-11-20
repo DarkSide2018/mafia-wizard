@@ -1,35 +1,43 @@
-
-  [
-    {
-      "electionId": "ebe97a21-0968-4b16-b40a-7b166d026276",
-      "sortOrder": 1,
-      "slot": 2,
-      "playerUuid": "bd2dbdb1-3dcb-47b5-8d21-a072e6affe68",
-      "playerName": "Name",
-      "numberOfVotes": 3
-    },
-    {
-      "electionId": "18195633-0694-435e-9f0e-e4c85fd7f009",
-      "sortOrder": 1,
-      "slot": 2,
-      "playerUuid": "bd2dbdb1-3dcb-47b5-8d21-a072e6affe68",
-      "playerName": "Name",
-      "numberOfVotes": 3
-    },
-    {
-      "electionId": "ef3ba80c-d031-4a77-9935-3f191a7db1bd",
-      "sortOrder": 1,
-      "slot": 2,
-      "playerUuid": "bd2dbdb1-3dcb-47b5-8d21-a072e6affe68",
-      "playerName": "Name",
-      "numberOfVotes": 3
-    },
-    {
-      "electionId": "202aea17-e942-4710-8e89-881fbfa1885d",
-      "sortOrder": 1,
-      "slot": 2,
-      "playerUuid": "bd2dbdb1-3dcb-47b5-8d21-a072e6affe68",
-      "playerName": "Name",
-      "numberOfVotes": 3
-    }
-  ]
+[
+  {
+    "electionId": "e24dc5cd-c9d8-4225-b390-aa6c31f0d298",
+    "drops": [
+      {
+        "slot": 1,
+        "playerUuid": "b7b5b1de-c35c-4195-820a-740a8acbb90c",
+        "playerName": "Александр"
+      },
+      {
+        "slot": 3,
+        "playerUuid": "5f8224cb-5e38-4c30-bd5a-9ee1003342b9",
+        "playerName": "Антон"
+      }
+    ]
+  },
+  {
+    "electionId": "b0d0b61c-36ae-4c7a-bc6e-e040ea790682",
+    "drops": [
+      {
+        "slot": 3,
+        "playerUuid": "5f8224cb-5e38-4c30-bd5a-9ee1003342b9"
+      },
+      {
+        "slot": 5,
+        "playerUuid": "646eed7e-8e05-4084-9ad6-e65e9612acc5"
+      }
+    ]
+  },
+  {
+    "electionId": "e7a6cd8c-4eea-401f-b3e9-3a84e0fcdd10",
+    "drops": [
+      {
+        "slot": 3,
+        "playerUuid": "5f8224cb-5e38-4c30-bd5a-9ee1003342b9"
+      },
+      {
+        "slot": 5,
+        "playerUuid": "646eed7e-8e05-4084-9ad6-e65e9612acc5"
+      }
+    ]
+  }
+]

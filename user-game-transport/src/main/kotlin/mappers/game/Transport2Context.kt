@@ -24,10 +24,12 @@ fun GameContext.finishGame(query: UpdateGameRequest) = apply {
 fun FinishElectionRequest.toGameContext(): GameContext {
     val election = Election(
         UUID.randomUUID(),
-        sortOrder, slot,
-        playerUuid,
-        playerName,
-        numberOfVotes)
+        drops = this.dropdowns?.map { ElectionDropDownBusiness(
+            it.slot,
+            it.playerUuid,
+            it.nickName,
+            it.numberOfVotes
+        ) })
 
     val gameModel = GameModel(
         gameUUID = this.gameUuid?:throw Exception("gameUuid was null"),

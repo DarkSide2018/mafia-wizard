@@ -384,15 +384,11 @@ components:
         gameUuid:
           type: string
           format: uuid
-        slot:
-          type: integer
-        playerUuid:
-          type: string
-          format: uuid
-        playerName:
-          type: string
-        numberOfVotes:
-          type: integer
+        dropdowns:
+          type: array
+          items:
+            $ref: '#/components/schemas/ElectionDropDown'
+
 
     CreateGameRequest:
       description: Структура для создания юнита в репоизтории
@@ -502,6 +498,20 @@ components:
           description: Когда был апдейт?
           type: string
           format: date-time
+
+    ElectionDropDown:
+      description: мета-инфомация для юнита
+      type: object
+      properties:
+        slot:
+          type: integer
+        playerUuid:
+          type: string
+          format: uuid
+        nickName:
+          type: string
+        numberOfVotes:
+          type: integer
 
     GameMasterInfo:
       description: мета-инфомация для юнита

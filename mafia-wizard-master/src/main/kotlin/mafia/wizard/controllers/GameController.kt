@@ -1,5 +1,6 @@
 package mafia.wizard.controllers
 
+import mafia.wizard.config.Trace
 import mafia.wizard.entities.ACTIVE_STATUS
 import mafia.wizard.entities.DRAFT_STATUS
 import mafia.wizard.openapi.models.*
@@ -46,6 +47,7 @@ class GameController(
         return ResponseEntity.ok(gameService.createGame(game))
     }
     @PostMapping("/election")
+    @Trace
     fun finishElection(@RequestBody request: FinishElectionRequest): ResponseEntity<BaseResponse> {
         logger.info("finish election command")
         return ResponseEntity.ok(gameService.finishElection(request))

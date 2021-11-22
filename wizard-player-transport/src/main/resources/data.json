@@ -1,34 +1,56 @@
 [
   {
-    "playerUUID": "646eed7e-8e05-4084-9ad6-e65e9612acc5",
-    "foulAmount": 0,
-    "nickName": "Вячеслав",
-    "points": 1,
-    "additionalPoints": 0,
-    "penalties": 4,
-    "bestMove": 1,
-    "victoriesRed": 0,
-    "defeatRed": 0,
-    "victoriesBlack": 0,
-    "defeatBlack": 0,
-    "don": 0,
-    "sheriff": 0,
-    "wasKilled": 0
+    "electionId": "e60914a2-d278-4f2d-9a0b-00b305da5296",
+    "sortOrder": 1,
+    "drops": [
+      {
+        "slot": 1,
+        "playerUuid": "b7b5b1de-c35c-4195-820a-740a8acbb90c",
+        "playerName": "Александр",
+        "numberOfVotes": 3
+      },
+      {
+        "slot": 3,
+        "playerUuid": "5f8224cb-5e38-4c30-bd5a-9ee1003342b9",
+        "playerName": "Антон",
+        "numberOfVotes": 5
+      }
+    ]
   },
   {
-    "playerUUID": "ef48ad1e-b271-4d06-8ed2-76cd1633889b",
-    "foulAmount": 0,
-    "nickName": "Иван",
-    "points": 0,
-    "additionalPoints": 0,
-    "penalties": 5,
-    "bestMove": 1,
-    "victoriesRed": 0,
-    "defeatRed": 0,
-    "victoriesBlack": 0,
-    "defeatBlack": 0,
-    "don": 0,
-    "sheriff": 0,
-    "wasKilled": 0
+    "electionId": "1c37bbf2-2bcd-4a83-8a46-dd7bf880fd16",
+    "sortOrder": 0,
+    "drops": [
+      {
+        "slot": 1,
+        "playerUuid": "b7b5b1de-c35c-4195-820a-740a8acbb90c",
+        "playerName": "Александр",
+        "numberOfVotes": 3
+      },
+      {
+        "slot": 3,
+        "playerUuid": "5f8224cb-5e38-4c30-bd5a-9ee1003342b9",
+        "playerName": "Антон",
+        "numberOfVotes": 5
+      }
+    ]
+  },
+  {
+    "electionId": "69fbd912-9a73-4f22-a945-ef5e1db92b1f",
+    "sortOrder": 2,
+    "drops": [
+      {
+        "slot": 1,
+        "playerUuid": "b7b5b1de-c35c-4195-820a-740a8acbb90c",
+        "playerName": "Александр",
+        "numberOfVotes": 3
+      },
+      {
+        "slot": 3,
+        "playerUuid": "5f8224cb-5e38-4c30-bd5a-9ee1003342b9",
+        "playerName": "Антон",
+        "numberOfVotes": 5
+      }
+    ]
   }
 ]

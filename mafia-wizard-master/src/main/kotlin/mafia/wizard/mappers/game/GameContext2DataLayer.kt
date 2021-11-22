@@ -3,6 +3,7 @@ package mafia.wizard.mappers.game
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import exceptions.FieldWasNullException
+import mafia.wizard.common.toJson
 import mafia.wizard.entities.Game
 import mafia.wizard.entities.User
 import models.PlayerModel
@@ -50,8 +51,10 @@ class GameContext2DataLayer(
             val electionSetRead = objectMapper.readValue(
                 gameForUpdate.elections,
                 object : TypeReference<MutableSet<Election>>() {}) as MutableSet<Election>
+            electionSet.first().sortOrder = electionSetRead.size
             electionSetRead.addAll(electionSet)
-            gameForUpdate.elections=objectMapper.writeValueAsString(electionSetRead)
+            electionSetRead.sortedBy { it.sortOrder }
+            gameForUpdate.elections=electionSetRead.toJson()
         }
         updateGameNights(gameModel.nights, gameForUpdate)
         updatePlayerToCardNumber(gameModel.playerToCardNumber, gameForUpdate)

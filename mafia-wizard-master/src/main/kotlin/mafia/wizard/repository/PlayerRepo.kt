@@ -20,6 +20,10 @@ interface PlayerRepo: JpaRepository<Player, UUID> {
                        @Param("actor") actor: String,
                        @Param("searchText") searchText: String): Page<Player>?
 
+    @Query("FROM Player p WHERE p.nickName LIKE %:searchText%  ORDER BY p.createdAt DESC ")
+    fun findAllByLikeNickName(page:Pageable,
+                       @Param("searchText") searchText: String): Page<Player>?
+
     fun findAllByStatusAndCreatedByOrderByRating(page: Pageable,status:String,createdBy:String):Page<Player>
 
 }

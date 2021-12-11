@@ -51,6 +51,14 @@ class PlayerService {
             .setPlayer(player)
             .toReadPlayerResponse()
     }
+    fun getAllByNickNameLike(nick: String): ReadAllPlayersResponse {
+        val context = PlayerContext(userActor = getActorName())
+        val player =
+            playerRepo.findAllByLikeNickName(context.createPageRequest(),"%${nick}%") ?: throw RuntimeException("no such player")
+        return context
+            .setPlayers(player)
+            .toReadAllPlayersResponse()
+    }
 
     fun getByNickNameLike(searchPlayerRequest: SearchPlayerRequest): ReadAllPlayersResponse {
         val context = PlayerContext(userActor = getActorName()).setQuery(searchPlayerRequest)

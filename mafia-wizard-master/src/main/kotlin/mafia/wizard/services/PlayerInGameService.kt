@@ -53,7 +53,7 @@ class PlayerInGameService(
         val gameModel = dataLayer2GameContext.gameToGameModel(game)
         val gameContext = GameContext()
             .deletePlayerFromGame(request.playerUuid?:throw Exception("player Uuid was null"),gameModel)
-        game.players = gameContext.gameModel?.players.toJson()
+        game.playerToCardNumber = gameContext.gameModel?.playerToCardNumber.toJson()
         gameRepository.save(game)
         return gameContext.toCommandResponse()
     }

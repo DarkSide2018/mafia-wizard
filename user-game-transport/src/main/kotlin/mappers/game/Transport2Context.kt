@@ -69,10 +69,10 @@ fun GameContext.updatePlayerInGame(player: PlayerModel, gameModel: GameModel) = 
     this.gameModel = gameModel
 }
 fun GameContext.deletePlayerFromGame(player: UUID, gameModel: GameModel) = apply {
-    val updatedPlayers = gameModel.players?.filter {
-        it.playerUUID != player
+    val updatedPls = gameModel.playerToCardNumber?.filter {
+        it.playerUuid != player
     }?.toMutableSet()
-    gameModel.players = updatedPlayers
+    gameModel.playerToCardNumber = updatedPls
     this.gameModel = gameModel
 }
 

@@ -23,6 +23,10 @@ class PlayerController(
 
         return ResponseEntity.ok(playerService.getByNickName(nickName))
     }
+    @GetMapping("/like/all/{nick}")
+    fun getAllByNicknameLike(@PathVariable("nick") nickName: String): ResponseEntity<ReadAllPlayersResponse>? {
+        return ResponseEntity.ok(playerService.getAllByNickNameLike(nickName))
+    }
     @PostMapping("/like")
     fun getByNicknameLike(@RequestBody searchPlayerRequest: SearchPlayerRequest): ResponseEntity<ReadAllPlayersResponse> {
 

@@ -49,6 +49,24 @@ paths:
               schema:
                 $ref: 'common.yaml#/components/schemas/BaseResponse'
 
+    delete:
+      tags:
+        - deletePlayerInGame
+      summary: удалить игрока из игры
+      requestBody:
+        description: Объект запроса для удаления игрока из игры
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeletePlayerFromGameRequest'
+      responses:
+        200:
+          description: all responses
+          content:
+            application/json:
+              schema:
+                $ref: 'common.yaml#/components/schemas/BaseResponse'
+
   /game/election:
     post:
       tags:
@@ -343,6 +361,16 @@ components:
             gameUuid:
               type: string
               format: uuid
+    DeletePlayerFromGameRequest:
+      description: Структура для создания юнита в репоизтории
+      type: object
+      properties:
+        playerUuid:
+          type: string
+          format: uuid
+        gameUuid:
+          type: string
+          format: uuid
     PlayerToCardNumberDTO:
       description: Структура для создания юнита в репоизтории
       properties:

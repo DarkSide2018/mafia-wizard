@@ -17,7 +17,7 @@ import java.util.*
 class GameController(
     private val gameService: GameService,
 ) {
-    var logger: Logger = LoggerFactory.getLogger(GameController::class.java)
+    var logger: Logger = LoggerFactory.getLogger(this::class.java)
 
     @GetMapping("/{uuid}")
     fun getByUuid(@PathVariable uuid: UUID): ResponseEntity<ReadGameResponse> {
@@ -53,16 +53,6 @@ class GameController(
         return ResponseEntity.ok(gameService.finishElection(request))
     }
 
-    @PostMapping("/player")
-    fun addPlayer(@RequestBody request: AddPlayerRequest): ResponseEntity<BaseResponse> {
-        return ResponseEntity.ok(gameService.addPlayer(request))
-    }
-
-    @PutMapping("/player")
-    fun updatePlayerInGame(@RequestBody request: UpdatePlayerInGameRequest): ResponseEntity<BaseResponse> {
-        return ResponseEntity.ok(gameService.updatePlayerInGame(request))
-    }
-
     @PutMapping
     fun updateGame(@RequestBody game: UpdateGameRequest): ResponseEntity<BaseResponse> {
         return ResponseEntity.ok(gameService.updateGame(game))
@@ -77,5 +67,4 @@ class GameController(
         gameService.deleteGame(uuid)
         return ResponseEntity.ok().build<String>()
     }
-
 }

@@ -7,12 +7,10 @@ import mafia.wizard.common.toJson
 import mafia.wizard.entities.Game
 import mafia.wizard.entities.User
 import models.PlayerModel
-import models.game.Election
-import models.game.GameContext
-import models.game.Night
-import models.game.PlayerToCardNumber
+import models.game.*
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
+import java.util.*
 
 const val EMPTY_ARRAY: String = "[]"
 
@@ -35,7 +33,8 @@ class GameContext2DataLayer(
 
     fun updateGameEntity(updateGameContext: GameContext, gameForUpdate: Game): Game {
         val gameModel = updateGameContext.gameModel ?: throw FieldWasNullException("gameModel")
-        gameModel.players.takeIf { !it.isNullOrEmpty()  }
+        val gameModelPlayers = gameModel.players
+        gameModelPlayers.takeIf { !it.isNullOrEmpty()  }
             ?.let { set ->
                 val playerModelSet = objectMapper.readValue(
                     gameForUpdate.players,
@@ -102,4 +101,10 @@ class GameContext2DataLayer(
             }
         }
     }
+}
+
+private fun List<ElectionDropDownBusiness>?.containAvailablePlayers(gameModelPlayers: MutableSet<PlayerModel>?): Boolean {
+    val uuids = gameModelPlayers?.map { it.playerUUID }?.toList()?: mutableListOf()
+    val map = this?.map { it.playerUuid }?.toList()?: mutableListOf()
+    return  map.containsAll(uuids)
 }

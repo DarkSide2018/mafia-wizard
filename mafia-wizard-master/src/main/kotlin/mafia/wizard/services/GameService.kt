@@ -6,10 +6,8 @@ import mafia.wizard.config.NotFoundException
 import mafia.wizard.entities.User
 import mafia.wizard.mappers.game.DataLayer2GameContext
 import mafia.wizard.mappers.game.GameContext2DataLayer
-import mafia.wizard.mappers.player.toModel
 import mafia.wizard.openapi.models.*
 import mafia.wizard.repository.GameRepository
-import mafia.wizard.repository.PlayerRepo
 import mappers.game.*
 import models.game.GameContext
 import org.slf4j.Logger
@@ -27,7 +25,6 @@ const val BUSY_STATUS = "BUSY"
 class GameService(
     private val dataLayer2GameContext: DataLayer2GameContext,
     private val gameContext2DataLayer: GameContext2DataLayer,
-    private val playerRepo: PlayerRepo,
     private val playerCalculator: PlayerCalculator,
     private val gameRepository: GameRepository,
 ) {
@@ -46,33 +43,6 @@ class GameService(
             .setGamesIntoContext(GameContext(), games)
             .toReadAllGamesResponse()
     }
-
-    fun addPlayer(request: AddPlayerRequest): BaseResponse {
-        val game = gameRepository.getById(request.gameUuid ?: throw FieldWasNullException("gameUuid"))
-        val player = playerRepo.getById(request.playerUuid ?: throw FieldWasNullException("playerUuid"))
-        val gameContext = GameContext()
-            .addPlayerToGame(
-                player.toModel(),
-                dataLayer2GameContext.gameToGameModel(game)
-            )
-        val gameEntity = gameContext2DataLayer.updateGameEntity(gameContext, game)
-        gameRepository.save(gameEntity)
-        player.status = BUSY_STATUS
-        playerRepo.save(player)
-        return gameContext.toCommandResponse()
-    }
-
-    fun updatePlayerInGame(request: UpdatePlayerInGameRequest): BaseResponse {
-        val game = gameRepository.getById(request.gameUuid ?: throw FieldWasNullException("gameUuid"))
-        val gameContext = GameContext()
-            .updatePlayerInGame(
-                request.toModel(),
-                dataLayer2GameContext.gameToGameModel(game))
-        val gameEntity = gameContext2DataLayer.updateGameEntity(gameContext, game)
-        gameRepository.save(gameEntity)
-        return gameContext.toCommandResponse()
-    }
-
     fun getGameByStatus(status: String): ReadGameResponse {
         val createdBy = (SecurityContextHolder.getContext().authentication.principal as User).userName
             ?: throw FieldWasNullException("userName")

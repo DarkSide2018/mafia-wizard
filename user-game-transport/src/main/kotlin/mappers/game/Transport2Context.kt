@@ -68,6 +68,13 @@ fun GameContext.updatePlayerInGame(player: PlayerModel, gameModel: GameModel) = 
     gameModel.players = updatedPlayers
     this.gameModel = gameModel
 }
+fun GameContext.deletePlayerFromGame(player: UUID, gameModel: GameModel) = apply {
+    val updatedPlayers = gameModel.players?.filter {
+        it.playerUUID != player
+    }?.toMutableSet()
+    gameModel.players = updatedPlayers
+    this.gameModel = gameModel
+}
 
 private fun CreateGameRequest.toModel(gameUUID: UUID) = GameModel(
     gameUUID = gameUUID,

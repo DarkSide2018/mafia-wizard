@@ -1,43 +1,146 @@
 [
   {
-    "electionId": "e24dc5cd-c9d8-4225-b390-aa6c31f0d298",
-    "drops": [
-      {
-        "slot": 1,
-        "playerUuid": "b7b5b1de-c35c-4195-820a-740a8acbb90c",
-        "playerName": "Александр"
-      },
-      {
-        "slot": 3,
-        "playerUuid": "5f8224cb-5e38-4c30-bd5a-9ee1003342b9",
-        "playerName": "Антон"
-      }
-    ]
+    "playerUUID": "8075055a-b963-474a-8cbc-14909f31e8a5",
+    "foulAmount": 0,
+    "nickName": "Семен",
+    "points": 0,
+    "additionalPoints": 0,
+    "penalties": 0,
+    "bestMove": 0,
+    "victoriesRed": 0,
+    "defeatRed": 0,
+    "victoriesBlack": 0,
+    "defeatBlack": 0,
+    "don": 0,
+    "sheriff": 0,
+    "wasKilled": 0
   },
   {
-    "electionId": "b0d0b61c-36ae-4c7a-bc6e-e040ea790682",
-    "drops": [
-      {
-        "slot": 3,
-        "playerUuid": "5f8224cb-5e38-4c30-bd5a-9ee1003342b9"
-      },
-      {
-        "slot": 5,
-        "playerUuid": "646eed7e-8e05-4084-9ad6-e65e9612acc5"
-      }
-    ]
+    "playerUUID": "6bc81f9f-198a-4aa3-b1e3-7e5791dea5dc",
+    "foulAmount": 0,
+    "nickName": "Ярослав",
+    "points": 0,
+    "additionalPoints": 0,
+    "penalties": 0,
+    "bestMove": 0,
+    "victoriesRed": 0,
+    "defeatRed": 0,
+    "victoriesBlack": 0,
+    "defeatBlack": 0,
+    "don": 0,
+    "sheriff": 0,
+    "wasKilled": 0
   },
   {
-    "electionId": "e7a6cd8c-4eea-401f-b3e9-3a84e0fcdd10",
-    "drops": [
-      {
-        "slot": 3,
-        "playerUuid": "5f8224cb-5e38-4c30-bd5a-9ee1003342b9"
-      },
-      {
-        "slot": 5,
-        "playerUuid": "646eed7e-8e05-4084-9ad6-e65e9612acc5"
-      }
-    ]
+    "playerUUID": "9c9b594f-91d6-488b-a9ef-c47a09290ace",
+    "foulAmount": 0,
+    "nickName": "Алина",
+    "points": 0,
+    "additionalPoints": 0,
+    "penalties": 0,
+    "bestMove": 0,
+    "victoriesRed": 0,
+    "defeatRed": 0,
+    "victoriesBlack": 0,
+    "defeatBlack": 0,
+    "don": 0,
+    "sheriff": 0,
+    "wasKilled": 0
+  },
+  {
+    "playerUUID": "ef48ad1e-b271-4d06-8ed2-76cd1633889b",
+    "foulAmount": 0,
+    "nickName": "Иван",
+    "points": 0,
+    "additionalPoints": 0,
+    "penalties": 0,
+    "bestMove": 0,
+    "victoriesRed": 0,
+    "defeatRed": 0,
+    "victoriesBlack": 0,
+    "defeatBlack": 0,
+    "don": 0,
+    "sheriff": 0,
+    "wasKilled": 0
+  },
+  {
+    "playerUUID": "2a86972f-4063-47bb-940b-99e07b184b9a",
+    "foulAmount": 0,
+    "nickName": "Василий",
+    "points": 0,
+    "additionalPoints": 0,
+    "penalties": 0,
+    "bestMove": 0,
+    "victoriesRed": 0,
+    "defeatRed": 0,
+    "victoriesBlack": 0,
+    "defeatBlack": 0,
+    "don": 0,
+    "sheriff": 0,
+    "wasKilled": 0
+  },
+  {
+    "playerUUID": "5f8224cb-5e38-4c30-bd5a-9ee1003342b9",
+    "foulAmount": 0,
+    "nickName": "Антон",
+    "points": 0,
+    "additionalPoints": 0,
+    "penalties": 0,
+    "bestMove": 0,
+    "victoriesRed": 0,
+    "defeatRed": 0,
+    "victoriesBlack": 0,
+    "defeatBlack": 0,
+    "don": 0,
+    "sheriff": 0,
+    "wasKilled": 0
+  },
+  {
+    "playerUUID": "b7b5b1de-c35c-4195-820a-740a8acbb90c",
+    "foulAmount": 0,
+    "nickName": "Александр",
+    "points": 0,
+    "additionalPoints": 0,
+    "penalties": 0,
+    "bestMove": 0,
+    "victoriesRed": 0,
+    "defeatRed": 0,
+    "victoriesBlack": 0,
+    "defeatBlack": 0,
+    "don": 0,
+    "sheriff": 0,
+    "wasKilled": 0
+  },
+  {
+    "playerUUID": "60056a6d-0fbd-4811-9c76-1f023fb46265",
+    "foulAmount": 0,
+    "nickName": "Петр",
+    "points": 0,
+    "additionalPoints": 0,
+    "penalties": 0,
+    "bestMove": 0,
+    "victoriesRed": 0,
+    "defeatRed": 0,
+    "victoriesBlack": 0,
+    "defeatBlack": 0,
+    "don": 0,
+    "sheriff": 0,
+    "wasKilled": 0
+  },
+  {
+    "playerUUID": "646eed7e-8e05-4084-9ad6-e65e9612acc5",
+    "foulAmount": 0,
+    "nickName": "Вячеслав",
+    "points": 0,
+    "additionalPoints": 0,
+    "penalties": 0,
+    "bestMove": 0,
+    "victoriesRed": 0,
+    "defeatRed": 0,
+    "victoriesBlack": 0,
+    "defeatBlack": 0,
+    "don": 0,
+    "sheriff": 0,
+    "wasKilled": 0
   }
 ]

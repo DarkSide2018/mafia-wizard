@@ -44,4 +44,11 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         jvmTarget = "11"
     }
 }
+tasks {
+    compileKotlin {
+        dependsOn(":transport-objects:openApiGenerate")
+        dependsOn(":user-game-transport:openApiGenerate")
+        dependsOn(":wizard-player-transport:openApiGenerate")
+    }
+}
 

@@ -187,8 +187,6 @@ components:
     CreatePlayerRequest:
       description: Структура для создания юнита в репоизтории
       allOf:
-        - $ref: 'common.yaml#/components/schemas/BaseMessage'
-        - $ref: 'common.yaml#/components/schemas/BaseRequest'
         - $ref: '#/components/schemas/PlayerMetaInfo'
 
 
@@ -321,6 +319,9 @@ components:
         - $ref: '#/components/schemas/GamePlayerInfo'
         - type: object
           properties:
+            currentGame:
+              type: string
+              format: uuid
             ratingId:
               description: Порядковый номер в рейтинге
               type: integer

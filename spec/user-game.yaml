@@ -351,10 +351,12 @@ components:
     AddPlayerRequest:
       description: Структура для создания юнита в репоизтории
       allOf:
-        - $ref: 'common.yaml#/components/schemas/BaseMessage'
-        - $ref: 'common.yaml#/components/schemas/BaseRequest'
         - type: object
           properties:
+            nickName:
+              type: string
+            slot:
+              type: integer
             playerUuid:
               type: string
               format: uuid

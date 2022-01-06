@@ -15,8 +15,10 @@ interface PlayerRepo: JpaRepository<Player, UUID> {
 
     fun findByNickNameAndCreatedBy(userName: String,createdBy:String): Player?
 
+    fun findByNickName(nickName: String): Player?
+
     @Query("FROM Player p WHERE p.nickName LIKE %:searchText% and p.status = 'FREE' and p.createdBy = :actor ORDER BY p.createdAt DESC ")
-    fun findByNickName(page:Pageable,
+    fun findByNickNameCustom(page:Pageable,
                        @Param("actor") actor: String,
                        @Param("searchText") searchText: String): Page<Player>?
 

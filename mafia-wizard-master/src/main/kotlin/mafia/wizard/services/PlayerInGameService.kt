@@ -2,6 +2,8 @@ package mafia.wizard.services
 
 import exceptions.FieldWasNullException
 import mafia.wizard.common.toJson
+import mafia.wizard.config.BadRequestException
+import mafia.wizard.config.NotFoundException
 import mafia.wizard.mappers.game.DataLayer2GameContext
 import mafia.wizard.mappers.game.GameContext2DataLayer
 import mafia.wizard.mappers.player.toModel
@@ -25,12 +27,14 @@ class PlayerInGameService(
 
     fun addPlayer(request: AddPlayerRequest): BaseResponse {
         val game = gameRepository.getById(request.gameUuid ?: throw FieldWasNullException("gameUuid"))
-        val player = playerRepo.getById(request.playerUuid ?: throw FieldWasNullException("playerUuid"))
+        val player = playerRepo.findByNickName(request.nickName ?: throw FieldWasNullException("nickName"))
+        player ?: throw NotFoundException("no such player by nickname")
         val gameContext = GameContext()
-            .addPlayerToGame(
-                player.toModel(),
-                dataLayer2GameContext.gameToGameModel(game)
-            )
+        gameContext.gameModel = dataLayer2GameContext.gameToGameModel(game)
+        gameContext.addPlayerToGame(
+            player.toModel(),
+            request.slot ?: throw FieldWasNullException("slot")
+        )
         val gameEntity = gameContext2DataLayer.updateGameEntity(gameContext, game)
         gameRepository.save(gameEntity)
         player.status = BUSY_STATUS
@@ -48,11 +52,12 @@ class PlayerInGameService(
         gameRepository.save(gameEntity)
         return gameContext.toCommandResponse()
     }
+
     fun deletePlayerFromGame(request: DeletePlayerFromGameRequest): BaseResponse {
         val game = gameRepository.getById(request.gameUuid ?: throw FieldWasNullException("gameUuid"))
         val gameModel = dataLayer2GameContext.gameToGameModel(game)
         val gameContext = GameContext()
-            .deletePlayerFromGame(request.playerUuid?:throw Exception("player Uuid was null"),gameModel)
+            .deletePlayerFromGame(request.playerUuid ?: throw Exception("player Uuid was null"), gameModel)
         game.playerToCardNumber = gameContext.gameModel?.playerToCardNumber.toJson()
         gameRepository.save(game)
         return gameContext.toCommandResponse()

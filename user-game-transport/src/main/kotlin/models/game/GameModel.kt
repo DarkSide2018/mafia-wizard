@@ -20,6 +20,21 @@ data class GameModel(
     fun addPlayer(value: PlayerModel) {
         players?.add(value)
     }
+
+    fun addPlayerSlotRelation(value: PlayerModel, slot: Int) {
+        val firstEntry = playerToCardNumber?.firstOrNull {
+            it.cardNumber == slot
+        }
+        firstEntry?.let {
+            it.playerUuid = value.playerUUID
+        }
+        if(firstEntry == null){
+            playerToCardNumber?.add(PlayerToCardNumber(
+                playerUuid = value.playerUUID,
+                cardNumber = slot
+            ))
+        }
+    }
 }
 
 class Election(

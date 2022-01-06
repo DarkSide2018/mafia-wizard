@@ -2,6 +2,7 @@ package mafia.wizard.services
 
 import exceptions.FieldWasNullException
 import mafia.wizard.common.getActorName
+import mafia.wizard.config.BadRequestException
 import mafia.wizard.mappers.player.*
 import mafia.wizard.openapi.models.*
 import mafia.wizard.repository.PlayerRepo
@@ -62,7 +63,7 @@ class PlayerService {
 
     fun getByNickNameLike(searchPlayerRequest: SearchPlayerRequest): ReadAllPlayersResponse {
         val context = PlayerContext(userActor = getActorName()).setQuery(searchPlayerRequest)
-        val players = playerRepo.findByNickName(context.createPageRequest(), context.userActor, "%${context.search}%")
+        val players = playerRepo.findByNickNameCustom(context.createPageRequest(), context.userActor, "%${context.search}%")
             ?: throw RuntimeException("no such players")
         return context
             .setPlayers(players)
@@ -72,6 +73,10 @@ class PlayerService {
     fun save(createPlayerRequest: CreatePlayerRequest): BaseResponse {
         val createPlayerContext = PlayerContext(userActor = getActorName())
             .setCommand(createPlayerRequest)
+        playerRepo.findByNickName(
+            createPlayerContext.playerModel?.nickName?:throw Exception("empty nickName"))?.let {
+                throw BadRequestException("such player already exists")
+        }
         playerRepo.save(createPlayerContext.toPlayerEntity())
         return createPlayerContext.toCommandResponse()
     }

@@ -40,9 +40,9 @@ fun FinishElectionRequest.toGameContext(): GameContext {
     )
 }
 
-fun GameContext.addPlayerToGame(player: PlayerModel, gameModel: GameModel) = apply {
-    gameModel.addPlayer(player)
-    this.gameModel = gameModel
+fun GameContext.addPlayerToGame(player: PlayerModel, slot:Int) = apply {
+    gameModel?.addPlayer(player)
+    gameModel?.addPlayerSlotRelation(player,slot)
 }
 
 fun GameContext.updatePlayerInGame(player: PlayerModel, gameModel: GameModel) = apply {

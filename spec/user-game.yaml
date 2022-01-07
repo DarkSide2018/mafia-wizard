@@ -379,6 +379,8 @@ components:
         playerUuid:
           type: string
           format: uuid
+        playerNickName:
+          type: string
         slot:
           type: integer
         role:
@@ -423,8 +425,6 @@ components:
     CreateGameRequest:
       description: Структура для создания юнита в репоизтории
       allOf:
-        - $ref: 'common.yaml#/components/schemas/BaseMessage'
-        - $ref: 'common.yaml#/components/schemas/BaseRequest'
         - $ref: '#/components/schemas/GameMetaInfo'
 
     CreateGameMasterRequest:

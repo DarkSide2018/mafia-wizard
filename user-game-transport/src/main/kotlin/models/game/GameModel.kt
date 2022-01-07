@@ -27,10 +27,12 @@ data class GameModel(
         }
         firstEntry?.let {
             it.playerUuid = value.playerUUID
+            it.playerNickName = value.nickName
         }
-        if(firstEntry == null){
+        if (firstEntry == null) {
             playerToCardNumber?.add(PlayerToCardNumber(
                 playerUuid = value.playerUUID,
+                playerNickName = value.nickName,
                 cardNumber = slot
             ))
         }
@@ -60,6 +62,7 @@ data class Night(
 
 data class PlayerToCardNumber(
     var playerUuid: java.util.UUID? = null,
+    var playerNickName: String? = null,
     var cardNumber: kotlin.Int? = null,
     var gameRole: kotlin.String? = null,
     var note: kotlin.Int? = null,

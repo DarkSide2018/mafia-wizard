@@ -20,13 +20,14 @@ fun GameContext.toReadGameResponse(): ReadGameResponse {
         playerToCardNumber = gameModel?.playerToCardNumber?.map {
             return@map PlayerToCardNumberDTO(
                 playerUuid = it.playerUuid,
+                playerNickName = it.playerNickName,
                 slot = it.cardNumber,
                 role = it.gameRole,
                 note = it.note,
                 addPoints = it.addPoints
             )
         } ?: listOf(),
-        elections = gameModel?.elections?.map { it.toElectionDto(this.gameModel?.gameUUID) }?: listOf(),
+        elections = gameModel?.elections?.map { it.toElectionDto(this.gameModel?.gameUUID) } ?: listOf(),
         players = gameModel?.players?.map { it.toGamePlayerInfo() } ?: listOf(),
         nights = gameModel?.nights?.map { it.toNightInfo() } ?: listOf(),
         result = if (this.requestContext.errors.isEmpty()) ReadGameResponse.Result.SUCCESS else ReadGameResponse.Result.ERROR
@@ -94,11 +95,13 @@ fun Election.toElectionDto(gameUUID: UUID?): ElectionDTO {
         electionId = this.electionId,
         sortOrder = this.sortOrder,
         gameUuid = gameUUID,
-        dropdowns = this.drops?.map { ElectionDropDown(
-            it.slot,
-            it.playerUuid,
-            it.playerName,
-            it.numberOfVotes
-        ) }
+        dropdowns = this.drops?.map {
+            ElectionDropDown(
+                it.slot,
+                it.playerUuid,
+                it.playerName,
+                it.numberOfVotes
+            )
+        }
     )
 }

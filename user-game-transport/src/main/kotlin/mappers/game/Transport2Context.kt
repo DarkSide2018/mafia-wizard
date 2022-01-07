@@ -84,9 +84,10 @@ private fun CreateGameRequest.toModel(gameUUID: UUID) = GameModel(
     status = "DRAFT",
     playerToCardNumber = this.playerToCardNumber?.map {
         return@map PlayerToCardNumber(
-            it.playerUuid,
-            it.slot,
-            it.role,
+            playerUuid = it.playerUuid,
+            cardNumber = it.slot,
+            gameRole = it.role,
+            playerNickName = it.playerNickName
         )
     }?.toMutableSet(),
     players = this.players?.map { PlayerModel(playerUUID = it.playerUuid ?: throw FieldWasNullException("playerUuid")) }

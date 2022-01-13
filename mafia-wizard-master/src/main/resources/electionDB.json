@@ -1,18 +1,52 @@
 [
   {
-    "playerUuid": "71122cfa-8689-4e60-93f7-4d2d6095d6e9",
-    "cardNumber": 635
+    "electionId": "f6784ee9-782a-4a48-b7c4-1ced88504fe2",
+    "sortOrder": 2,
+    "drops": [
+      {
+        "slot": 2,
+        "numberOfVotes": 9
+      },
+      {
+        "slot": 3,
+        "numberOfVotes": 5
+      }
+    ]
   },
   {
-    "playerUuid": "71122cfa-8689-4e60-93f7-4d2d6095d6e9",
-    "cardNumber": 605
+    "electionId": "33059ee8-7875-400d-b036-b4614c1cec54",
+    "sortOrder": 0,
+    "drops": [
+      {
+        "slot": 1,
+        "numberOfVotes": 0
+      },
+      {
+        "slot": 2,
+        "numberOfVotes": 0
+      },
+      {
+        "slot": 4,
+        "numberOfVotes": 0
+      },
+      {
+        "slot": 2,
+        "numberOfVotes": 0
+      }
+    ]
   },
   {
-    "playerUuid": "828f67b6-0dfa-4400-855a-13ddae942e9e",
-    "cardNumber": 2
-  },
-  {
-    "playerUuid": "71122cfa-8689-4e60-93f7-4d2d6095d6e9",
-    "cardNumber": 1
+    "electionId": "1dcb8a68-a8ca-4795-a4be-fbc87cf3ad8d",
+    "sortOrder": 1,
+    "drops": [
+      {
+        "slot": 2,
+        "numberOfVotes": 0
+      },
+      {
+        "slot": 3,
+        "numberOfVotes": 0
+      }
+    ]
   }
 ]

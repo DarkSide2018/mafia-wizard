@@ -2,6 +2,7 @@ package mafia.wizard.services
 
 import exceptions.FieldWasNullException
 import mafia.wizard.common.getActorName
+import mafia.wizard.config.BadRequestException
 import mafia.wizard.config.NotFoundException
 import mafia.wizard.entities.User
 import mafia.wizard.mappers.game.DataLayer2GameContext
@@ -43,6 +44,7 @@ class GameService(
             .setGamesIntoContext(GameContext(), games)
             .toReadAllGamesResponse()
     }
+
     fun getGameByStatus(status: String): ReadGameResponse {
         val createdBy = (SecurityContextHolder.getContext().authentication.principal as User).userName
             ?: throw FieldWasNullException("userName")
@@ -54,7 +56,7 @@ class GameService(
             .toReadGameResponse()
     }
 
-    fun finishElection(request: FinishElectionRequest):BaseResponse{
+    fun finishElection(request: FinishElectionRequest): BaseResponse {
         val context = request.toGameContext()
         val gameForUpdate = gameRepository
             .findById(context.gameModel?.gameUUID ?: throw FieldWasNullException("updateGame gameUUID"))
@@ -78,7 +80,7 @@ class GameService(
         val gameForUpdate = gameRepository
             .findById(game.gameUuid ?: throw FieldWasNullException("updateGame gameUUID"))
             .orElseThrow()
-        if(gameForUpdate.status != "FINISHED"){
+        if (gameForUpdate.status != "FINISHED") {
             val updatedGame = gameContext2DataLayer.updateGameEntity(gameContext, gameForUpdate)
             gameRepository.save(updatedGame)
         }
@@ -90,7 +92,7 @@ class GameService(
         val gameForUpdate = gameRepository
             .findById(game.gameUuid ?: throw FieldWasNullException("updateGame gameUUID"))
             .orElseThrow()
-        dataLayer2GameContext.finishingGame(gameContext,gameForUpdate)
+        dataLayer2GameContext.finishingGame(gameContext, gameForUpdate)
         playerCalculator.playerBusyToFreeStatus(gameContext)
         val updatedGame = gameContext2DataLayer.updateGameEntity(gameContext, gameForUpdate)
         gameRepository.save(updatedGame)
@@ -99,5 +101,13 @@ class GameService(
 
     fun deleteGame(uuid: UUID) {
         gameRepository.deleteById(uuid)
+    }
+    fun deleteElectionFromGame(game: UUID, election: UUID) {
+        val gameForUpdate =
+            (gameRepository.findById(game) ?: throw BadRequestException("no such game by this id $game")).orElseThrow()
+        val gameModel = dataLayer2GameContext.gameToGameModel(gameForUpdate)
+        gameModel.elections?.filter { it.electionId != election }
+        val gameEntity = gameContext2DataLayer.toGameEntity(gameModel)
+        gameRepository.save(gameEntity)
     }
 }

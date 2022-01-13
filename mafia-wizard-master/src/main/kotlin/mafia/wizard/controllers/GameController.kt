@@ -67,4 +67,12 @@ class GameController(
         gameService.deleteGame(uuid)
         return ResponseEntity.ok().build<String>()
     }
+    @DeleteMapping("/election/{game}/{election}")
+    fun deleteElectionFromGame(
+        @PathVariable game: UUID,
+        @PathVariable election: UUID
+    ): ResponseEntity<String> {
+        gameService.deleteElectionFromGame(game, election)
+        return ResponseEntity.ok().build<String>()
+    }
 }

@@ -10,7 +10,6 @@ import models.PlayerModel
 import models.game.*
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
-import java.util.*
 
 const val EMPTY_ARRAY: String = "[]"
 
@@ -31,10 +30,22 @@ class GameContext2DataLayer(
 
     }
 
+    fun toGameEntity(gameModel: GameModel): Game {
+        return Game(
+            gameUUID = gameModel.gameUUID,
+            createdBy = (SecurityContextHolder.getContext().authentication.principal as User).userName,
+            name = gameModel.name,
+            gameNumber = gameModel.gameNumber,
+            elections = gameModel.elections?.let { objectMapper.writeValueAsString(it) },
+            nights = gameModel.nights?.let { objectMapper.writeValueAsString(it) },
+            players = gameModel.players?.let { objectMapper.writeValueAsString(it) }
+        )
+    }
+
     fun updateGameEntity(updateGameContext: GameContext, gameForUpdate: Game): Game {
         val gameModel = updateGameContext.gameModel ?: throw FieldWasNullException("gameModel")
         val gameModelPlayers = gameModel.players
-        gameModelPlayers.takeIf { !it.isNullOrEmpty()  }
+        gameModelPlayers.takeIf { !it.isNullOrEmpty() }
             ?.let { set ->
                 val playerModelSet = objectMapper.readValue(
                     gameForUpdate.players,
@@ -46,14 +57,14 @@ class GameContext2DataLayer(
         gameModel.name?.let { gameForUpdate.name = it }
         gameModel.status?.let { gameForUpdate.status = it }
         gameModel.victory?.let { gameForUpdate.victory = it }
-        gameModel.elections?.takeIf { it.isNotEmpty() }?.let { electionSet->
+        gameModel.elections?.takeIf { it.isNotEmpty() }?.let { electionSet ->
             val electionSetRead = objectMapper.readValue(
                 gameForUpdate.elections,
                 object : TypeReference<MutableSet<Election>>() {}) as MutableSet<Election>
             electionSet.first().sortOrder = electionSetRead.size
             electionSetRead.addAll(electionSet)
             electionSetRead.sortedBy { it.sortOrder }
-            gameForUpdate.elections=electionSetRead.toJson()
+            gameForUpdate.elections = electionSetRead.toJson()
         }
         updateGameNights(gameModel.nights, gameForUpdate)
         updatePlayerToCardNumber(gameModel.playerToCardNumber, gameForUpdate)
@@ -105,7 +116,7 @@ class GameContext2DataLayer(
 }
 
 private fun List<ElectionDropDownBusiness>?.containAvailablePlayers(gameModelPlayers: MutableSet<PlayerModel>?): Boolean {
-    val uuids = gameModelPlayers?.map { it.playerUUID }?.toList()?: mutableListOf()
-    val map = this?.map { it.playerUuid }?.toList()?: mutableListOf()
-    return  map.containsAll(uuids)
+    val uuids = gameModelPlayers?.map { it.playerUUID }?.toList() ?: mutableListOf()
+    val map = this?.map { it.playerUuid }?.toList() ?: mutableListOf()
+    return map.containsAll(uuids)
 }

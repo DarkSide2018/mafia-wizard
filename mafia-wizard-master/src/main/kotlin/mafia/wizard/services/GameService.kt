@@ -106,7 +106,7 @@ class GameService(
         val gameForUpdate =
             (gameRepository.findById(game) ?: throw BadRequestException("no such game by this id $game")).orElseThrow()
         val gameModel = dataLayer2GameContext.gameToGameModel(gameForUpdate)
-        gameModel.elections?.filter { it.electionId != election }
+        gameModel.elections?.removeIf { it.electionId == election }
         val gameEntity = gameContext2DataLayer.toGameEntity(gameModel)
         gameRepository.save(gameEntity)
     }

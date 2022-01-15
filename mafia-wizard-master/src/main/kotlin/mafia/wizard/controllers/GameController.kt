@@ -1,5 +1,6 @@
 package mafia.wizard.controllers
 
+import mafia.wizard.common.toJson
 import mafia.wizard.config.Trace
 import mafia.wizard.entities.ACTIVE_STATUS
 import mafia.wizard.entities.DRAFT_STATUS
@@ -74,5 +75,10 @@ class GameController(
     ): ResponseEntity<String> {
         gameService.deleteElectionFromGame(game, election)
         return ResponseEntity.ok().build<String>()
+    }
+    @PutMapping("/notes")
+    fun updateNotesIngGame(@RequestBody game: UpdateNotesRequest): ResponseEntity<BaseResponse> {
+        logger.info("updateNotesRequest=> " + game.toJson())
+        return ResponseEntity.ok(gameService.updateNotesInGame(game))
     }
 }

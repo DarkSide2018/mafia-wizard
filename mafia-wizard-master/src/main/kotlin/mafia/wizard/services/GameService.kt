@@ -86,6 +86,10 @@ class GameService(
         }
         return gameContext.toCommandResponse()
     }
+    fun updateNotesInGame(game: UpdateNotesRequest): BaseResponse {
+        val gameContext = GameContext()
+        return gameContext.toCommandResponse()
+    }
 
     fun finishGame(game: UpdateGameRequest): BaseResponse {
         val gameContext = GameContext().finishGame(game)

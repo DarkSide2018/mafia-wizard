@@ -11,7 +11,7 @@ data class GameModel(
     var victory: String? = null,
     var name: String? = null,
     var status: String? = null,
-    var playerToCardNumber: MutableSet<PlayerToCardNumber>? = mutableSetOf<PlayerToCardNumber>(),
+    var playerToCardNumber: MutableSet<PlayerToCardNumber> = mutableSetOf<PlayerToCardNumber>(),
     var players: MutableSet<PlayerModel>? = mutableSetOf<PlayerModel>(),
     var nights: MutableSet<Night>? = mutableSetOf(),
     var elections: MutableSet<Election>? = mutableSetOf<Election>(),

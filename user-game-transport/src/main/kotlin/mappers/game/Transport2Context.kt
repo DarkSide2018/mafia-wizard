@@ -20,6 +20,10 @@ fun GameContext.finishGame(query: UpdateGameRequest) = apply {
     gameModel?.status = query.status
     gameModel?.players = query.players?.map { it.toModel() }?.toMutableSet() ?: mutableSetOf()
 }
+fun GameContext.updateNotes(query: UpdateNotesRequest) = apply {
+    gameModel = GameModel(gameUUID = query.gameUuid?: throw FieldWasNullException("gameUuid"))
+    gameModel?.playerToCardNumber = mutableSetOf<PlayerToCardNumber>(PlayerToCardNumber(cardNumber = query.slot, note = query.notes))
+}
 
 fun FinishElectionRequest.toGameContext(): GameContext {
     val election = Election(
@@ -89,7 +93,7 @@ private fun CreateGameRequest.toModel(gameUUID: UUID) = GameModel(
             gameRole = it.role,
             playerNickName = it.playerNickName
         )
-    }?.toMutableSet(),
+    }?.toMutableSet()?:throw Exception("wrong playerToCardNumber"),
     players = this.players?.map { PlayerModel(playerUUID = it.playerUuid ?: throw FieldWasNullException("playerUuid")) }
         ?.toMutableSet() ?: mutableSetOf<PlayerModel>()
 )
@@ -109,7 +113,7 @@ private fun UpdateGameRequest.toModel() = GameModel(
             cardNumber = it.slot,
             gameRole = it.role,
         )
-    }?.toMutableSet(),
+    }?.toMutableSet()?:throw Exception("wrong playerToCardNumber"),
     players = this.players?.map { it.toModel() }
         ?.toMutableSet() ?: mutableSetOf()
 )

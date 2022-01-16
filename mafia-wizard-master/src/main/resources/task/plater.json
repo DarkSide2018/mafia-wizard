@@ -1,18 +1,8 @@
 [
   {
-    "playerUUID": "646eed7e-8e05-4084-9ad6-e65e9612acc5",
-    "foulAmount": 0,
-    "nickName": "Вячеслав",
-    "points": 0,
-    "additionalPoints": 0,
-    "penalties": 0,
-    "bestMove": 0,
-    "victoriesRed": 0,
-    "defeatRed": 0,
-    "victoriesBlack": 0,
-    "defeatBlack": 0,
-    "don": 0,
-    "sheriff": 0,
-    "wasKilled": 0
+    "playerUuid": "ab118fb6-c613-4a16-b7ac-1122f833fb12",
+    "playerNickName": "Ivan",
+    "cardNumber": 1,
+    "note": 2
   }
 ]

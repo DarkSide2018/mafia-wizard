@@ -86,8 +86,14 @@ class GameService(
         }
         return gameContext.toCommandResponse()
     }
-    fun updateNotesInGame(game: UpdateNotesRequest): BaseResponse {
+    fun updateNotesInGame(request: UpdateNotesRequest): BaseResponse {
         val gameContext = GameContext()
+        gameContext.updateNotes(request)
+        val gameForUpdate = gameRepository
+            .findById(request.gameUuid ?: throw FieldWasNullException("updateGame gameUUID"))
+            .orElseThrow()
+        gameContext2DataLayer.updateNotesBySlot(gameContext,gameForUpdate)
+        gameRepository.save(gameForUpdate)
         return gameContext.toCommandResponse()
     }
 

@@ -42,6 +42,19 @@ class GameContext2DataLayer(
         )
     }
 
+    fun updateNotesBySlot(updateGameContext: GameContext, gameForUpdate: Game) {
+        val plsSet = objectMapper.readValue(
+            gameForUpdate.playerToCardNumber,
+            object : TypeReference<MutableSet<PlayerToCardNumber>>() {}) as MutableSet<PlayerToCardNumber>
+        plsSet.forEach {
+            val first = updateGameContext.gameModel?.playerToCardNumber?.first()
+            if (it.cardNumber == first?.cardNumber) {
+                it.note = first?.note?:throw Exception("note was null")
+            }
+        }
+        gameForUpdate.playerToCardNumber = objectMapper.writeValueAsString(plsSet)
+    }
+
     fun updateGameEntity(updateGameContext: GameContext, gameForUpdate: Game): Game {
         val gameModel = updateGameContext.gameModel ?: throw FieldWasNullException("gameModel")
         val gameModelPlayers = gameModel.players

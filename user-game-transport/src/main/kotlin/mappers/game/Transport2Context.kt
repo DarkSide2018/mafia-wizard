@@ -93,7 +93,7 @@ private fun CreateGameRequest.toModel(gameUUID: UUID) = GameModel(
             gameRole = it.role,
             playerNickName = it.playerNickName
         )
-    }?.toMutableSet()?:throw Exception("wrong playerToCardNumber"),
+    }?.toMutableSet()?: mutableSetOf(),
     players = this.players?.map { PlayerModel(playerUUID = it.playerUuid ?: throw FieldWasNullException("playerUuid")) }
         ?.toMutableSet() ?: mutableSetOf<PlayerModel>()
 )
@@ -113,7 +113,7 @@ private fun UpdateGameRequest.toModel() = GameModel(
             cardNumber = it.slot,
             gameRole = it.role,
         )
-    }?.toMutableSet()?:throw Exception("wrong playerToCardNumber"),
+    }?.toMutableSet()?: mutableSetOf(),
     players = this.players?.map { it.toModel() }
         ?.toMutableSet() ?: mutableSetOf()
 )

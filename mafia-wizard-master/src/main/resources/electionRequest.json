@@ -1,7 +1,20 @@
 [
   {
-    "playerUuid": "5db1811d-56b0-4193-92cf-9f480ce8268f",
-    "playerNickName": "Ivan",
-    "cardNumber": 1
+    "playerUuid": "93ebd581-db18-496e-b1da-458628c76293",
+    "playerNickName": "Yaroslav",
+    "cardNumber": 2,
+    "note": 1
+  },
+  {
+    "playerUuid": "0a897f4f-48d2-44f9-a99a-4be9103ef533",
+    "playerNickName": "Roman",
+    "cardNumber": 1,
+    "note": 1,
+    "addPoints": 34.5
+  },
+  {
+    "playerUuid": "6dc810cb-1899-40d8-82a0-2a842427ec6a",
+    "playerNickName": "DFDF",
+    "cardNumber": 3
   }
 ]

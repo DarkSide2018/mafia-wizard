@@ -79,7 +79,6 @@ class PlayerCalculator(
         calculateVictories(player, game)
         calculatePoints(player, game)
         calculateDonAndSheriff(player, game)
-        calculateFirstNightKill(player, game)
     }
 
     fun calculatePoints(player: Player, game: GameContext) {
@@ -100,12 +99,6 @@ class PlayerCalculator(
                 player.sheriff++
                 if (game.gameModel?.victory == RED_VICTORY) player.points++
             }
-        }
-    }
-
-    fun calculateFirstNightKill(player: Player, game: GameContext) {
-        game.gameModel?.nights?.firstOrNull { it.killedPlayer == player.playerUuid }?.let {
-            if (it.nightNumber == 0) player.wasKilled++
         }
     }
 

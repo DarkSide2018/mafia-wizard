@@ -54,10 +54,10 @@ data class ElectionDropDownBusiness(
 
 data class Night(
     var nightNumber: Int? = null,
-    var killedPlayer: UUID? = null,
-    var sheriffChecked: UUID? = null,
-    var donChecked: UUID? = null,
-    var playerLeftGame: UUID? = null,
+    var killedPlayer: Int? = null,
+    var sheriffChecked: Int? = null,
+    var donChecked: Int? = null,
+    var playerLeftGame: Int? = null,
 )
 
 data class PlayerToCardNumber(

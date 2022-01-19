@@ -370,17 +370,13 @@ components:
         nightNumber:
           type: integer
         killedPlayer:
-          type: string
-          format: uuid
+          type: integer
         sheriffChecked:
-          type: string
-          format: uuid
+          type: integer
         donChecked:
-          type: string
-          format: uuid
+          type: integer
         playerLeftGame:
-          type: string
-          format: uuid
+          type: integer
 
     PlayerToCardNumber:
       description: мета-инфомация для обозначения к какой карте игрок принадлежит

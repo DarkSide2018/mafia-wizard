@@ -38,7 +38,9 @@ class GameContext2DataLayer(
             gameNumber = gameModel.gameNumber,
             elections = gameModel.elections?.let { objectMapper.writeValueAsString(it) },
             nights = gameModel.nights?.let { objectMapper.writeValueAsString(it) },
-            players = gameModel.players?.let { objectMapper.writeValueAsString(it) }
+            players = gameModel.players?.let { objectMapper.writeValueAsString(it) },
+            playerToCardNumber = gameModel.playerToCardNumber.toJson(),
+            victory = gameModel.victory
         )
     }
 
@@ -49,7 +51,7 @@ class GameContext2DataLayer(
         plsSet.forEach {
             val first = updateGameContext.gameModel?.playerToCardNumber?.first()
             if (it.cardNumber == first?.cardNumber) {
-                it.note = first?.note?:throw Exception("note was null")
+                it.note = first?.note ?: throw Exception("note was null")
             }
         }
         gameForUpdate.playerToCardNumber = objectMapper.writeValueAsString(plsSet)

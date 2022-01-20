@@ -15,6 +15,7 @@ import mafia.wizard.repository.GameRepository
 import mafia.wizard.repository.PlayerRepo
 import mappers.game.*
 import models.game.GameContext
+import models.game.GameModel
 import org.springframework.stereotype.Service
 
 @Service
@@ -29,8 +30,9 @@ class PlayerInGameService(
         val game = gameRepository.getById(request.gameUuid ?: throw FieldWasNullException("gameUuid"))
         val player = playerRepo.findByNickName(request.nickName ?: throw FieldWasNullException("nickName"))
         player ?: throw NotFoundException("no such player by nickname")
-        val gameContext = GameContext()
-        gameContext.gameModel = dataLayer2GameContext.gameToGameModel(game)
+        val gameContext = GameContext(
+            gameModel = GameModel(request.gameUuid?:throw BadRequestException("game uuid was null"))
+        )
         gameContext.addPlayerToGame(
             player.toModel(),
             request.slot ?: throw FieldWasNullException("slot")

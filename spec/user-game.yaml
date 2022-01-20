@@ -66,6 +66,25 @@ paths:
             application/json:
               schema:
                 $ref: 'common.yaml#/components/schemas/BaseResponse'
+  /game/role:
+    put:
+      tags:
+        - roles
+      summary: updateRoles
+      operationId: updateRoles
+      requestBody:
+        description: updateRole object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateNotesRequest'
+      responses:
+        200:
+          description: all responses
+          content:
+            application/json:
+              schema:
+                $ref: 'common.yaml#/components/schemas/BaseResponse'
   /game/notes:
     put:
       tags:
@@ -423,6 +442,17 @@ components:
       description: Структура для запроса конца голосования
       allOf:
         - $ref: '#/components/schemas/ElectionDTO'
+    UpdateRoleRequest:
+      description: updateNotesStructure
+      type: object
+      properties:
+        gameUuid:
+          type: string
+          format: uuid
+        slot:
+          type: integer
+        role:
+          type: string
     UpdateNotesRequest:
       description: updateNotesStructure
       type: object

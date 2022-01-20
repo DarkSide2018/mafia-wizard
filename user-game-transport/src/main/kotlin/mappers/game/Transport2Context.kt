@@ -24,6 +24,10 @@ fun GameContext.updateNotes(query: UpdateNotesRequest) = apply {
     gameModel = GameModel(gameUUID = query.gameUuid?: throw FieldWasNullException("gameUuid"))
     gameModel?.playerToCardNumber = mutableSetOf<PlayerToCardNumber>(PlayerToCardNumber(cardNumber = query.slot, note = query.notes))
 }
+fun GameContext.updateRoles(query: UpdateRoleRequest) = apply {
+    gameModel = GameModel(gameUUID = query.gameUuid?: throw FieldWasNullException("gameUuid"))
+    gameModel?.playerToCardNumber = mutableSetOf<PlayerToCardNumber>(PlayerToCardNumber(cardNumber = query.slot, gameRole = query.role))
+}
 
 fun FinishElectionRequest.toGameContext(): GameContext {
     val election = Election(

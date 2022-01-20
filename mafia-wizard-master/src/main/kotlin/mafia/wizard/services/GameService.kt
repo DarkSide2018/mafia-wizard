@@ -96,6 +96,16 @@ class GameService(
         gameRepository.save(gameForUpdate)
         return gameContext.toCommandResponse()
     }
+    fun updateRolesInGame(request: UpdateRoleRequest): BaseResponse {
+        val gameContext = GameContext()
+        gameContext.updateRoles(request)
+        val gameForUpdate = gameRepository
+            .findById(request.gameUuid ?: throw FieldWasNullException("updateGame gameUUID"))
+            .orElseThrow()
+        gameContext2DataLayer.updateRoleBySlot(gameContext,gameForUpdate)
+        gameRepository.save(gameForUpdate)
+        return gameContext.toCommandResponse()
+    }
 
     fun finishGame(game: UpdateGameRequest): BaseResponse {
         val gameContext = GameContext().finishGame(game)

@@ -57,6 +57,19 @@ class GameContext2DataLayer(
         gameForUpdate.playerToCardNumber = objectMapper.writeValueAsString(plsSet)
     }
 
+    fun updateRoleBySlot(updateGameContext: GameContext, gameForUpdate: Game) {
+        val plsSet = objectMapper.readValue(
+            gameForUpdate.playerToCardNumber,
+            object : TypeReference<MutableSet<PlayerToCardNumber>>() {}) as MutableSet<PlayerToCardNumber>
+        val first = updateGameContext.gameModel?.playerToCardNumber?.first()
+        plsSet.firstOrNull { it.cardNumber == first?.cardNumber }?.let {
+            it.gameRole = first?.gameRole ?: throw Exception("note was null")
+        } ?: run {
+            plsSet.add(PlayerToCardNumber(cardNumber = first?.cardNumber, gameRole = first?.gameRole))
+        }
+        gameForUpdate.playerToCardNumber = objectMapper.writeValueAsString(plsSet)
+    }
+
     fun updateGameEntity(updateGameContext: GameContext, gameForUpdate: Game): Game {
         val gameModel = updateGameContext.gameModel ?: throw FieldWasNullException("gameModel")
         val gameModelPlayers = gameModel.players
@@ -128,10 +141,4 @@ class GameContext2DataLayer(
             }
         }
     }
-}
-
-private fun List<ElectionDropDownBusiness>?.containAvailablePlayers(gameModelPlayers: MutableSet<PlayerModel>?): Boolean {
-    val uuids = gameModelPlayers?.map { it.playerUUID }?.toList() ?: mutableListOf()
-    val map = this?.map { it.playerUuid }?.toList() ?: mutableListOf()
-    return map.containsAll(uuids)
 }

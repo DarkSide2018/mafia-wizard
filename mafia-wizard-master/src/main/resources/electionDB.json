@@ -1,52 +1,24 @@
 [
   {
-    "electionId": "f6784ee9-782a-4a48-b7c4-1ced88504fe2",
-    "sortOrder": 2,
-    "drops": [
-      {
-        "slot": 2,
-        "numberOfVotes": 9
-      },
-      {
-        "slot": 3,
-        "numberOfVotes": 5
-      }
-    ]
+    "playerUuid": "fca79825-ce25-4473-a29a-dacc09224f45",
+    "playerNickName": "Alexandr",
+    "cardNumber": 1,
+    "note": 1,
+    "addPoints": 2.3
   },
   {
-    "electionId": "33059ee8-7875-400d-b036-b4614c1cec54",
-    "sortOrder": 0,
-    "drops": [
-      {
-        "slot": 1,
-        "numberOfVotes": 0
-      },
-      {
-        "slot": 2,
-        "numberOfVotes": 0
-      },
-      {
-        "slot": 4,
-        "numberOfVotes": 0
-      },
-      {
-        "slot": 2,
-        "numberOfVotes": 0
-      }
-    ]
+    "playerUuid": "679f2a14-1996-4677-99a7-fd249cbe4e06",
+    "playerNickName": "Anton",
+    "cardNumber": 2,
+    "note": 1,
+    "addPoints": 2.4
   },
   {
-    "electionId": "1dcb8a68-a8ca-4795-a4be-fbc87cf3ad8d",
-    "sortOrder": 1,
-    "drops": [
-      {
-        "slot": 2,
-        "numberOfVotes": 0
-      },
-      {
-        "slot": 3,
-        "numberOfVotes": 0
-      }
-    ]
+    "cardNumber": 5,
+    "gameRole": "Sheriff"
+  },
+  {
+    "cardNumber": 7,
+    "gameRole": "Don"
   }
 ]

@@ -47,6 +47,7 @@ class GameController(
         logger.info("create game command")
         return ResponseEntity.ok(gameService.createGame(game))
     }
+
     @PostMapping("/election")
     @Trace
     fun finishElection(@RequestBody request: FinishElectionRequest): ResponseEntity<BaseResponse> {
@@ -58,6 +59,7 @@ class GameController(
     fun updateGame(@RequestBody game: UpdateGameRequest): ResponseEntity<BaseResponse> {
         return ResponseEntity.ok(gameService.updateGame(game))
     }
+
     @PutMapping("/finish")
     fun finishGame(@RequestBody game: UpdateGameRequest): ResponseEntity<BaseResponse> {
         return ResponseEntity.ok(gameService.finishGame(game))
@@ -68,14 +70,24 @@ class GameController(
         gameService.deleteGame(uuid)
         return ResponseEntity.ok().build<String>()
     }
+
     @DeleteMapping("/election/{game}/{election}")
     fun deleteElectionFromGame(
         @PathVariable game: UUID,
-        @PathVariable election: UUID
+        @PathVariable election: UUID,
     ): ResponseEntity<String> {
         gameService.deleteElectionFromGame(game, election)
         return ResponseEntity.ok().build<String>()
     }
+
+    @PutMapping("/role")
+    fun updateRoleInGame(
+        @RequestBody updateRoleRequest: UpdateRoleRequest,
+    ): ResponseEntity<String> {
+        gameService.updateRolesInGame(updateRoleRequest)
+        return ResponseEntity.ok().build<String>()
+    }
+
     @PutMapping("/notes")
     fun updateNotesIngGame(@RequestBody game: UpdateNotesRequest): ResponseEntity<BaseResponse> {
         logger.info("updateNotesRequest=> " + game.toJson())

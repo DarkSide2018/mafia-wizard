@@ -1,20 +1,146 @@
-[
-  {
-    "playerUuid": "93ebd581-db18-496e-b1da-458628c76293",
-    "playerNickName": "Yaroslav",
-    "cardNumber": 2,
-    "note": 1
-  },
-  {
-    "playerUuid": "0a897f4f-48d2-44f9-a99a-4be9103ef533",
-    "playerNickName": "Roman",
-    "cardNumber": 1,
-    "note": 1,
-    "addPoints": 34.5
-  },
-  {
-    "playerUuid": "6dc810cb-1899-40d8-82a0-2a842427ec6a",
-    "playerNickName": "DFDF",
-    "cardNumber": 3
-  }
-]
+{
+  "gameMaster": "DEFAULT",
+  "gameNumber": "Новая игра от 20 Jan 2022 20:28:37",
+  "dateGame": "DEFAULT",
+  "gamblers": [
+    {
+      "id": "bnm",
+      "slot": 7
+    },
+    {
+      "id": "Alexandr",
+      "slot": 1
+    },
+    {
+      "id": "Anton",
+      "slot": 2
+    },
+    {
+      "id": "Slava",
+      "slot": 4
+    },
+    {
+      "id": "zxc",
+      "slot": 6
+    },
+    {
+      "id": "Dop",
+      "slot": 3
+    },
+    {
+      "id": "DEFAULT",
+      "slot": 8
+    },
+    {
+      "id": "Roman",
+      "slot": 5
+    }
+  ],
+  "roles": [
+    {
+      "role": "Sheriff",
+      "slot": 7
+    },
+    {
+      "role": "DEFAULT",
+      "slot": 1
+    },
+    {
+      "role": "DEFAULT",
+      "slot": 2
+    },
+    {
+      "role": "DEFAULT",
+      "slot": 4
+    },
+    {
+      "role": "DEFAULT",
+      "slot": 6
+    },
+    {
+      "role": "Maf-2",
+      "slot": 3
+    },
+    {
+      "role": "Don",
+      "slot": 8
+    },
+    {
+      "role": "Maf-1",
+      "slot": 5
+    }
+  ],
+  "nights": [
+    {
+      "id": 2,
+      "don": 0,
+      "sheriff": 3,
+      "mafia": 3
+    },
+    {
+      "id": 6,
+      "don": 0,
+      "sheriff": 0,
+      "mafia": 0
+    },
+    {
+      "id": 1,
+      "don": 1,
+      "sheriff": 0,
+      "mafia": 0
+    },
+    {
+      "id": 3,
+      "don": 0,
+      "sheriff": 0,
+      "mafia": 0
+    },
+    {
+      "id": 0,
+      "don": 4,
+      "sheriff": 1,
+      "mafia": 1
+    },
+    {
+      "id": 4,
+      "don": 5,
+      "sheriff": 0,
+      "mafia": 0
+    }
+  ],
+  "notes": [
+    {
+      "gamblerId": 7,
+      "notes": 2
+    },
+    {
+      "gamblerId": 1,
+      "notes": 1
+    },
+    {
+      "gamblerId": 2,
+      "notes": 1
+    },
+    {
+      "gamblerId": 4,
+      "notes": 2
+    },
+    {
+      "gamblerId": 6,
+      "notes": 2
+    },
+    {
+      "gamblerId": 3,
+      "notes": 2
+    },
+    {
+      "gamblerId": 8,
+      "notes": 0
+    },
+    {
+      "gamblerId": 5,
+      "notes": 2
+    }
+  ],
+  "victory": "Черные"
+}

@@ -2,6 +2,7 @@ package mafia.wizard.services
 
 import exceptions.FieldWasNullException
 import mafia.wizard.common.getActorName
+import mafia.wizard.common.toJson
 import mafia.wizard.config.BadRequestException
 import mafia.wizard.config.NotFoundException
 import mafia.wizard.entities.User
@@ -14,6 +15,7 @@ import models.game.GameContext
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.PageRequest
+import org.springframework.http.ResponseEntity
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
@@ -36,6 +38,14 @@ class GameService(
         return dataLayer2GameContext
             .setGameIntoContext(GameContext(), game)
             .toReadGameResponse()
+    }
+    fun exportByUuid(uuid: UUID): ByteArray {
+        val game = gameRepository.findById(uuid)
+            .orElseThrow { return@orElseThrow NotFoundException("no such element with uuid : $uuid") }
+        val gameContext = dataLayer2GameContext.setGameIntoContext(GameContext(), game)
+        val csvModel = dataLayer2GameContext.getCsvModel(gameContext)
+        logger.info("csvModel => ${csvModel.toJson()}")
+        return ByteArray(9)
     }
 
     fun getAll(): ReadAllGamesResponse {

@@ -24,6 +24,10 @@ class GameController(
     fun getByUuid(@PathVariable uuid: UUID): ResponseEntity<ReadGameResponse> {
         return ResponseEntity.ok(gameService.getByUuid(uuid))
     }
+    @GetMapping("/export/{uuid}")
+    fun exportByUuid(@PathVariable uuid: UUID): ResponseEntity<ByteArray> {
+        return ResponseEntity.ok(gameService.exportByUuid(uuid))
+    }
 
     @GetMapping("/all")
     fun getAll(): ResponseEntity<ReadAllGamesResponse> {

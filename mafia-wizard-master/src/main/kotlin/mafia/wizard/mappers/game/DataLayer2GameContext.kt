@@ -9,6 +9,8 @@ import models.game.*
 
 import org.springframework.stereotype.Service
 
+const val DEFAULT = "DEFAULT"
+
 @Service
 class DataLayer2GameContext(
     private val objectMapper: ObjectMapper,
@@ -28,6 +30,41 @@ class DataLayer2GameContext(
     fun setGamesIntoContext(readGameContext: GameContext, games: List<Game>): GameContext {
         readGameContext.gameModelList = games.map { gameToGameModel(it) }
         return readGameContext
+    }
+
+    fun getCsvModel(context: GameContext): CsvModel {
+        val gameModel = context.gameModel
+        return CsvModel(
+            gameNumber = gameModel?.name ?: DEFAULT,
+            dateGame = gameModel?.gameTable ?: DEFAULT,
+            gameMaster = DEFAULT,
+            gamblers = gameModel?.playerToCardNumber?.map {
+                Gambler(
+                    it.playerNickName ?: DEFAULT,
+                    it.cardNumber ?: 0
+                )
+            } ?: listOf(),
+            roles = gameModel?.playerToCardNumber?.map {
+                Role(
+                    it.gameRole ?: DEFAULT,
+                    it.cardNumber ?: 0
+                )
+            } ?: listOf(),
+            nights = gameModel?.nights?.map {
+                mafia.wizard.mappers.game.CsvNight(
+                    it.nightNumber ?: 0,
+                    it.donChecked ?: 0,
+                    it.killedPlayer ?: 0,
+                    mafia = it.killedPlayer ?: 0
+                )
+            } ?: listOf(),
+            victory = gameModel?.victory ?: DEFAULT,
+            notes = gameModel?.playerToCardNumber?.map {
+                Note(it.cardNumber ?: 0,
+                    it.note ?: 0
+                )
+            } ?: listOf()
+        )
     }
 
     fun gameToGameModel(game: Game): GameModel {

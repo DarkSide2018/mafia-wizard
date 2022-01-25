@@ -6,6 +6,7 @@ import mafia.wizard.common.toJson
 import mafia.wizard.config.BadRequestException
 import mafia.wizard.config.NotFoundException
 import mafia.wizard.entities.User
+import mafia.wizard.mappers.game.CsvModel
 import mafia.wizard.mappers.game.DataLayer2GameContext
 import mafia.wizard.mappers.game.GameContext2DataLayer
 import mafia.wizard.openapi.models.*
@@ -15,9 +16,9 @@ import models.game.GameContext
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.PageRequest
-import org.springframework.http.ResponseEntity
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
+import java.io.File
 import java.time.OffsetDateTime
 import java.util.*
 
@@ -39,13 +40,30 @@ class GameService(
             .setGameIntoContext(GameContext(), game)
             .toReadGameResponse()
     }
+
     fun exportByUuid(uuid: UUID): ByteArray {
         val game = gameRepository.findById(uuid)
             .orElseThrow { return@orElseThrow NotFoundException("no such element with uuid : $uuid") }
         val gameContext = dataLayer2GameContext.setGameIntoContext(GameContext(), game)
         val csvModel = dataLayer2GameContext.getCsvModel(gameContext)
-        logger.info("csvModel => ${csvModel.toJson()}")
-        return ByteArray(9)
+        val template = readFileLineByLineUsingForEachLine("mafia-wizard-master/src/main/resources/excel/template.xml")
+        return fillUpTemplate(template, csvModel).toByteArray()
+    }
+
+    fun readFileLineByLineUsingForEachLine(fileName: String): String {
+        return File(fileName).inputStream().readBytes().toString(Charsets.UTF_8)
+    }
+
+    fun fillUpTemplate(fileName: String, csvModel: CsvModel): String {
+        var response = fileName.replace("createdAt", csvModel.dateGame)
+            .replace("gameMaster", csvModel.gameMaster)
+            .replace("gameNumber", csvModel.gameNumber)
+            .replace("gameDate", csvModel.dateGame)
+        csvModel.gamblers.forEachIndexed { index, it ->
+            logger.info("fore")
+              response =  response.replace("player$index", it.id)
+        }
+        return response
     }
 
     fun getAll(): ReadAllGamesResponse {
@@ -96,23 +114,25 @@ class GameService(
         }
         return gameContext.toCommandResponse()
     }
+
     fun updateNotesInGame(request: UpdateNotesRequest): BaseResponse {
         val gameContext = GameContext()
         gameContext.updateNotes(request)
         val gameForUpdate = gameRepository
             .findById(request.gameUuid ?: throw FieldWasNullException("updateGame gameUUID"))
             .orElseThrow()
-        gameContext2DataLayer.updateNotesBySlot(gameContext,gameForUpdate)
+        gameContext2DataLayer.updateNotesBySlot(gameContext, gameForUpdate)
         gameRepository.save(gameForUpdate)
         return gameContext.toCommandResponse()
     }
+
     fun updateRolesInGame(request: UpdateRoleRequest): BaseResponse {
         val gameContext = GameContext()
         gameContext.updateRoles(request)
         val gameForUpdate = gameRepository
             .findById(request.gameUuid ?: throw FieldWasNullException("updateGame gameUUID"))
             .orElseThrow()
-        gameContext2DataLayer.updateRoleBySlot(gameContext,gameForUpdate)
+        gameContext2DataLayer.updateRoleBySlot(gameContext, gameForUpdate)
         gameRepository.save(gameForUpdate)
         return gameContext.toCommandResponse()
     }
@@ -132,6 +152,7 @@ class GameService(
     fun deleteGame(uuid: UUID) {
         gameRepository.deleteById(uuid)
     }
+
     fun deleteElectionFromGame(game: UUID, election: UUID) {
         val gameForUpdate =
             (gameRepository.findById(game) ?: throw BadRequestException("no such game by this id $game")).orElseThrow()

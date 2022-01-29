@@ -15,6 +15,7 @@ import mappers.game.*
 import models.game.GameContext
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.core.io.ByteArrayResource
 import org.springframework.data.domain.PageRequest
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
@@ -41,13 +42,13 @@ class GameService(
             .toReadGameResponse()
     }
 
-    fun exportByUuid(uuid: UUID): ByteArray {
+    fun exportByUuid(uuid: UUID): ByteArrayResource {
         val game = gameRepository.findById(uuid)
             .orElseThrow { return@orElseThrow NotFoundException("no such element with uuid : $uuid") }
         val gameContext = dataLayer2GameContext.setGameIntoContext(GameContext(), game)
         val csvModel = dataLayer2GameContext.getCsvModel(gameContext)
         val template = readFileLineByLineUsingForEachLine("mafia-wizard-master/src/main/resources/excel/template.xml")
-        return fillUpTemplate(template, csvModel).toByteArray()
+        return ByteArrayResource(fillUpTemplate(template, csvModel).toByteArray())
     }
 
     fun readFileLineByLineUsingForEachLine(fileName: String): String {
@@ -55,14 +56,28 @@ class GameService(
     }
 
     fun fillUpTemplate(fileName: String, csvModel: CsvModel): String {
-        var response = fileName.replace("createdAt", csvModel.dateGame)
+        var response = fileName
+            .replace("createdAt", csvModel.dateGame)
             .replace("gameMaster", csvModel.gameMaster)
             .replace("gameNumber", csvModel.gameNumber)
             .replace("gameDate", csvModel.dateGame)
         csvModel.gamblers.forEachIndexed { index, it ->
-            logger.info("fore")
-              response =  response.replace("player$index", it.id)
+            response = response.replace("player$index", it.id)
         }
+        csvModel.notes.forEachIndexed { index, it ->
+            response = response.replace("note$index", it.notes.toString())
+        }
+
+        response = if (csvModel.victory === "Красные") {
+            response
+                .replace("redVictory", "1")
+                .replace("blackVictory", "0")
+        }else{
+            response
+                .replace("redVictory", "0")
+                .replace("blackVictory", "1")
+        }
+
         return response
     }
 

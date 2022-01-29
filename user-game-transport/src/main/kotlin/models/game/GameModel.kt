@@ -6,6 +6,7 @@ import java.util.*
 
 data class GameModel(
     var gameUUID: UUID,
+    var createdBy:String?=null,
     var gameNumber: Long? = null,
     var gameTable: String? = null,
     var victory: String? = null,

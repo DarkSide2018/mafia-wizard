@@ -1,6 +1,5 @@
 package mafia.wizard.controllers
 
-import mafia.wizard.common.toJson
 import mafia.wizard.config.Trace
 import mafia.wizard.entities.ACTIVE_STATUS
 import mafia.wizard.entities.DRAFT_STATUS
@@ -8,6 +7,8 @@ import mafia.wizard.openapi.models.*
 import mafia.wizard.services.GameService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.core.io.ByteArrayResource
+import org.springframework.core.io.Resource
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
@@ -25,7 +26,7 @@ class GameController(
         return ResponseEntity.ok(gameService.getByUuid(uuid))
     }
     @GetMapping("/export/{uuid}")
-    fun exportByUuid(@PathVariable uuid: UUID): ResponseEntity<ByteArray> {
+    fun exportByUuid(@PathVariable uuid: UUID): ResponseEntity<Resource> {
         return ResponseEntity.ok(gameService.exportByUuid(uuid))
     }
 
@@ -94,7 +95,6 @@ class GameController(
 
     @PutMapping("/notes")
     fun updateNotesIngGame(@RequestBody game: UpdateNotesRequest): ResponseEntity<BaseResponse> {
-        logger.info("updateNotesRequest=> " + game.toJson())
         return ResponseEntity.ok(gameService.updateNotesInGame(game))
     }
 }

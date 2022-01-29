@@ -1,300 +1,548 @@
 <?xml version="1.0"?>
 <?mso-application progid="Excel.Sheet"?>
 <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
- xmlns:o="urn:schemas-microsoft-com:office:office"
- xmlns:x="urn:schemas-microsoft-com:office:excel"
- xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
- xmlns:html="http://www.w3.org/TR/REC-html40">
- <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
-  <Author>author</Author>
-  <LastAuthor>gameMaster</LastAuthor>
-  <LastPrinted>createdAt</LastPrinted>
-  <Created>createdAt</Created>
-  <LastSaved>createdAt</LastSaved>
-  <Company>company</Company>
-  <Version>version</Version>
- </DocumentProperties>
- <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
-  <AllowPNG/>
- </OfficeDocumentSettings>
- <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
-  <WindowHeight>8364</WindowHeight>
-  <WindowWidth>23040</WindowWidth>
-  <WindowTopX>32767</WindowTopX>
-  <WindowTopY>32767</WindowTopY>
-  <TabRatio>808</TabRatio>
-  <ProtectStructure>False</ProtectStructure>
-  <ProtectWindows>False</ProtectWindows>
- </ExcelWorkbook>
- <Styles>
-  <Style ss:ID="Default" ss:Name="Normal">
-   <Alignment ss:Vertical="Bottom"/>
-   <Borders/>
-   <Font ss:FontName="Calibri"
-         x:CharSet="204"
-         x:Family="Swiss"
-         ss:Size="11"
-    ss:Color="#000000"/>
-   <Interior/>
-   <StringFormat/>
-   <Protection/>
-  </Style>
-  <Style ss:ID="s62" ss:Name="Обычный 2">
-   <Alignment ss:Vertical="Bottom"/>
-   <Borders/>
-   <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"/>
-   <Interior/>
-   <StringFormat/>
-   <Protection/>
-  </Style>
-  <Style ss:ID="s63">
-   <Borders>
-    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
-   </Borders>
-  </Style>
-  <Style ss:ID="s64">
-   <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
-  </Style>
-  <Style ss:ID="s65">
-   <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
-   <StringFormat ss:Format="General Date"/>
-  </Style>
-  <Style ss:ID="s67" ss:Parent="s62">
-   <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
-    ss:Color="#000000"/>
-   <Interior/>
-  </Style>
-  <Style ss:ID="s68">
-   <Borders/>
-   <Interior/>
-  </Style>
-  <Style ss:ID="s69">
-   <Borders>
-    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
-    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
-   </Borders>
-  </Style>
- </Styles>
- <Worksheet ss:Name="Игра 1-MSK">
-  <Table ss:ExpandedColumnCount="11" ss:ExpandedRowCount="41" x:FullColumns="1"
-   x:FullRows="1" ss:DefaultColumnWidth="54" ss:DefaultRowHeight="14.55">
-   <Column ss:AutoFitWidth="0" ss:Width="162"/>
-   <Column ss:AutoFitWidth="0" ss:Width="97.800000000000011"/>
-   <Row ss:AutoFitHeight="0">
-    <Cell><Data ss:Type="String">ИНФО по игре</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s63"><Data ss:Type="String">Ведущий:</Data></Cell>
-    <Cell><Data ss:Type="String">gameMaster</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s63"><Data ss:Type="String">Номер игры:</Data></Cell>
-    <Cell ss:StyleID="s64"><Data ss:Type="String">gameNumber</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s63"><Data ss:Type="String">Дата игры:</Data></Cell>
-    <Cell ss:StyleID="s65"><Data ss:Type="String">gameDate</Data></Cell>
-   </Row>
-   <Row ss:Index="6" ss:AutoFitHeight="0">
-    <Cell><Data ss:Type="String">Пользователи</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s63"><Data ss:Type="String">id</Data></Cell>
-    <Cell ss:StyleID="s63"><Data ss:Type="String">Номер в игре</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s67"><Data ss:Type="String">player1</Data></Cell>
-    <Cell ss:StyleID="s67"><Data ss:Type="String">1</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s67"><Data ss:Type="String">player2</Data></Cell>
-    <Cell ss:StyleID="s67"><Data ss:Type="String">2</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s67"><Data ss:Type="String">player3</Data></Cell>
-    <Cell ss:StyleID="s67"><Data ss:Type="String">3</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s67"><Data ss:Type="String">player4</Data></Cell>
-    <Cell ss:StyleID="s67"><Data ss:Type="String">4</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s67"><Data ss:Type="String">player5</Data></Cell>
-    <Cell ss:StyleID="s67"><Data ss:Type="String">5</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s67"><Data ss:Type="String">player6</Data></Cell>
-    <Cell ss:StyleID="s67"><Data ss:Type="String">6</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s67"><Data ss:Type="String">player7</Data></Cell>
-    <Cell ss:StyleID="s67"><Data ss:Type="String">7</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s67"><Data ss:Type="String">player8</Data></Cell>
-    <Cell ss:StyleID="s67"><Data ss:Type="String">8</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s67"><Data ss:Type="String">player9</Data></Cell>
-    <Cell ss:StyleID="s67"><Data ss:Type="String">9</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s67"><Data ss:Type="String">player10</Data></Cell>
-    <Cell ss:StyleID="s67"><Data ss:Type="String">10</Data></Cell>
-   </Row>
-   <Row ss:Index="19" ss:AutoFitHeight="0">
-    <Cell><Data ss:Type="String">Роли игры</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s63"><Data ss:Type="String">Мафия</Data></Cell>
-    <Cell><Data ss:Type="String">don</Data></Cell>
-    <Cell><Data ss:Type="String">maf1</Data></Cell>
-    <Cell><Data ss:Type="String">maf2</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s63"><Data ss:Type="String">Дон</Data></Cell>
-    <Cell><Data ss:Type="String">don</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s63"><Data ss:Type="String">Шериф</Data></Cell>
-    <Cell><Data ss:Type="String">sheriff</Data></Cell>
-   </Row>
-   <Row ss:Index="24" ss:AutoFitHeight="0">
-    <Cell><Data ss:Type="String">Действия ночью</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell><Data ss:Type="String">Номер ночи</Data></Cell>
-    <Cell ss:StyleID="s63"><Data ss:Type="String">1</Data></Cell>
-    <Cell ss:StyleID="s63"><Data ss:Type="String">2</Data></Cell>
-    <Cell ss:StyleID="s63"><Data ss:Type="String">3</Data></Cell>
-    <Cell ss:StyleID="s63"><Data ss:Type="String">4</Data></Cell>
-    <Cell ss:StyleID="s63"><Data ss:Type="String">5</Data></Cell>
-    <Cell ss:StyleID="s63"><Data ss:Type="String">6</Data></Cell>
-    <Cell ss:StyleID="s63"><Data ss:Type="String">7</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s63"><Data ss:Type="String">Мафия</Data></Cell>
-    <Cell ss:StyleID="s68"><Data ss:Type="String">killedPLayer1</Data></Cell>
-    <Cell><Data ss:Type="String">killedPLayer2</Data></Cell>
-    <Cell><Data ss:Type="String">killedPLayer3</Data></Cell>
-    <Cell><Data ss:Type="String">killedPLayer4</Data></Cell>
-    <Cell><Data ss:Type="String">killedPLayer5</Data></Cell>
-    <Cell><Data ss:Type="String">killedPLayer6</Data></Cell>
-    <Cell><Data ss:Type="String">killedPLayer7</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s63"><Data ss:Type="String">Дон</Data></Cell>
-    <Cell ss:StyleID="s68"><Data ss:Type="String">donChecked1</Data></Cell>
-    <Cell><Data ss:Type="String">donChecked1</Data></Cell>
-    <Cell><Data ss:Type="String">donChecked2</Data></Cell>
-    <Cell><Data ss:Type="String">donChecked3</Data></Cell>
-    <Cell><Data ss:Type="String">donChecked4</Data></Cell>
-    <Cell><Data ss:Type="String">donChecked5</Data></Cell>
-    <Cell><Data ss:Type="String">donChecked6</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s63"><Data ss:Type="String">Шериф</Data></Cell>
-    <Cell ss:StyleID="s68"><Data ss:Type="String">sheriffChecked1</Data></Cell>
-    <Cell><Data ss:Type="String">sheriffChecked2</Data></Cell>
-    <Cell><Data ss:Type="String">sheriffChecked3</Data></Cell>
-    <Cell><Data ss:Type="String">sheriffChecked4</Data></Cell>
-    <Cell><Data ss:Type="String">sheriffChecked5</Data></Cell>
-    <Cell><Data ss:Type="String">sheriffChecked6</Data></Cell>
-    <Cell><Data ss:Type="String">sheriffChecked7</Data></Cell>
-   </Row>
-   <Row ss:Index="30" ss:AutoFitHeight="0">
-    <Cell><Data ss:Type="String">Днем результаты голосования</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s63"><Data ss:Type="String">номер дня</Data></Cell>
-    <Cell ss:StyleID="s69"><Data ss:Type="String">1</Data></Cell>
-    <Cell ss:StyleID="s63"><Data ss:Type="String">2</Data></Cell>
-    <Cell ss:StyleID="s63"><Data ss:Type="String">3</Data></Cell>
-    <Cell ss:StyleID="s63"><Data ss:Type="String">4</Data></Cell>
-    <Cell ss:StyleID="s63"><Data ss:Type="String">5</Data></Cell>
-    <Cell ss:StyleID="s63"><Data ss:Type="String">6</Data></Cell>
-    <Cell ss:StyleID="s63"><Data ss:Type="String">7</Data></Cell>
-    <Cell ss:StyleID="s63"><Data ss:Type="String">8</Data></Cell>
-    <Cell ss:StyleID="s63"><Data ss:Type="String">9</Data></Cell>
-    <Cell ss:StyleID="s63"><Data ss:Type="String">10</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s63"><Data ss:Type="String">номер игрока 1</Data></Cell>
-    <Cell ss:StyleID="s68"><Data ss:Type="String">0</Data></Cell>
-    <Cell ss:StyleID="s68"><Data ss:Type="String">1</Data></Cell>
-    <Cell ss:StyleID="s68"><Data ss:Type="String">6</Data></Cell>
-    <Cell ss:StyleID="s68"><Data ss:Type="String">9</Data></Cell>
-    <Cell ss:StyleID="s68"><Data ss:Type="String">8</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s63"><Data ss:Type="String">номер игрока 2</Data></Cell>
-    <Cell ss:StyleID="s68"><Data ss:Type="String">0</Data></Cell>
-    <Cell ss:StyleID="s68"><Data ss:Type="String">0</Data></Cell>
-    <Cell ss:StyleID="s68"><Data ss:Type="String">0</Data></Cell>
-    <Cell ss:StyleID="s68"><Data ss:Type="String">0</Data></Cell>
-    <Cell ss:StyleID="s68"><Data ss:Type="String">0</Data></Cell>
-   </Row>
-   <Row ss:Index="35" ss:AutoFitHeight="0">
-    <Cell><Data ss:Type="String">Замечания</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s63"><Data ss:Type="String">Номер игрока</Data></Cell>
-    <Cell><Data ss:Type="String">1</Data></Cell>
-    <Cell><Data ss:Type="String">2</Data></Cell>
-    <Cell><Data ss:Type="String">3</Data></Cell>
-    <Cell><Data ss:Type="String">4</Data></Cell>
-    <Cell><Data ss:Type="String">5</Data></Cell>
-    <Cell><Data ss:Type="String">6</Data></Cell>
-    <Cell><Data ss:Type="String">7</Data></Cell>
-    <Cell><Data ss:Type="String">8</Data></Cell>
-    <Cell><Data ss:Type="String">9</Data></Cell>
-    <Cell><Data ss:Type="String">10</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s63"><Data ss:Type="String">Количество замечаний</Data></Cell>
-    <Cell><Data ss:Type="String">note1</Data></Cell>
-    <Cell><Data ss:Type="String">note2</Data></Cell>
-    <Cell><Data ss:Type="String">note3</Data></Cell>
-    <Cell><Data ss:Type="String">note4</Data></Cell>
-    <Cell><Data ss:Type="String">note5</Data></Cell>
-    <Cell><Data ss:Type="String">note6</Data></Cell>
-    <Cell><Data ss:Type="String">note7</Data></Cell>
-    <Cell><Data ss:Type="String">note8</Data></Cell>
-    <Cell><Data ss:Type="String">note9</Data></Cell>
-    <Cell><Data ss:Type="String">note10</Data></Cell>
-   </Row>
-   <Row ss:Index="39" ss:AutoFitHeight="0">
-    <Cell><Data ss:Type="String">Результаты игры</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s63"><Data ss:Type="String">Красные</Data></Cell>
-    <Cell><Data ss:Type="String">redVictory</Data></Cell>
-   </Row>
-   <Row ss:AutoFitHeight="0">
-    <Cell ss:StyleID="s63"><Data ss:Type="String">Черные</Data></Cell>
-    <Cell><Data ss:Type="String">blackVictory</Data></Cell>
-   </Row>
-  </Table>
-  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
-   <PageSetup>
-    <Header x:Margin="0.3"/>
-    <Footer x:Margin="0.3"/>
-    <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
-   </PageSetup>
-   <Unsynced/>
-   <Selected/>
-   <Panes>
-    <Pane>
-     <String>3</String>
-     <ActiveCol>1</ActiveCol>
-    </Pane>
-   </Panes>
-   <ProtectObjects>False</ProtectObjects>
-   <ProtectScenarios>False</ProtectScenarios>
-  </WorksheetOptions>
- </Worksheet>
+          xmlns:o="urn:schemas-microsoft-com:office:office"
+          xmlns:x="urn:schemas-microsoft-com:office:excel"
+          xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+          xmlns:html="http://www.w3.org/TR/REC-html40">
+    <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+        <Author>author</Author>
+        <LastAuthor>gameMaster</LastAuthor>
+        <LastPrinted>createdAt</LastPrinted>
+        <Created>createdAt</Created>
+        <LastSaved>createdAt</LastSaved>
+        <Company>company</Company>
+        <Version>version</Version>
+    </DocumentProperties>
+    <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+        <AllowPNG/>
+    </OfficeDocumentSettings>
+    <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+        <WindowHeight>8364</WindowHeight>
+        <WindowWidth>23040</WindowWidth>
+        <WindowTopX>32767</WindowTopX>
+        <WindowTopY>32767</WindowTopY>
+        <TabRatio>808</TabRatio>
+        <ProtectStructure>False</ProtectStructure>
+        <ProtectWindows>False</ProtectWindows>
+    </ExcelWorkbook>
+    <Styles>
+        <Style ss:ID="Default" ss:Name="Normal">
+            <Alignment ss:Vertical="Bottom"/>
+            <Borders/>
+            <Font ss:FontName="Calibri"
+                  x:CharSet="204"
+                  x:Family="Swiss"
+                  ss:Size="11"
+                  ss:Color="#000000"/>
+            <Interior/>
+            <StringFormat/>
+            <Protection/>
+        </Style>
+        <Style ss:ID="s62" ss:Name="Обычный 2">
+            <Alignment ss:Vertical="Bottom"/>
+            <Borders/>
+            <Font ss:FontName="Calibri" x:Family="Swiss" ss:Size="11" ss:Color="#000000"/>
+            <Interior/>
+            <StringFormat/>
+            <Protection/>
+        </Style>
+        <Style ss:ID="s63">
+            <Borders>
+                <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+            </Borders>
+        </Style>
+        <Style ss:ID="s64">
+            <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
+        </Style>
+        <Style ss:ID="s65">
+            <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
+            <StringFormat ss:Format="General Date"/>
+        </Style>
+        <Style ss:ID="s67" ss:Parent="s62">
+            <Font ss:FontName="Calibri" x:CharSet="204" x:Family="Swiss" ss:Size="11"
+                  ss:Color="#000000"/>
+            <Interior/>
+        </Style>
+        <Style ss:ID="s68">
+            <Borders/>
+            <Interior/>
+        </Style>
+        <Style ss:ID="s69">
+            <Borders>
+                <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+                <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+            </Borders>
+        </Style>
+    </Styles>
+    <Worksheet ss:Name="Игра 1-MSK">
+        <Table ss:ExpandedColumnCount="11" ss:ExpandedRowCount="41" x:FullColumns="1"
+               x:FullRows="1" ss:DefaultColumnWidth="54" ss:DefaultRowHeight="14.55">
+            <Column ss:AutoFitWidth="0" ss:Width="162"/>
+            <Column ss:AutoFitWidth="0" ss:Width="97.800000000000011"/>
+            <Row ss:AutoFitHeight="0">
+                <Cell>
+                    <Data ss:Type="String">ИНФО по игре</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">Ведущий:</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">gameMaster</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">Номер игры:</Data>
+                </Cell>
+                <Cell ss:StyleID="s64">
+                    <Data ss:Type="String">gameNumber</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">Дата игры:</Data>
+                </Cell>
+                <Cell ss:StyleID="s65">
+                    <Data ss:Type="String">gameDate</Data>
+                </Cell>
+            </Row>
+            <Row ss:Index="6" ss:AutoFitHeight="0">
+                <Cell>
+                    <Data ss:Type="String">Пользователи</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">id</Data>
+                </Cell>
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">Номер в игре</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s67">
+                    <Data ss:Type="String">player1</Data>
+                </Cell>
+                <Cell ss:StyleID="s67">
+                    <Data ss:Type="String">1</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s67">
+                    <Data ss:Type="String">player2</Data>
+                </Cell>
+                <Cell ss:StyleID="s67">
+                    <Data ss:Type="String">2</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s67">
+                    <Data ss:Type="String">player3</Data>
+                </Cell>
+                <Cell ss:StyleID="s67">
+                    <Data ss:Type="String">3</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s67">
+                    <Data ss:Type="String">player4</Data>
+                </Cell>
+                <Cell ss:StyleID="s67">
+                    <Data ss:Type="String">4</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s67">
+                    <Data ss:Type="String">player5</Data>
+                </Cell>
+                <Cell ss:StyleID="s67">
+                    <Data ss:Type="String">5</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s67">
+                    <Data ss:Type="String">player6</Data>
+                </Cell>
+                <Cell ss:StyleID="s67">
+                    <Data ss:Type="String">6</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s67">
+                    <Data ss:Type="String">player7</Data>
+                </Cell>
+                <Cell ss:StyleID="s67">
+                    <Data ss:Type="String">7</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s67">
+                    <Data ss:Type="String">player8</Data>
+                </Cell>
+                <Cell ss:StyleID="s67">
+                    <Data ss:Type="String">8</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s67">
+                    <Data ss:Type="String">player9</Data>
+                </Cell>
+                <Cell ss:StyleID="s67">
+                    <Data ss:Type="String">9</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s67">
+                    <Data ss:Type="String">player10</Data>
+                </Cell>
+                <Cell ss:StyleID="s67">
+                    <Data ss:Type="String">10</Data>
+                </Cell>
+            </Row>
+            <Row ss:Index="19" ss:AutoFitHeight="0">
+                <Cell>
+                    <Data ss:Type="String">Роли игры</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">Мафия</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">don</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">maf1</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">maf2</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">Дон</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">don</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">Шериф</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">sheriff</Data>
+                </Cell>
+            </Row>
+            <Row ss:Index="24" ss:AutoFitHeight="0">
+                <Cell>
+                    <Data ss:Type="String">Действия ночью</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell>
+                    <Data ss:Type="String">Номер ночи</Data>
+                </Cell>
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">1</Data>
+                </Cell>
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">2</Data>
+                </Cell>
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">3</Data>
+                </Cell>
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">4</Data>
+                </Cell>
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">5</Data>
+                </Cell>
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">6</Data>
+                </Cell>
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">7</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">Мафия</Data>
+                </Cell>
+                <Cell ss:StyleID="s68">
+                    <Data ss:Type="String">killedPLayer1</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">killedPLayer2</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">killedPLayer3</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">killedPLayer4</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">killedPLayer5</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">killedPLayer6</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">killedPLayer7</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">Дон</Data>
+                </Cell>
+                <Cell ss:StyleID="s68">
+                    <Data ss:Type="String">donChecked1</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">donChecked2</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">donChecked3</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">donChecked4</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">donChecked5</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">donChecked6</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">donChecked7</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">Шериф</Data>
+                </Cell>
+                <Cell ss:StyleID="s68">
+                    <Data ss:Type="String">sheriffChecked1</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">sheriffChecked2</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">sheriffChecked3</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">sheriffChecked4</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">sheriffChecked5</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">sheriffChecked6</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">sheriffChecked7</Data>
+                </Cell>
+            </Row>
+            <Row ss:Index="30" ss:AutoFitHeight="0">
+                <Cell>
+                    <Data ss:Type="String">Днем результаты голосования</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">номер дня</Data>
+                </Cell>
+                <Cell ss:StyleID="s69">
+                    <Data ss:Type="String">1</Data>
+                </Cell>
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">2</Data>
+                </Cell>
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">3</Data>
+                </Cell>
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">4</Data>
+                </Cell>
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">5</Data>
+                </Cell>
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">6</Data>
+                </Cell>
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">7</Data>
+                </Cell>
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">8</Data>
+                </Cell>
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">9</Data>
+                </Cell>
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">10</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">номер игрока 1</Data>
+                </Cell>
+                <Cell ss:StyleID="s68">
+                    <Data ss:Type="String">0</Data>
+                </Cell>
+                <Cell ss:StyleID="s68">
+                    <Data ss:Type="String">1</Data>
+                </Cell>
+                <Cell ss:StyleID="s68">
+                    <Data ss:Type="String">6</Data>
+                </Cell>
+                <Cell ss:StyleID="s68">
+                    <Data ss:Type="String">9</Data>
+                </Cell>
+                <Cell ss:StyleID="s68">
+                    <Data ss:Type="String">8</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">номер игрока 2</Data>
+                </Cell>
+                <Cell ss:StyleID="s68">
+                    <Data ss:Type="String">0</Data>
+                </Cell>
+                <Cell ss:StyleID="s68">
+                    <Data ss:Type="String">0</Data>
+                </Cell>
+                <Cell ss:StyleID="s68">
+                    <Data ss:Type="String">0</Data>
+                </Cell>
+                <Cell ss:StyleID="s68">
+                    <Data ss:Type="String">0</Data>
+                </Cell>
+                <Cell ss:StyleID="s68">
+                    <Data ss:Type="String">0</Data>
+                </Cell>
+            </Row>
+            <Row ss:Index="35" ss:AutoFitHeight="0">
+                <Cell>
+                    <Data ss:Type="String">Замечания</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">Номер игрока</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">1</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">2</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">3</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">4</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">5</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">6</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">7</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">8</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">9</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">10</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">Количество замечаний</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">note0</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">note1</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">note2</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">note3</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">note4</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">note5</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">note6</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">note7</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">note8</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">note9</Data>
+                </Cell>
+            </Row>
+            <Row ss:Index="39" ss:AutoFitHeight="0">
+                <Cell>
+                    <Data ss:Type="String">Результаты игры</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">Красные</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">redVictory</Data>
+                </Cell>
+            </Row>
+            <Row ss:AutoFitHeight="0">
+                <Cell ss:StyleID="s63">
+                    <Data ss:Type="String">Черные</Data>
+                </Cell>
+                <Cell>
+                    <Data ss:Type="String">blackVictory</Data>
+                </Cell>
+            </Row>
+        </Table>
+        <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+            <PageSetup>
+                <Header x:Margin="0.3"/>
+                <Footer x:Margin="0.3"/>
+                <PageMargins x:Bottom="0.75" x:Left="0.7" x:Right="0.7" x:Top="0.75"/>
+            </PageSetup>
+            <Unsynced/>
+            <Selected/>
+            <Panes>
+                <Pane>
+                    <String>3</String>
+                    <ActiveCol>1</ActiveCol>
+                </Pane>
+            </Panes>
+            <ProtectObjects>False</ProtectObjects>
+            <ProtectScenarios>False</ProtectScenarios>
+        </WorksheetOptions>
+    </Worksheet>
 </Workbook>

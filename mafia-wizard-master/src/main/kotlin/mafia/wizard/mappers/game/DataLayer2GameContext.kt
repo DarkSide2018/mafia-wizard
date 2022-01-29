@@ -3,6 +3,7 @@ package mafia.wizard.mappers.game
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import exceptions.FieldWasNullException
+import mafia.wizard.config.DbException
 import mafia.wizard.entities.Game
 import models.PlayerModel
 import models.game.*
@@ -37,7 +38,7 @@ class DataLayer2GameContext(
         return CsvModel(
             gameNumber = gameModel?.name ?: DEFAULT,
             dateGame = gameModel?.gameTable ?: DEFAULT,
-            gameMaster = DEFAULT,
+            gameMaster = gameModel?.createdBy?:throw DbException("createdBy was null"),
             gamblers = gameModel?.playerToCardNumber?.map {
                 Gambler(
                     it.playerNickName ?: DEFAULT,
@@ -69,6 +70,7 @@ class DataLayer2GameContext(
 
     fun gameToGameModel(game: Game): GameModel {
         val model = GameModel(
+            createdBy = game.createdBy,
             gameUUID = game.gameUUID ?: throw FieldWasNullException("gameToGameModel gameUUID"),
             name = game.name,
             gameNumber = game.gameNumber,

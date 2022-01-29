@@ -16,7 +16,7 @@ fun GameContext.setQuery(query: UpdateGameRequest) = apply {
 }
 
 fun GameContext.finishGame(query: UpdateGameRequest) = apply {
-    gameModel = GameModel(query.gameUuid ?: throw FieldWasNullException("wrong gameUuid"), query.gameNumber)
+    gameModel = GameModel(query.gameUuid ?: throw FieldWasNullException("wrong gameUuid"), query.gameNumber.toString())
     gameModel?.status = query.status
     gameModel?.players = query.players?.map { it.toModel() }?.toMutableSet() ?: mutableSetOf()
 }

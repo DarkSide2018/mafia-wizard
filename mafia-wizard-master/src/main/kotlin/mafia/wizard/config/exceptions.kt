@@ -9,3 +9,8 @@ class BadRequestException(
     private val value:String
 ):Exception(value) {
 }
+
+class DbException(
+    private val value:String
+):Exception(value) {
+}

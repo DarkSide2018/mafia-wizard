@@ -1,146 +1,55 @@
-{
-  "gameMaster": "DEFAULT",
-  "gameNumber": "Новая игра от 20 Jan 2022 20:28:37",
-  "dateGame": "DEFAULT",
-  "gamblers": [
-    {
-      "id": "bnm",
-      "slot": 7
-    },
-    {
-      "id": "Alexandr",
-      "slot": 1
-    },
-    {
-      "id": "Anton",
-      "slot": 2
-    },
-    {
-      "id": "Slava",
-      "slot": 4
-    },
-    {
-      "id": "zxc",
-      "slot": 6
-    },
-    {
-      "id": "Dop",
-      "slot": 3
-    },
-    {
-      "id": "DEFAULT",
-      "slot": 8
-    },
-    {
-      "id": "Roman",
-      "slot": 5
-    }
-  ],
-  "roles": [
-    {
-      "role": "Sheriff",
-      "slot": 7
-    },
-    {
-      "role": "DEFAULT",
-      "slot": 1
-    },
-    {
-      "role": "DEFAULT",
-      "slot": 2
-    },
-    {
-      "role": "DEFAULT",
-      "slot": 4
-    },
-    {
-      "role": "DEFAULT",
-      "slot": 6
-    },
-    {
-      "role": "Maf-2",
-      "slot": 3
-    },
-    {
-      "role": "Don",
-      "slot": 8
-    },
-    {
-      "role": "Maf-1",
-      "slot": 5
-    }
-  ],
-  "nights": [
-    {
-      "id": 2,
-      "don": 0,
-      "sheriff": 3,
-      "mafia": 3
-    },
-    {
-      "id": 6,
-      "don": 0,
-      "sheriff": 0,
-      "mafia": 0
-    },
-    {
-      "id": 1,
-      "don": 1,
-      "sheriff": 0,
-      "mafia": 0
-    },
-    {
-      "id": 3,
-      "don": 0,
-      "sheriff": 0,
-      "mafia": 0
-    },
-    {
-      "id": 0,
-      "don": 4,
-      "sheriff": 1,
-      "mafia": 1
-    },
-    {
-      "id": 4,
-      "don": 5,
-      "sheriff": 0,
-      "mafia": 0
-    }
-  ],
-  "notes": [
-    {
-      "gamblerId": 7,
-      "notes": 2
-    },
-    {
-      "gamblerId": 1,
-      "notes": 1
-    },
-    {
-      "gamblerId": 2,
-      "notes": 1
-    },
-    {
-      "gamblerId": 4,
-      "notes": 2
-    },
-    {
-      "gamblerId": 6,
-      "notes": 2
-    },
-    {
-      "gamblerId": 3,
-      "notes": 2
-    },
-    {
-      "gamblerId": 8,
-      "notes": 0
-    },
-    {
-      "gamblerId": 5,
-      "notes": 2
-    }
-  ],
-  "victory": "Черные"
-}
+[
+  {
+    "playerUuid": "6a9cc896-1a50-47a5-9dd7-c55c0df6d43a",
+    "playerNickName": "bnm",
+    "cardNumber": 7,
+    "gameRole": "Sheriff",
+    "note": 2
+  },
+  {
+    "playerUuid": "fca79825-ce25-4473-a29a-dacc09224f45",
+    "playerNickName": "Alexandr",
+    "cardNumber": 1,
+    "note": 1,
+    "addPoints": 2.3
+  },
+  {
+    "playerUuid": "679f2a14-1996-4677-99a7-fd249cbe4e06",
+    "playerNickName": "Anton",
+    "cardNumber": 2,
+    "note": 1,
+    "addPoints": 2.4
+  },
+  {
+    "playerUuid": "649d8b0b-8e02-4533-babd-06a5642a8156",
+    "playerNickName": "Slava",
+    "cardNumber": 4,
+    "note": 2,
+    "addPoints": 1.2
+  },
+  {
+    "playerUuid": "d72f79bc-9536-4be1-a2a1-a60737388901",
+    "playerNickName": "zxc",
+    "cardNumber": 6,
+    "note": 2
+  },
+  {
+    "playerUuid": "b49b4c33-478c-4a31-b2f9-2f7d7634f775",
+    "playerNickName": "Dop",
+    "cardNumber": 3,
+    "gameRole": "Maf-2",
+    "note": 2,
+    "addPoints": 3.5
+  },
+  {
+    "cardNumber": 8,
+    "gameRole": "Don"
+  },
+  {
+    "playerUuid": "595ae6c1-56aa-42b5-a90e-2e9c54fbc357",
+    "playerNickName": "Roman",
+    "cardNumber": 5,
+    "gameRole": "Maf-1",
+    "note": 2
+  }
+]

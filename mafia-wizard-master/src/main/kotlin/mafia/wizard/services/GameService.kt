@@ -64,19 +64,42 @@ class GameService(
         csvModel.gamblers.forEachIndexed { index, it ->
             response = response.replace("player$index", it.id)
         }
-        csvModel.notes.forEachIndexed { index, it ->
-            response = response.replace("note$index", it.notes.toString())
+        val notes = csvModel.notes.sortedBy { it.gamblerId }
+        (0..9).forEach { index ->
+            response = if (index >= notes.size) response.replace("note$index", "0")
+            else {
+                val note = notes[index]
+                response.replace("note$index", note.notes.toString())
+            }
+
+        }
+        csvModel.roles.forEach {
+            val slot = it.slot.toString()
+            response = when (it.role) {
+                "Don" -> response.replace("don", slot)
+                "Sheriff" -> response.replace("sheriff", slot)
+                "Maf-1" -> response.replace("maf1", slot)
+                "Maf-2" -> response.replace("maf2", slot)
+                else -> response
+            }
+        }
+        csvModel.nights.forEach {
+            response = response
+                .replace("killedPlayer${it.id}", it.mafia.toString())
+                .replace("sChecked${it.id}", it.sheriff.toString())
+                .replace("dChecked${it.id}", it.don.toString())
         }
 
         response = if (csvModel.victory === "Красные") {
             response
                 .replace("redVictory", "1")
                 .replace("blackVictory", "0")
-        }else{
+        } else {
             response
                 .replace("redVictory", "0")
                 .replace("blackVictory", "1")
         }
+
 
         return response
     }

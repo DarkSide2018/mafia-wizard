@@ -277,25 +277,25 @@
                     <Data ss:Type="String">Мафия</Data>
                 </Cell>
                 <Cell ss:StyleID="s68">
-                    <Data ss:Type="String">killedPLayer1</Data>
+                    <Data ss:Type="String">killedPlayer0</Data>
                 </Cell>
                 <Cell>
-                    <Data ss:Type="String">killedPLayer2</Data>
+                    <Data ss:Type="String">killedPlayer1</Data>
                 </Cell>
                 <Cell>
-                    <Data ss:Type="String">killedPLayer3</Data>
+                    <Data ss:Type="String">killedPlayer2</Data>
                 </Cell>
                 <Cell>
-                    <Data ss:Type="String">killedPLayer4</Data>
+                    <Data ss:Type="String">killedPlayer3</Data>
                 </Cell>
                 <Cell>
-                    <Data ss:Type="String">killedPLayer5</Data>
+                    <Data ss:Type="String">killedPlayer4</Data>
                 </Cell>
                 <Cell>
-                    <Data ss:Type="String">killedPLayer6</Data>
+                    <Data ss:Type="String">killedPlayer5</Data>
                 </Cell>
                 <Cell>
-                    <Data ss:Type="String">killedPLayer7</Data>
+                    <Data ss:Type="String">killedPlayer6</Data>
                 </Cell>
             </Row>
             <Row ss:AutoFitHeight="0">
@@ -303,25 +303,25 @@
                     <Data ss:Type="String">Дон</Data>
                 </Cell>
                 <Cell ss:StyleID="s68">
-                    <Data ss:Type="String">donChecked1</Data>
+                    <Data ss:Type="String">dChecked0</Data>
                 </Cell>
                 <Cell>
-                    <Data ss:Type="String">donChecked2</Data>
+                    <Data ss:Type="String">dChecked1</Data>
                 </Cell>
                 <Cell>
-                    <Data ss:Type="String">donChecked3</Data>
+                    <Data ss:Type="String">dChecked2</Data>
                 </Cell>
                 <Cell>
-                    <Data ss:Type="String">donChecked4</Data>
+                    <Data ss:Type="String">dChecked3</Data>
                 </Cell>
                 <Cell>
-                    <Data ss:Type="String">donChecked5</Data>
+                    <Data ss:Type="String">dChecked4</Data>
                 </Cell>
                 <Cell>
-                    <Data ss:Type="String">donChecked6</Data>
+                    <Data ss:Type="String">dChecked5</Data>
                 </Cell>
                 <Cell>
-                    <Data ss:Type="String">donChecked7</Data>
+                    <Data ss:Type="String">dChecked6</Data>
                 </Cell>
             </Row>
             <Row ss:AutoFitHeight="0">
@@ -329,25 +329,25 @@
                     <Data ss:Type="String">Шериф</Data>
                 </Cell>
                 <Cell ss:StyleID="s68">
-                    <Data ss:Type="String">sheriffChecked1</Data>
+                    <Data ss:Type="String">sChecked0</Data>
                 </Cell>
                 <Cell>
-                    <Data ss:Type="String">sheriffChecked2</Data>
+                    <Data ss:Type="String">sChecked1</Data>
                 </Cell>
                 <Cell>
-                    <Data ss:Type="String">sheriffChecked3</Data>
+                    <Data ss:Type="String">sChecked2</Data>
                 </Cell>
                 <Cell>
-                    <Data ss:Type="String">sheriffChecked4</Data>
+                    <Data ss:Type="String">sChecked3</Data>
                 </Cell>
                 <Cell>
-                    <Data ss:Type="String">sheriffChecked5</Data>
+                    <Data ss:Type="String">sChecked4</Data>
                 </Cell>
                 <Cell>
-                    <Data ss:Type="String">sheriffChecked6</Data>
+                    <Data ss:Type="String">sChecked5</Data>
                 </Cell>
                 <Cell>
-                    <Data ss:Type="String">sheriffChecked7</Data>
+                    <Data ss:Type="String">sChecked6</Data>
                 </Cell>
             </Row>
             <Row ss:Index="30" ss:AutoFitHeight="0">

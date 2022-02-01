@@ -90,7 +90,7 @@ class GameService(
                 .replace("dChecked${it.id}", it.don.toString())
         }
 
-        response = if (csvModel.victory === "Красные") {
+        response = if (csvModel.victory == "Красные") {
             response
                 .replace("redVictory", "1")
                 .replace("blackVictory", "0")

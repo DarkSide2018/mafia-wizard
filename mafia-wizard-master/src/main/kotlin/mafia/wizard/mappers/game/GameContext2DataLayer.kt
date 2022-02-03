@@ -59,7 +59,7 @@ class GameContext2DataLayer(
 
     fun updateRoleBySlot(updateGameContext: GameContext, gameForUpdate: Game) {
         val plsSet = objectMapper.readValue(
-            gameForUpdate.playerToCardNumber,
+            gameForUpdate.playerToCardNumber?:"[]",
             object : TypeReference<MutableSet<PlayerToCardNumber>>() {}) as MutableSet<PlayerToCardNumber>
         val first = updateGameContext.gameModel?.playerToCardNumber?.first()
         plsSet.firstOrNull { it.cardNumber == first?.cardNumber }?.let {

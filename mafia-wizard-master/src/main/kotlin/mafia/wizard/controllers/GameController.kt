@@ -85,7 +85,7 @@ class GameController(
         return ResponseEntity.ok().build<String>()
     }
 
-    @PutMapping("/role")
+    @PostMapping("/role")
     fun updateRoleInGame(
         @RequestBody updateRoleRequest: UpdateRoleRequest,
     ): ResponseEntity<String> {

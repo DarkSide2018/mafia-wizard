@@ -62,13 +62,17 @@ class GameContext2DataLayer(
             gameForUpdate.playerToCardNumber?:"[]",
             object : TypeReference<MutableSet<PlayerToCardNumber>>() {}) as MutableSet<PlayerToCardNumber>
         val first = updateGameContext.gameModel?.playerToCardNumber?.first()
-        val distinctBy = plsSet.distinctBy { it.gameRole }
-        distinctBy.firstOrNull { it.gameRole == first?.gameRole }?.let {
-            it.cardNumber = first?.cardNumber ?: throw Exception("game role was null")
+        plsSet.forEach {
+            if(it.gameRole == first?.gameRole){
+                it.gameRole = null
+            }
+        }
+        plsSet.firstOrNull { it.cardNumber == first?.cardNumber }?.let {
+            it.gameRole = first?.gameRole ?: throw Exception("game role was null")
         } ?: run {
             plsSet.add(PlayerToCardNumber(cardNumber = first?.cardNumber, gameRole = first?.gameRole))
         }
-        gameForUpdate.playerToCardNumber = objectMapper.writeValueAsString(distinctBy)
+        gameForUpdate.playerToCardNumber = objectMapper.writeValueAsString(plsSet)
     }
 
     fun updateGameEntity(updateGameContext: GameContext, gameForUpdate: Game): Game {

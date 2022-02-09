@@ -1,8 +1,41 @@
 [
   {
-    "playerUuid": "ab118fb6-c613-4a16-b7ac-1122f833fb12",
-    "playerNickName": "Ivan",
-    "cardNumber": 1,
-    "note": 2
+    "slot": 10,
+    "role": "Maf-2"
+  },
+  {
+    "slot": 8,
+    "role": "Maf-2"
+  },
+  {
+    "playerUuid": "ce5ae9fb-88d5-412f-82a6-183c12b39a85",
+    "playerNickName": "sdfgg",
+    "slot": 4,
+    "role": "Don"
+  },
+  {
+    "playerUuid": "7f967088-c6f0-4995-91d7-72b2b8f1d05e",
+    "playerNickName": "assd",
+    "slot": 1,
+    "role": "Maf-1"
+  },
+  {
+    "playerUuid": "7c91ead4-1b54-4e93-8bf7-7e1c457cee04",
+    "playerNickName": "sdf",
+    "slot": 2
+  },
+  {
+    "playerUuid": "89eef8e7-8513-481e-a358-ef678df67640",
+    "playerNickName": "wer",
+    "slot": 3,
+    "role": "Maf-2"
+  },
+  {
+    "slot": 7,
+    "role": "Maf-2"
+  },
+  {
+    "slot": 9,
+    "role": "Sheriff"
   }
 ]

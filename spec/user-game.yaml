@@ -516,10 +516,18 @@ components:
         - $ref: 'common.yaml#/components/schemas/BaseResponse'
         - type: object
           properties:
+            pageNumber:
+              type: integer
             games:
               type: array
               items:
                 $ref: '#/components/schemas/GameMetaInfo'
+    ReadAllGamesRequest:
+      properties:
+        pageNumber:
+          type: integer
+        pageSize:
+          type: integer
     UpdateGameRequest:
       description: Структура для запроса обновления существующего юнита
       allOf:

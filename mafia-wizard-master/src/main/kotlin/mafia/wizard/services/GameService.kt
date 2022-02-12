@@ -2,7 +2,6 @@ package mafia.wizard.services
 
 import exceptions.FieldWasNullException
 import mafia.wizard.common.getActorName
-import mafia.wizard.common.toJson
 import mafia.wizard.config.BadRequestException
 import mafia.wizard.config.NotFoundException
 import mafia.wizard.entities.User
@@ -104,10 +103,12 @@ class GameService(
         return response
     }
 
-    fun getAll(): ReadAllGamesResponse {
-        val games = gameRepository.findAllByCreatedBy(getActorName())
+    fun getAll(request: ReadAllGamesRequest): ReadAllGamesResponse {
+        val page = request.pageNumber ?: 0
+        val games = gameRepository.findAllByCreatedByOrderByCreatedAtDesc(getActorName(),
+            PageRequest.of(page, request.pageSize ?: 10))
         return dataLayer2GameContext
-            .setGamesIntoContext(GameContext(), games)
+            .setGamesIntoContext(GameContext(page = page), games)
             .toReadAllGamesResponse()
     }
 

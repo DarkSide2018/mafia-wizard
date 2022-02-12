@@ -37,6 +37,7 @@ fun GameContext.toReadGameResponse(): ReadGameResponse {
 fun GameContext.toReadAllGamesResponse(): ReadAllGamesResponse {
     return ReadAllGamesResponse(
         requestUUID = this.requestContext.requestUUID,
+        pageNumber = this.page,
         games = this.gameModelList?.map {
             return@map GameMetaInfo(
                 name = it.name,

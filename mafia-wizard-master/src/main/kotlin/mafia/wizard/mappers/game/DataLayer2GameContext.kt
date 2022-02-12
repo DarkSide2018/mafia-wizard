@@ -7,6 +7,7 @@ import mafia.wizard.config.DbException
 import mafia.wizard.entities.Game
 import models.PlayerModel
 import models.game.*
+import org.springframework.data.domain.Page
 
 import org.springframework.stereotype.Service
 
@@ -28,8 +29,8 @@ class DataLayer2GameContext(
         return context
     }
 
-    fun setGamesIntoContext(readGameContext: GameContext, games: List<Game>): GameContext {
-        readGameContext.gameModelList = games.map { gameToGameModel(it) }
+    fun setGamesIntoContext(readGameContext: GameContext, games: Page<Game>): GameContext {
+        readGameContext.gameModelList = games.content.map { gameToGameModel(it) }
         return readGameContext
     }
 

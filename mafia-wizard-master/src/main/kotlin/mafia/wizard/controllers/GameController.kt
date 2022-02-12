@@ -7,7 +7,6 @@ import mafia.wizard.openapi.models.*
 import mafia.wizard.services.GameService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.core.io.ByteArrayResource
 import org.springframework.core.io.Resource
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -30,9 +29,9 @@ class GameController(
         return ResponseEntity.ok(gameService.exportByUuid(uuid))
     }
 
-    @GetMapping("/all")
-    fun getAll(): ResponseEntity<ReadAllGamesResponse> {
-        return ResponseEntity.ok(gameService.getAll())
+    @PostMapping("/all")
+    fun getAll(@RequestBody request: ReadAllGamesRequest): ResponseEntity<ReadAllGamesResponse> {
+        return ResponseEntity.ok(gameService.getAll(request))
     }
 
     @GetMapping("/draft")

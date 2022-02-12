@@ -17,5 +17,5 @@ interface GameRepository: JpaRepository<Game, UUID> {
                      @Param("createdBy") createdBy:String,
                      @Param("gameStatus") gstatus:String): Page<Game?>
 
-    fun findAllByCreatedBy(createdBy: String):List<Game>
+    fun findAllByCreatedByOrderByCreatedAtDesc(createdBy: String,page: Pageable):Page<Game>
 }

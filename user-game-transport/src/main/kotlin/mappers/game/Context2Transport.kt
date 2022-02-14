@@ -87,7 +87,7 @@ fun Night.toNightInfo(): NightInfo {
         killedPlayer = this.killedPlayer,
         sheriffChecked = this.sheriffChecked,
         donChecked = this.donChecked,
-        playerLeftGame = this.playerLeftGame
+        playerLeftGame = this.playerLeftGame?.map {LeftGame(it.index,it.playerSlot)  }
     )
 }
 

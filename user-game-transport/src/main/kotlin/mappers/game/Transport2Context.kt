@@ -4,6 +4,7 @@ import exceptions.FieldWasNullException
 import mafia.wizard.openapi.models.*
 import models.PlayerModel
 import models.game.*
+import models.game.LeftGame
 
 import java.util.*
 
@@ -20,27 +21,33 @@ fun GameContext.finishGame(query: UpdateGameRequest) = apply {
     gameModel?.status = query.status
     gameModel?.players = query.players?.map { it.toModel() }?.toMutableSet() ?: mutableSetOf()
 }
+
 fun GameContext.updateNotes(query: UpdateNotesRequest) = apply {
-    gameModel = GameModel(gameUUID = query.gameUuid?: throw FieldWasNullException("gameUuid"))
-    gameModel?.playerToCardNumber = mutableSetOf<PlayerToCardNumber>(PlayerToCardNumber(cardNumber = query.slot, note = query.notes))
+    gameModel = GameModel(gameUUID = query.gameUuid ?: throw FieldWasNullException("gameUuid"))
+    gameModel?.playerToCardNumber =
+        mutableSetOf<PlayerToCardNumber>(PlayerToCardNumber(cardNumber = query.slot, note = query.notes))
 }
+
 fun GameContext.updateRoles(query: UpdateRoleRequest) = apply {
-    gameModel = GameModel(gameUUID = query.gameUuid?: throw FieldWasNullException("gameUuid"))
-    gameModel?.playerToCardNumber = mutableSetOf<PlayerToCardNumber>(PlayerToCardNumber(cardNumber = query.slot, gameRole = query.role))
+    gameModel = GameModel(gameUUID = query.gameUuid ?: throw FieldWasNullException("gameUuid"))
+    gameModel?.playerToCardNumber =
+        mutableSetOf<PlayerToCardNumber>(PlayerToCardNumber(cardNumber = query.slot, gameRole = query.role))
 }
 
 fun FinishElectionRequest.toGameContext(): GameContext {
     val election = Election(
         UUID.randomUUID(),
-        drops = this.dropdowns?.map { ElectionDropDownBusiness(
-            it.slot,
-            it.playerUuid,
-            it.nickName,
-            it.numberOfVotes
-        ) })
+        drops = this.dropdowns?.map {
+            ElectionDropDownBusiness(
+                it.slot,
+                it.playerUuid,
+                it.nickName,
+                it.numberOfVotes
+            )
+        })
 
     val gameModel = GameModel(
-        gameUUID = this.gameUuid?:throw Exception("gameUuid was null"),
+        gameUUID = this.gameUuid ?: throw Exception("gameUuid was null"),
         elections = mutableSetOf<Election>(election)
     )
     return GameContext(
@@ -48,9 +55,9 @@ fun FinishElectionRequest.toGameContext(): GameContext {
     )
 }
 
-fun GameContext.addPlayerToGame(player: PlayerModel, slot:Int) = apply {
+fun GameContext.addPlayerToGame(player: PlayerModel, slot: Int) = apply {
     gameModel?.addPlayer(player)
-    gameModel?.addPlayerSlotRelation(player,slot)
+    gameModel?.addPlayerSlotRelation(player, slot)
 }
 
 fun GameContext.updatePlayerInGame(player: PlayerModel, gameModel: GameModel) = apply {
@@ -76,6 +83,7 @@ fun GameContext.updatePlayerInGame(player: PlayerModel, gameModel: GameModel) = 
     gameModel.players = updatedPlayers
     this.gameModel = gameModel
 }
+
 fun GameContext.deletePlayerFromGame(player: UUID, gameModel: GameModel) = apply {
     val updatedPls = gameModel.playerToCardNumber?.filter {
         it.playerUuid != player
@@ -97,7 +105,7 @@ private fun CreateGameRequest.toModel(gameUUID: UUID) = GameModel(
             gameRole = it.role,
             playerNickName = it.playerNickName
         )
-    }?.toMutableSet()?: mutableSetOf(),
+    }?.toMutableSet() ?: mutableSetOf(),
     players = this.players?.map { PlayerModel(playerUUID = it.playerUuid ?: throw FieldWasNullException("playerUuid")) }
         ?.toMutableSet() ?: mutableSetOf<PlayerModel>()
 )
@@ -117,7 +125,7 @@ private fun UpdateGameRequest.toModel() = GameModel(
             cardNumber = it.slot,
             gameRole = it.role,
         )
-    }?.toMutableSet()?: mutableSetOf(),
+    }?.toMutableSet() ?: mutableSetOf(),
     players = this.players?.map { it.toModel() }
         ?.toMutableSet() ?: mutableSetOf()
 )
@@ -126,7 +134,7 @@ private fun NightInfo.toNightModel() = Night(
     nightNumber = this.nightNumber,
     sheriffChecked = this.sheriffChecked,
     donChecked = this.donChecked,
-    playerLeftGame = this.playerLeftGame,
+    playerLeftGame = this.playerLeftGame?.map { LeftGame(it.leftIndex, it.playerNumber) }?.toMutableList(),
     killedPlayer = this.killedPlayer
 )
 

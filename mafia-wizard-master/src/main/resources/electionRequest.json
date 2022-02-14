@@ -1,55 +1,11 @@
 [
   {
-    "playerUuid": "6a9cc896-1a50-47a5-9dd7-c55c0df6d43a",
-    "playerNickName": "bnm",
-    "cardNumber": 7,
-    "gameRole": "Sheriff",
-    "note": 2
-  },
-  {
-    "playerUuid": "fca79825-ce25-4473-a29a-dacc09224f45",
-    "playerNickName": "Alexandr",
-    "cardNumber": 1,
-    "note": 1,
-    "addPoints": 2.3
-  },
-  {
-    "playerUuid": "679f2a14-1996-4677-99a7-fd249cbe4e06",
-    "playerNickName": "Anton",
-    "cardNumber": 2,
-    "note": 1,
-    "addPoints": 2.4
-  },
-  {
-    "playerUuid": "649d8b0b-8e02-4533-babd-06a5642a8156",
-    "playerNickName": "Slava",
-    "cardNumber": 4,
-    "note": 2,
-    "addPoints": 1.2
-  },
-  {
-    "playerUuid": "d72f79bc-9536-4be1-a2a1-a60737388901",
-    "playerNickName": "zxc",
-    "cardNumber": 6,
-    "note": 2
-  },
-  {
-    "playerUuid": "b49b4c33-478c-4a31-b2f9-2f7d7634f775",
-    "playerNickName": "Dop",
-    "cardNumber": 3,
-    "gameRole": "Maf-2",
-    "note": 2,
-    "addPoints": 3.5
-  },
-  {
-    "cardNumber": 8,
-    "gameRole": "Don"
-  },
-  {
-    "playerUuid": "595ae6c1-56aa-42b5-a90e-2e9c54fbc357",
-    "playerNickName": "Roman",
-    "cardNumber": 5,
-    "gameRole": "Maf-1",
-    "note": 2
+    "nightNumber": 0,
+    "playerLeftGame": [
+      {
+        "index": 0,
+        "playerSlot": 8
+      }
+    ]
   }
 ]

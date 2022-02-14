@@ -59,11 +59,11 @@ class GameContext2DataLayer(
 
     fun updateRoleBySlot(updateGameContext: GameContext, gameForUpdate: Game) {
         val plsSet = objectMapper.readValue(
-            gameForUpdate.playerToCardNumber?:"[]",
+            gameForUpdate.playerToCardNumber ?: "[]",
             object : TypeReference<MutableSet<PlayerToCardNumber>>() {}) as MutableSet<PlayerToCardNumber>
         val first = updateGameContext.gameModel?.playerToCardNumber?.first()
         plsSet.forEach {
-            if(it.gameRole == first?.gameRole){
+            if (it.gameRole == first?.gameRole) {
                 it.gameRole = null
             }
         }
@@ -139,7 +139,10 @@ class GameContext2DataLayer(
                 firstNight.killedPlayer?.let { filteredNight.killedPlayer = it }
                 firstNight.donChecked?.let { filteredNight.donChecked = it }
                 firstNight.sheriffChecked?.let { filteredNight.sheriffChecked = it }
-                firstNight.playerLeftGame?.let { filteredNight.playerLeftGame = it }
+                firstNight.playerLeftGame?.let {
+                    val index = it[0].index ?: throw Exception("unexpected index")
+                    filteredNight.playerLeftGame?.get(index)?.playerSlot = it[0].playerSlot
+                }
                 nights.removeIf { it.nightNumber == filteredNight.nightNumber }
                 nights.add(filteredNight)
                 gameForUpdate.nights = objectMapper.writeValueAsString(nights)

@@ -58,7 +58,7 @@ data class Night(
     var killedPlayer: Int? = null,
     var sheriffChecked: Int? = null,
     var donChecked: Int? = null,
-    var playerLeftGame: Int? = null,
+    var playerLeftGame: MutableList<LeftGame>? = null,
 )
 
 data class PlayerToCardNumber(
@@ -68,4 +68,8 @@ data class PlayerToCardNumber(
     var gameRole: kotlin.String? = null,
     var note: kotlin.Int? = null,
     var addPoints: BigDecimal? = null,
+)
+data class LeftGame(
+    var index:Int?=null,
+    var playerSlot:Int?=null
 )

@@ -376,6 +376,16 @@ components:
         donChecked:
           type: integer
         playerLeftGame:
+          type: array
+          items:
+            $ref: '#/components/schemas/LeftGame'
+
+    LeftGame:
+      type: object
+      properties:
+        leftIndex:
+          type: integer
+        playerNumber:
           type: integer
 
     PlayerToCardNumber:

@@ -58,7 +58,7 @@ data class Night(
     var killedPlayer: Int? = null,
     var sheriffChecked: Int? = null,
     var donChecked: Int? = null,
-    var playerLeftGame: MutableList<LeftGame>? = null,
+    var playerLeftGame: MutableList<LeftGame>? = mutableListOf(),
 )
 
 data class PlayerToCardNumber(

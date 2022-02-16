@@ -141,7 +141,12 @@ class GameContext2DataLayer(
                 firstNight.sheriffChecked?.let { filteredNight.sheriffChecked = it }
                 firstNight.playerLeftGame?.let {
                     val index = it[0].index ?: throw Exception("unexpected index")
-                    filteredNight.playerLeftGame?.get(index)?.playerSlot = it[0].playerSlot
+                    val filteredLeftGame = filteredNight.playerLeftGame?.firstOrNull { fisrstPlayerLeft ->
+                        fisrstPlayerLeft.index == index
+                    }?: LeftGame(index)
+                    filteredLeftGame.playerSlot = it[0].playerSlot
+                    filteredNight.playerLeftGame?.removeIf {old-> old.index == index  }
+                    filteredNight.playerLeftGame?.add(filteredLeftGame)
                 }
                 nights.removeIf { it.nightNumber == filteredNight.nightNumber }
                 nights.add(filteredNight)
